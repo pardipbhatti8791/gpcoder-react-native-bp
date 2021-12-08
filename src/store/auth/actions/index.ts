@@ -1,20 +1,17 @@
-import { ActionType } from "@root/store/auth/actions-types";
+import { ActionType } from '@root/store/auth/actions-types';
 
 interface LoginAction {
-  type: ActionType.LOGIN;
+    type: ActionType.LOGIN;
 }
 
 interface LoginSuccessAction {
-  type: ActionType.LOGIN_SUCCESS;
-  payload: string[];
+    type: ActionType.LOGIN_SUCCESS;
+    payload: string[];
 }
 
 interface LoginErrorAction {
-  type: ActionType.LOGIN_ERROR;
-  payload: string;
+    type: ActionType.LOGIN_ERROR;
+    payload: string;
 }
 
-export type Action =
-  | LoginAction
-  | LoginSuccessAction
-  | LoginErrorAction
+export type Action = LoginAction | LoginSuccessAction | LoginErrorAction;

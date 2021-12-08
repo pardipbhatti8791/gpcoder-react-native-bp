@@ -6,25 +6,31 @@
  * @flow strict-local
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
-import { theme } from '@root/theme/theme';
+
+// @ts-ignore
 import { ThemeProvider } from 'styled-components';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { store } from '@root/store/store';
 import Routes from '@root/navigation/Routes';
 import { useColorScheme } from 'react-native';
+import { navigationTheme } from '@root/theme/theme';
 
 const queryClient = new QueryClient();
 
-const App = () => {
+const App = (props: any) => {
     const scheme: any = useColorScheme();
-
     return (
         <Provider store={store}>
             <QueryClientProvider client={queryClient}>
-                <ThemeProvider theme={theme}>
+                <ThemeProvider
+                    theme={
+                        scheme === 'light'
+                            ? navigationTheme.dark
+                            : navigationTheme.light
+                    }>
                     <Routes scheme={scheme} />
                 </ThemeProvider>
             </QueryClientProvider>

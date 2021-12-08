@@ -9,11 +9,12 @@ type RouteProps = {
     scheme: string | null;
 };
 
-const Routes: React.FC<RouteProps> = ({ scheme }) => {
+const Routes: React.FC<RouteProps> = (props: any) => {
+    console.log('props:----', props);
     return (
         <NavigationContainer
             theme={
-                scheme === 'light'
+                props.scheme === 'dark'
                     ? navigationTheme.dark
                     : navigationTheme.light
             }>

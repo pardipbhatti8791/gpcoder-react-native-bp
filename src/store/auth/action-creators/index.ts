@@ -16,8 +16,7 @@ export const login = (data: LoginInterface) => {
         });
         try {
             const response: any = await service.post(apiUri.auth.login, data);
-            console.log("data: ", response)
-
+            console.log('data: ', response);
         } catch (e: any) {
             dispatch({
                 type: ActionType.LOGIN_ERROR,

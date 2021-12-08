@@ -40,9 +40,10 @@ function CustomDrawer(props: any) {
             </DrawerThreeSection>
 
             <DrawerFirstSection>
-                {routesConfig.map((item) => {
+                {routesConfig.map((item, i) => {
                     return (
                         <DrawerItem
+                            key={i}
                             label={item?.label}
                             labelStyle={{
                                 color: colors.text,
