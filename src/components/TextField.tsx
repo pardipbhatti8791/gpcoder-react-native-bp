@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-import { useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { withTheme } from 'styled-components';
 // @ts-ignore
@@ -34,24 +33,6 @@ const TextField: React.FC<TextFieldProps> = ({
 }) => {
     const [showSecureEntry, setShowSecureEntry] = useState(false);
 
-    const animation = useSharedValue(0);
-
-    const handleFocus = () => {
-        if (!value) {
-            animation.value = withTiming(1);
-        }
-
-        onFocus?.();
-    };
-
-    const handleBlur = () => {
-        if (!value) {
-            animation.value = withTiming(0);
-        }
-
-        onBlur?.();
-    };
-
     return (
         <TextFieldWrapper>
             {accessibilityLabel !== undefined && (
@@ -65,8 +46,6 @@ const TextField: React.FC<TextFieldProps> = ({
             <Horizontal>
                 {icon !== null && <Image source={icon} />}
                 <TextInputField
-                    onBlur={handleBlur}
-                    onFocus={handleFocus}
                     onChangeText={onChangeText}
                     value={value}
                     secureTextEntry={showSecureEntry ? false : secureTextEntry}

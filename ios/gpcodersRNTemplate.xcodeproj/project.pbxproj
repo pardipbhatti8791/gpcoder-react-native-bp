@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* gpcodersRNTemplateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* gpcodersRNTemplateTests.m */; };
+		119E486BFAFB31FAF48B38CF /* libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 366DA13A7524A11B00290895 /* libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		6920C8D878727E70DD0B37E8 /* libPods-gpcodersRNTemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E1851347B71077B37083F0 /* libPods-gpcodersRNTemplate.a */; };
+		7FFDA36B70530ED16494591C /* libPods-gpcodersRNTemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53EA97E0B3BB2CFD22C9B37D /* libPods-gpcodersRNTemplate.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		B7073FCEF4CCB02FA2EF347C /* libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A510D0DD38F548B4AA4B7D7 /* libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,19 +30,19 @@
 		00E356EE1AD99517003FC87E /* gpcodersRNTemplateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gpcodersRNTemplateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* gpcodersRNTemplateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = gpcodersRNTemplateTests.m; sourceTree = "<group>"; };
-		04E1851347B71077B37083F0 /* libPods-gpcodersRNTemplate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gpcodersRNTemplate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* gpcodersRNTemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gpcodersRNTemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = gpcodersRNTemplate/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = gpcodersRNTemplate/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = gpcodersRNTemplate/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = gpcodersRNTemplate/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = gpcodersRNTemplate/main.m; sourceTree = "<group>"; };
-		152D750664E6D187F0B10342 /* Pods-gpcodersRNTemplate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gpcodersRNTemplate.release.xcconfig"; path = "Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate.release.xcconfig"; sourceTree = "<group>"; };
-		176E49401DA1973AE0C5D9FA /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.debug.xcconfig"; path = "Target Support Files/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.debug.xcconfig"; sourceTree = "<group>"; };
-		19C9FF8171CD2BF8EB44491E /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.release.xcconfig"; path = "Target Support Files/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.release.xcconfig"; sourceTree = "<group>"; };
-		6A510D0DD38F548B4AA4B7D7 /* libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		779B0144F3990245B69C3813 /* Pods-gpcodersRNTemplate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gpcodersRNTemplate.debug.xcconfig"; path = "Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate.debug.xcconfig"; sourceTree = "<group>"; };
+		1EBAF3753476F2160B979202 /* Pods-gpcodersRNTemplate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gpcodersRNTemplate.release.xcconfig"; path = "Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate.release.xcconfig"; sourceTree = "<group>"; };
+		366DA13A7524A11B00290895 /* libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		42053F8E3D2767C1DBC8EA48 /* Pods-gpcodersRNTemplate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gpcodersRNTemplate.debug.xcconfig"; path = "Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate.debug.xcconfig"; sourceTree = "<group>"; };
+		53EA97E0B3BB2CFD22C9B37D /* libPods-gpcodersRNTemplate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gpcodersRNTemplate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		799E6FD06E87552EA8BDC5C2 /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.debug.xcconfig"; path = "Target Support Files/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = gpcodersRNTemplate/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E39459035F3A2B803EC26885 /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.release.xcconfig"; path = "Target Support Files/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7073FCEF4CCB02FA2EF347C /* libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a in Frameworks */,
+				119E486BFAFB31FAF48B38CF /* libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6920C8D878727E70DD0B37E8 /* libPods-gpcodersRNTemplate.a in Frameworks */,
+				7FFDA36B70530ED16494591C /* libPods-gpcodersRNTemplate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				04E1851347B71077B37083F0 /* libPods-gpcodersRNTemplate.a */,
-				6A510D0DD38F548B4AA4B7D7 /* libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a */,
+				53EA97E0B3BB2CFD22C9B37D /* libPods-gpcodersRNTemplate.a */,
+				366DA13A7524A11B00290895 /* libPods-gpcodersRNTemplate-gpcodersRNTemplateTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -109,10 +109,10 @@
 		7E8FA72E3347790E2F5ED355 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				779B0144F3990245B69C3813 /* Pods-gpcodersRNTemplate.debug.xcconfig */,
-				152D750664E6D187F0B10342 /* Pods-gpcodersRNTemplate.release.xcconfig */,
-				176E49401DA1973AE0C5D9FA /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.debug.xcconfig */,
-				19C9FF8171CD2BF8EB44491E /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.release.xcconfig */,
+				42053F8E3D2767C1DBC8EA48 /* Pods-gpcodersRNTemplate.debug.xcconfig */,
+				1EBAF3753476F2160B979202 /* Pods-gpcodersRNTemplate.release.xcconfig */,
+				799E6FD06E87552EA8BDC5C2 /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.debug.xcconfig */,
+				E39459035F3A2B803EC26885 /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -155,12 +155,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "gpcodersRNTemplateTests" */;
 			buildPhases = (
-				834AE8501DE57A4502035398 /* [CP] Check Pods Manifest.lock */,
+				87C3BF66677462B1427EA6D6 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				941C55B486697EAEB2BB9C1D /* [CP] Embed Pods Frameworks */,
-				6B4751E5E710F74AE9C90604 /* [CP] Copy Pods Resources */,
+				CD0F212E9E569B8382C4B804 /* [CP] Embed Pods Frameworks */,
+				7973D6C7342F073A2EB1B489 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -176,14 +176,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "gpcodersRNTemplate" */;
 			buildPhases = (
-				D8AD748BD29B17EE2EFB9433 /* [CP] Check Pods Manifest.lock */,
+				0C36ACBB8910D5CF336C6DAE /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				D3CA325918FA69D77DA88929 /* [CP] Embed Pods Frameworks */,
-				10D81D629261A52837A6B891 /* [CP] Copy Pods Resources */,
+				4A36EA2724A5583D17BC73DC /* [CP] Embed Pods Frameworks */,
+				12657CADD7F73FB3E4DF19F7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -264,7 +264,29 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		10D81D629261A52837A6B891 /* [CP] Copy Pods Resources */ = {
+		0C36ACBB8910D5CF336C6DAE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-gpcodersRNTemplate-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		12657CADD7F73FB3E4DF19F7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -281,7 +303,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6B4751E5E710F74AE9C90604 /* [CP] Copy Pods Resources */ = {
+		4A36EA2724A5583D17BC73DC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7973D6C7342F073A2EB1B489 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -298,7 +337,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		834AE8501DE57A4502035398 /* [CP] Check Pods Manifest.lock */ = {
+		87C3BF66677462B1427EA6D6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -320,7 +359,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		941C55B486697EAEB2BB9C1D /* [CP] Embed Pods Frameworks */ = {
+		CD0F212E9E569B8382C4B804 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -335,45 +374,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests/Pods-gpcodersRNTemplate-gpcodersRNTemplateTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D3CA325918FA69D77DA88929 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gpcodersRNTemplate/Pods-gpcodersRNTemplate-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D8AD748BD29B17EE2EFB9433 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-gpcodersRNTemplate-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -428,7 +428,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 176E49401DA1973AE0C5D9FA /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.debug.xcconfig */;
+			baseConfigurationReference = 799E6FD06E87552EA8BDC5C2 /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -455,7 +455,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19C9FF8171CD2BF8EB44491E /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.release.xcconfig */;
+			baseConfigurationReference = E39459035F3A2B803EC26885 /* Pods-gpcodersRNTemplate-gpcodersRNTemplateTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -479,7 +479,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 779B0144F3990245B69C3813 /* Pods-gpcodersRNTemplate.debug.xcconfig */;
+			baseConfigurationReference = 42053F8E3D2767C1DBC8EA48 /* Pods-gpcodersRNTemplate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -506,7 +506,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 152D750664E6D187F0B10342 /* Pods-gpcodersRNTemplate.release.xcconfig */;
+			baseConfigurationReference = 1EBAF3753476F2160B979202 /* Pods-gpcodersRNTemplate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
