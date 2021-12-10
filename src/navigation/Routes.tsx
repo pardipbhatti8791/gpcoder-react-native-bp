@@ -3,14 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
 
 import MainDrawer from '@root/navigation/Drawer';
-import { navigationTheme } from 'theme/theme';
+import { navigationTheme } from '@root/theme/theme';
 
 type RouteProps = {
     scheme: string | null;
 };
 
 const Routes: React.FC<RouteProps> = (props: any) => {
-    console.log('props:----', props);
     return (
         <NavigationContainer
             theme={
@@ -22,5 +21,4 @@ const Routes: React.FC<RouteProps> = (props: any) => {
         </NavigationContainer>
     );
 };
-
 export default Routes;

@@ -6,29 +6,26 @@ import { withTheme } from 'styled-components';
 import styled from 'styled-components/native';
 
 type TextFieldProps = {
-    onBlur?: () => any;
-    onFocus?: () => any;
     onChangeText: Function;
     placeholder?: string;
-    value: string;
+    value?: string;
     icon?: string | null;
     accessibilityLabel?: string;
     secureTextEntry?: boolean;
     keyboardType?: string;
     autoCapitalize?: string;
+    error?: string | null;
 };
 
 const TextField: React.FC<TextFieldProps> = ({
-    onBlur,
-    onFocus,
     placeholder,
-    value,
     icon = null,
     accessibilityLabel,
     secureTextEntry = false,
     keyboardType = 'default',
     onChangeText,
     autoCapitalize = 'sentences',
+    error = null,
     ...rest
 }) => {
     const [showSecureEntry, setShowSecureEntry] = useState(false);
@@ -47,7 +44,6 @@ const TextField: React.FC<TextFieldProps> = ({
                 {icon !== null && <Image source={icon} />}
                 <TextInputField
                     onChangeText={onChangeText}
-                    value={value}
                     secureTextEntry={showSecureEntry ? false : secureTextEntry}
                     placeholder={placeholder}
                     keyboardType={keyboardType}
@@ -73,12 +69,25 @@ const TextField: React.FC<TextFieldProps> = ({
                     </SecureEntryIcon>
                 )}
             </Horizontal>
+            {error !== null && (
+                <ErrorWrapper>
+                    <ErrorWrapper__Text>{error}</ErrorWrapper__Text>
+                </ErrorWrapper>
+            )}
         </TextFieldWrapper>
     );
 };
 
 // @ts-ignore
 export default withTheme(TextField);
+
+const ErrorWrapper = styled.View`
+    margin-top: 3px;
+    padding-left: 2px;
+`;
+const ErrorWrapper__Text = styled.Text`
+    color: red;
+`;
 
 const SecureEntryIcon = styled.View``;
 

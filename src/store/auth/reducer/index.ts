@@ -1,17 +1,24 @@
 import produce from 'immer';
 import { Action } from '@root/store/auth/actions';
 import { ActionType } from '@root/store/auth/actions-types';
+import { getData } from 'storage';
 
 interface RepositoriesStateInterface {
     loading: boolean;
     error: string | null;
-    data: string[];
+    accessToken: string;
+    userName: string;
+    refreshToken: string;
+    isAuthenticated: boolean;
 }
 
 const initialState = {
     loading: false,
     error: null,
-    data: [],
+    accessToken: '',
+    userName: '',
+    refreshToken: '',
+    isAuthenticated: false,
 };
 
 /**
@@ -20,25 +27,41 @@ const initialState = {
  */
 const reducer = (
     state: RepositoriesStateInterface = initialState,
-    action: Action | any,
+    action: Action,
 ): RepositoriesStateInterface =>
     produce(state, (draft) => {
         switch (action.type) {
             case ActionType.LOGIN:
                 draft.loading = true;
                 draft.error = null;
-                draft.data = [];
+                draft.accessToken = '';
+                draft.userName = '';
+                draft.refreshToken = '';
+                draft.isAuthenticated = false;
+                return draft;
             case ActionType.LOGIN_SUCCESS:
-                draft.loading = true;
+                draft.loading = false;
                 draft.error = null;
-                draft.data = action.payload;
+                draft.accessToken = action.payload.accessToken;
+                draft.userName = action.payload.userName;
+                draft.refreshToken = action.payload.refreshToken;
+                draft.isAuthenticated = true;
+                return draft;
             case ActionType.LOGIN_ERROR:
                 draft.loading = false;
                 draft.error = action.payload;
-                draft.data = [];
-                return state;
+                draft.accessToken = '';
+                draft.userName = '';
+                draft.refreshToken = '';
+                draft.isAuthenticated = false;
+                return draft;
+
+            case ActionType.SET_AUTHENTICATION:
+                draft.loading = false;
+                draft.isAuthenticated = action.payload;
+                return draft;
             default:
-                return state;
+                return draft;
         }
     });
 

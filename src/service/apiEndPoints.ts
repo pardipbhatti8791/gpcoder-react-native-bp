@@ -2,7 +2,7 @@ const baseURL = 'https://linkedup-app-api.azurewebsites.net/api';
 
 const apiUri = {
     auth: {
-        login: 'Auth/login',
+        login: '/Auth/login',
     },
     shifts: {
         shiftsByDay: '/shifts/rosters/day/',

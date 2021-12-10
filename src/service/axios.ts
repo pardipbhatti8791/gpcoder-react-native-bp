@@ -1,8 +1,9 @@
 import { log } from '@root/utils/console';
 import axios from 'axios';
+import { baseURL } from '@root/service/apiEndPoints';
 
 const instance = axios.create({
-    baseURL: process.env.BASE_URL,
+    baseURL: baseURL,
     timeout: 5000,
     timeoutErrorMessage: 'Timeout error',
 });

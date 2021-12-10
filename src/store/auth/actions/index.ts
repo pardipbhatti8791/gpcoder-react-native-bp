@@ -6,7 +6,13 @@ interface LoginAction {
 
 interface LoginSuccessAction {
     type: ActionType.LOGIN_SUCCESS;
-    payload: string[];
+    payload: LoginSuccessResponseObject;
+}
+
+interface LoginSuccessResponseObject {
+    accessToken: string;
+    userName: string;
+    refreshToken: string;
 }
 
 interface LoginErrorAction {
@@ -14,4 +20,13 @@ interface LoginErrorAction {
     payload: string;
 }
 
-export type Action = LoginAction | LoginSuccessAction | LoginErrorAction;
+interface SetAuthentication {
+    type: ActionType.SET_AUTHENTICATION;
+    payload: boolean;
+}
+
+export type Action =
+    | LoginAction
+    | LoginSuccessAction
+    | LoginErrorAction
+    | SetAuthentication;

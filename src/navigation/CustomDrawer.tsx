@@ -6,10 +6,21 @@ import styled from 'styled-components/native';
 import { useDrawer } from './drawer-config';
 import { useTheme } from '@react-navigation/native';
 import { TouchableOpacity, SafeAreaView } from 'react-native';
+import { flushStorage } from 'storage';
+import { useActions } from 'hooks/useActions';
+import navigationStrings from 'navigation/navigationStrings';
 
 function CustomDrawer(props: any) {
     const { routesConfig } = useDrawer();
     const { colors }: any = useTheme();
+    const { setAuthentication } = useActions();
+
+    const logout = async () => {
+        await flushStorage('@token');
+        setAuthentication(false);
+        props.navigation.navigate(navigationStrings.LOGIN);
+    };
+
     return (
         <DrawerWrapper backgroundColor={colors.secondary}>
             <DrawerThreeSection>
@@ -54,7 +65,7 @@ function CustomDrawer(props: any) {
                 })}
             </DrawerFirstSection>
             <DrawerSecondSection>
-                <TouchableOpacity onPress={() => alert('Exited')}>
+                <TouchableOpacity onPress={() => logout()}>
                     <LogoutText textColor={colors.text}>Logout</LogoutText>
                 </TouchableOpacity>
             </DrawerSecondSection>

@@ -347,9 +347,9 @@ PODS:
   - RNFileLogger (0.2.1):
     - CocoaLumberjack
     - React
-  - RNGestureHandler (2.0.0):
+  - RNGestureHandler (2.1.0):
     - React-Core
-  - RNReanimated (2.3.0):
+  - RNReanimated (2.2.3):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -375,9 +375,10 @@ PODS:
     - React-RCTNetwork
     - React-RCTSettings
     - React-RCTText
+    - React-RCTVibration
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.10.0):
+  - RNScreens (3.10.1):
     - React-Core
     - React-RCTImage
   - Yoga (1.14.0)
@@ -584,9 +585,9 @@ SPEC CHECKSUMS:
   ReactCommon: 9bac022ab71596f2b0fde1268272543184c63971
   RNCAsyncStorage: ea6b5c280997b2b32a587793163b1f10e580c4f7
   RNFileLogger: 218ce00727e06709e1d5cf52054b5e1293f494ef
-  RNGestureHandler: 51c9f32f43720c3a1c7660690a843f33acbcf01f
-  RNReanimated: 569c269480a76e39196aa17a5df08ef1561db5ff
-  RNScreens: 03ba504f8c98607ad1f07808e71040e0afa335ec
+  RNGestureHandler: e5c7cab5f214503dcefd6b2b0cefb050e1f51c4a
+  RNReanimated: b04ef2a4f0cb61b062bbcf033f84a9e470f4f60b
+  RNScreens: 522705f2e5c9d27efb17f24aceb2bf8335bc7b8e
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

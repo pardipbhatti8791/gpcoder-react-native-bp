@@ -1,29 +1,51 @@
 import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import {
     View,
     Text,
     Image,
     Appearance,
-    TouchableOpacity,
     ScrollView,
     ImageBackground,
+    Button,
 } from 'react-native';
+import { Formik } from 'formik';
 import TextField from '@root/components/TextField';
 import { withTheme } from 'styled-components';
 // @ts-ignore
 import styled from 'styled-components/native';
+import { LOGIN_SCHEMA } from '@root/screens/public/login/helpers';
+import { useActions } from '@root/hooks/useActions';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { LoginInterface } from 'interfaces/loginInterface';
+import navigationStrings from 'navigation/navigationStrings';
 
 const Login = (props: any) => {
-    // Username: bob@guard.com
-    // Password: FunF@CTS1
+    const { login } = useActions();
+    const { loading, error, isAuthenticated } = useTypedSelector(
+        (state) => state.auth,
+    );
+
+    useEffect(() => {
+        if (error !== null) {
+            alert(error);
+        }
+    }, [error]);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            props.navigation.replace(navigationStrings.TAB_BAR_HOME);
+        }
+    }, [isAuthenticated]);
+
     const { colors } = useTheme();
-    const [username, setUsername] = useState('bob@guard.com');
-    const [password, setPassword] = useState('FunF@CTS1');
-    const [showPassword, setShowPassword] = useState(true);
 
     // var mode = testMode.mode.type;
-    var mode = Appearance.getColorScheme();
+    let mode = Appearance.getColorScheme();
+
+    const handleLogin = (values: LoginInterface) => {
+        login(values);
+    };
 
     return (
         <ImageBackground
@@ -52,47 +74,55 @@ const Login = (props: any) => {
                         typesetting industry.{' '}
                     </SubHeading>
                     <View>
-                        <TextField
-                            accessibilityLabel="Email"
-                            onChangeText={setUsername}
-                            placeholder="email"
-                            value={username}
-                            icon={require('@root/assets/user/user.png')}
-                            keyboardType={'email-address'}
-                            autoCapitalize={'none'}
-                        />
+                        <Formik
+                            validationSchema={LOGIN_SCHEMA}
+                            initialValues={{
+                                userName: '',
+                                password: '',
+                            }}
+                            onSubmit={(values) => {
+                                handleLogin(values);
+                            }}>
+                            {({ setFieldValue, handleSubmit, errors }) => (
+                                <View>
+                                    <TextField
+                                        accessibilityLabel="Email"
+                                        onChangeText={(value: any) => {
+                                            setFieldValue('userName', value);
+                                        }}
+                                        placeholder="email"
+                                        icon={require('@root/assets/user/user.png')}
+                                        keyboardType={'email-address'}
+                                        autoCapitalize={'none'}
+                                        error={errors ? errors.userName : null}
+                                    />
+                                    <TextField
+                                        accessibilityLabel="Password"
+                                        onChangeText={(value: any) => {
+                                            setFieldValue('password', value);
+                                        }}
+                                        placeholder="********"
+                                        icon={require('@root/assets/lock/lock.png')}
+                                        secureTextEntry={true}
+                                        error={errors ? errors.password : null}
+                                    />
 
-                        <TextField
-                            accessibilityLabel="Password"
-                            onChangeText={setPassword}
-                            placeholder="********"
-                            value={password}
-                            icon={require('@root/assets/lock/lock.png')}
-                            secureTextEntry={true}
-                        />
+                                    {/* </CardV> */}
 
-                        {/* </CardV> */}
+                                    {/*<ErrorView errors={errors} />*/}
+                                    <ForgPasswordWrapper>
+                                        <ForgPasswordWrapper__Text>
+                                            Forgot password?
+                                        </ForgPasswordWrapper__Text>
+                                    </ForgPasswordWrapper>
 
-                        {/*<ErrorView errors={errors} />*/}
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={{ color: '#1C78DE', fontSize: 15 }}>
-                                Forgot password?
-                            </Text>
-                        </View>
-
-                        {/*<Button*/}
-                        {/*    onPress={handleSubmit}*/}
-                        {/*    style={*/}
-                        {/*        mode === 'dark'*/}
-                        {/*            ? styles.submitButton*/}
-                        {/*            : styles.submitButtonLight*/}
-                        {/*    }*/}
-                        {/*    title={*/}
-                        {/*        isLoading*/}
-                        {/*            ? strings.common.loading*/}
-                        {/*            : strings.login.button*/}
-                        {/*    }*/}
-                        {/*/>*/}
+                                    <Button
+                                        title={loading ? 'Loading...' : 'Login'}
+                                        onPress={handleSubmit}
+                                    />
+                                </View>
+                            )}
+                        </Formik>
                     </View>
                     <View
                         style={
@@ -152,6 +182,17 @@ const Login = (props: any) => {
 };
 
 export default withTheme(Login);
+
+const ForgPasswordWrapper__Text = styled.Text`
+    color: ${({ theme }: any) => theme.colors.text};
+    font-size: 15px;
+`;
+
+const ForgPasswordWrapper = styled.View`
+    flex: 1;
+    align-items: center;
+    margin-top: 15px;
+`;
 
 const SubHeading = styled.Text`
     color: ${({ theme }: any) => theme.colors.text};

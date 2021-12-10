@@ -19,6 +19,7 @@ const plugins = [
         },
     ],
     'react-native-reanimated/plugin',
+    '@babel/plugin-proposal-export-namespace-from',
 ];
 
 module.exports = { presets, plugins };
