@@ -1,57 +1,37 @@
-import { useTheme } from '@react-navigation/native';
-import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { typography } from '@/theme';
+import { TouchableOpacity } from 'react-native';
+import { withTheme } from 'styled-components';
+// @ts-ignore
+import styled from 'styled-components/native';
 
-const styles = StyleSheet.create({
-    button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 5,
-        borderWidth: 1,
-        padding: 10,
-        width: '100%',
-    },
-    viewbutton: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 5,
-        borderWidth: 1,
-        padding: 2,
-    },
-});
-
-export function Button({ color, style, textStyle, title, ...rest }) {
-    const { colors } = useTheme();
-
-    return (
-        <TouchableOpacity
-            style={[styles.button, { borderColor: '#1C78DE' }, style]}
-            {...rest}>
-            <Text style={[{ color: '#FFFFFF' }, typography.label, textStyle]}>
-                {title}
-            </Text>
-        </TouchableOpacity>
-    );
-}
-
-export function ViewButton({ color, style, textStyle, title }) {
-    return (
-        <TouchableOpacity
-            style={[styles.viewbutton, { borderColor: '#FFFFFF' }, style]}>
-            <Text style={[{ color: '#FFFFFF' }]}>View Image</Text>
-        </TouchableOpacity>
-    );
-}
-
-Button.propTypes = {
-    style: PropTypes.object,
-    textStyle: PropTypes.object,
-    title: PropTypes.string.isRequired,
+type PrimaryButtonProps = {
+    onPress: Function;
+    btnText: string;
 };
 
-Button.defaultProps = {
-    style: null,
-    textStyle: null,
+const PrimaryButton: React.FC<PrimaryButtonProps> = ({ onPress, btnText }) => {
+    return (
+        <TouchableOpacity onPress={() => onPress()}>
+            <PrimaryButton__Wrapper>
+                <PrimaryButton__Wrapper__Text>
+                    {btnText}
+                </PrimaryButton__Wrapper__Text>
+            </PrimaryButton__Wrapper>
+        </TouchableOpacity>
+    );
 };
+
+// @ts-ignore
+export default withTheme(PrimaryButton);
+
+const PrimaryButton__Wrapper = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({ theme }: any) => theme.colors.greenColor};
+    height: 60px;
+    border-radius: 8px;
+`;
+const PrimaryButton__Wrapper__Text = styled.Text`
+    color: ${({ theme }: any) => theme.colors.text};
+`;

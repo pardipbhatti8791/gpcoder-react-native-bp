@@ -19,6 +19,7 @@ import { useActions } from '@root/hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { LoginInterface } from 'interfaces/loginInterface';
 import navigationStrings from 'navigation/navigationStrings';
+import PrimaryButton from 'components/Button';
 
 const Login = (props: any) => {
     const { login } = useActions();
@@ -116,64 +117,15 @@ const Login = (props: any) => {
                                         </ForgPasswordWrapper__Text>
                                     </ForgPasswordWrapper>
 
-                                    <Button
-                                        title={loading ? 'Loading...' : 'Login'}
-                                        onPress={handleSubmit}
-                                    />
+                                    <ButtonWrapper>
+                                        <PrimaryButton
+                                            onPress={handleSubmit}
+                                            btnText={'LOGIN'}
+                                        />
+                                    </ButtonWrapper>
                                 </View>
                             )}
                         </Formik>
-                    </View>
-                    <View
-                        style={
-                            mode === 'dark'
-                                ? {
-                                      alignItems: 'center',
-                                      padding: 25,
-                                      borderRadius: 10,
-                                      backgroundColor: '#19212c',
-                                      marginTop: 30,
-                                  }
-                                : {
-                                      alignItems: 'center',
-                                      padding: 25,
-                                      borderRadius: 10,
-                                      borderWidth: 0.5,
-                                      borderColor: '#545458a7',
-                                      backgroundColor: '#E3E1EE',
-                                      marginTop: 30,
-                                  }
-                        }>
-                        <Image
-                            source={require('@root/assets/images/user.png')}
-                        />
-                        <Text
-                            style={{
-                                color: colors.text,
-                                fontSize: 20,
-                                marginBottom: 5,
-                            }}>
-                            Prevous Login
-                        </Text>
-
-                        <Text
-                            style={{
-                                color: colors.text,
-                                textAlign: 'center',
-                                marginBottom: 10,
-                            }}>
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry.{' '}
-                        </Text>
-                        {/*<Button*/}
-                        {/*    title="Choose Profile"*/}
-                        {/*    style={*/}
-                        {/*        mode === 'dark'*/}
-                        {/*            ? { backgroundColor: '#1c78de' }*/}
-                        {/*            : { backgroundColor: '#22376C' }*/}
-                        {/*    }*/}
-                        {/*    onPress={() => alert('Opening')}*/}
-                        {/*/>*/}
                     </View>
                 </MainWrapper>
             </ScrollView>
@@ -182,6 +134,11 @@ const Login = (props: any) => {
 };
 
 export default withTheme(Login);
+
+const ButtonWrapper = styled.View`
+    flex: 1;
+    margin-top: 25px;
+`;
 
 const ForgPasswordWrapper__Text = styled.Text`
     color: ${({ theme }: any) => theme.colors.text};

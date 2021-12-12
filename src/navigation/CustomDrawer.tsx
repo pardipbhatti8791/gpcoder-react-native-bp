@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 
 import { useDrawer } from './drawer-config';
 import { useTheme } from '@react-navigation/native';
-import { TouchableOpacity, SafeAreaView } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { flushStorage } from 'storage';
 import { useActions } from 'hooks/useActions';
 import navigationStrings from 'navigation/navigationStrings';
