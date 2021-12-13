@@ -1,6 +1,8 @@
 import { log } from '@root/utils/console';
 import axios from 'axios';
 import { baseURL } from '@root/service/apiEndPoints';
+import { getData } from '@root/storage';
+import { storageConstants } from '../storage/storage-constants';
 
 const instance = axios.create({
     baseURL: baseURL,
@@ -8,7 +10,9 @@ const instance = axios.create({
     timeoutErrorMessage: 'Timeout error',
 });
 
-instance.defaults.headers.common.Authorization = 'AUTH TOKEN';
+instance.defaults.headers.common.Authorization = `Bearer ${getData(
+    storageConstants.token,
+)}`;
 
 instance.interceptors.request.use(
     (request) => {

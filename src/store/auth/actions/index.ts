@@ -25,8 +25,14 @@ interface SetAuthentication {
     payload: boolean;
 }
 
+interface SetOrgID {
+    type: ActionType.SET_ORG_ID;
+    payload: number;
+}
+
 export type Action =
     | LoginAction
     | LoginSuccessAction
     | LoginErrorAction
-    | SetAuthentication;
+    | SetAuthentication
+    | SetOrgID;

@@ -1,12 +1,14 @@
 import { useTheme } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
     View,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Text,
     Image,
     Appearance,
     ScrollView,
     ImageBackground,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Button,
 } from 'react-native';
 import { Formik } from 'formik';
@@ -78,8 +80,8 @@ const Login = (props: any) => {
                         <Formik
                             validationSchema={LOGIN_SCHEMA}
                             initialValues={{
-                                userName: '',
-                                password: '',
+                                userName: 'Kokoro@freeflea.com',
+                                password: '121212',
                             }}
                             onSubmit={(values) => {
                                 handleLogin(values);
@@ -121,12 +123,32 @@ const Login = (props: any) => {
                                         <PrimaryButton
                                             onPress={handleSubmit}
                                             btnText={'LOGIN'}
+                                            loading={loading}
                                         />
                                     </ButtonWrapper>
                                 </View>
                             )}
                         </Formik>
                     </View>
+
+                    <ChangeProfileWrapper>
+                        <ChangeProfileWrapper_TextTitle>
+                            Previous Title
+                        </ChangeProfileWrapper_TextTitle>
+
+                        <ChangeProfileWrapper_TextDescription>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit, sed do eiusmod tempor incididunt ut lab
+                        </ChangeProfileWrapper_TextDescription>
+
+                        <ChooseProfileBtnWrapper>
+                            <PrimaryButton
+                                onPress={() => {
+                                    // @ts-ignore
+                                }}
+                                btnText={'Choose Profile'}></PrimaryButton>
+                        </ChooseProfileBtnWrapper>
+                    </ChangeProfileWrapper>
                 </MainWrapper>
             </ScrollView>
         </ImageBackground>
@@ -134,6 +156,33 @@ const Login = (props: any) => {
 };
 
 export default withTheme(Login);
+
+const ChooseProfileBtnWrapper = styled.View`
+    height: 35px;
+    margin-top: 10px;
+`;
+
+const ChangeProfileWrapper_TextDescription = styled.Text`
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: ${({ theme }: any) => theme.colors.text};
+    text-align: center;
+`;
+
+const ChangeProfileWrapper_TextTitle = styled.Text`
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: ${({ theme }: any) => theme.colors.text}; ;
+`;
+
+const ChangeProfileWrapper = styled.View`
+    align-items: center;
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: ${({ theme }: any) => theme.colors.primary};
+`;
 
 const ButtonWrapper = styled.View`
     flex: 1;

@@ -10,6 +10,7 @@ interface RepositoriesStateInterface {
     userName: string;
     refreshToken: string;
     isAuthenticated: boolean;
+    orgID: number;
 }
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
     userName: '',
     refreshToken: '',
     isAuthenticated: false,
+    orgID: 0,
 };
 
 /**
@@ -40,12 +42,12 @@ const reducer = (
                 draft.isAuthenticated = false;
                 return draft;
             case ActionType.LOGIN_SUCCESS:
-                draft.loading = false;
+                draft.loading = true;
                 draft.error = null;
                 draft.accessToken = action.payload.accessToken;
                 draft.userName = action.payload.userName;
                 draft.refreshToken = action.payload.refreshToken;
-                draft.isAuthenticated = true;
+                draft.isAuthenticated = false;
                 return draft;
             case ActionType.LOGIN_ERROR:
                 draft.loading = false;
@@ -59,6 +61,12 @@ const reducer = (
             case ActionType.SET_AUTHENTICATION:
                 draft.loading = false;
                 draft.isAuthenticated = action.payload;
+                return draft;
+
+            case ActionType.SET_ORG_ID:
+                draft.loading = false;
+                draft.orgID = action.payload;
+                draft.isAuthenticated = true;
                 return draft;
             default:
                 return draft;

@@ -23,6 +23,7 @@ const apiUri = {
         deletePetrolReports: '/shifts/report', // + /shiftReportID
         statusGet: '/Guard/actions?status=', // urgent, overdue, warning etc
         shiftsByWeek: '/shifts/rosters/week/mobile', // + /number 0 for lastWeek, 1 for thisWeek, 2 for nextWEEK
+        actions: '/Guard/action?status=', // + status, g-org id in headers
         statusDetail: '/Guard/action', // + /actionID
     },
 };

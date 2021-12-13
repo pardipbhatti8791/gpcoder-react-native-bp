@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 import { useDrawer } from './drawer-config';
 import { useTheme } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
-import { flushStorage } from 'storage';
+import { clearAll } from 'storage';
 import { useActions } from 'hooks/useActions';
 import navigationStrings from 'navigation/navigationStrings';
 
@@ -16,7 +16,7 @@ function CustomDrawer(props: any) {
     const { setAuthentication } = useActions();
 
     const logout = async () => {
-        await flushStorage('@token');
+        await clearAll();
         setAuthentication(false);
         props.navigation.navigate(navigationStrings.LOGIN);
     };

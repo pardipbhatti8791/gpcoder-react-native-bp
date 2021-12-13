@@ -19,6 +19,8 @@ import Routes from '@root/navigation/Routes';
 import { navigationTheme } from '@root/theme/theme';
 import { getData } from '@root/storage';
 import { useActions } from '@root/hooks/useActions';
+import { storageConstants } from './src/storage/storage-constants';
+import { setOrgIDForState } from './src/store/auth/action-creators';
 
 const queryClient = new QueryClient();
 
@@ -32,14 +34,18 @@ const AppWrapper = () => {
 
 const App = () => {
     const scheme: any = useColorScheme();
-    const { setAuthentication } = useActions();
+    const { setAuthentication, setOrgIDForState } = useActions();
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const getToken = async () => {
-            const token = await getData('@token');
+            const token = await getData(storageConstants.token);
             if (token !== null) {
-                setAuthentication(true);
+                const orgID: any = await getData(storageConstants.orgID);
+                if (orgID) {
+                    setOrgIDForState(JSON.parse(orgID));
+                    setAuthentication(true);
+                }
             }
 
             setLoading(false);

@@ -7,3 +7,7 @@ interface LoginResponseInterface {
 export interface ResponseRoot {
     data: LoginResponseInterface;
 }
+
+export interface CommonInterface {
+    actionFN: () => void
+}

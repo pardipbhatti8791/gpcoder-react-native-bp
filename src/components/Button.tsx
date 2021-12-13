@@ -7,14 +7,19 @@ import styled from 'styled-components/native';
 type PrimaryButtonProps = {
     onPress: Function;
     btnText: string;
+    loading?: boolean;
 };
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({ onPress, btnText }) => {
+const PrimaryButton: React.FC<PrimaryButtonProps> = ({
+    onPress,
+    btnText,
+    loading = false,
+}) => {
     return (
         <TouchableOpacity onPress={() => onPress()}>
             <PrimaryButton__Wrapper>
                 <PrimaryButton__Wrapper__Text>
-                    {btnText}
+                    {loading ? 'Loading...' : btnText}
                 </PrimaryButton__Wrapper__Text>
             </PrimaryButton__Wrapper>
         </TouchableOpacity>
@@ -34,4 +39,5 @@ const PrimaryButton__Wrapper = styled.View`
 `;
 const PrimaryButton__Wrapper__Text = styled.Text`
     color: ${({ theme }: any) => theme.colors.text};
+    padding: 10px;
 `;

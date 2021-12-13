@@ -1,16 +1,26 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@react-navigation/native';
-import { Button, View } from 'react-native';
+import {
+    Appearance,
+    Button,
+    Image,
+    TouchableOpacity,
+    View,
+} from 'react-native';
+// @ts-ignore
+import styled from 'styled-components/native';
 
 import { Home, Rosters, Shifts, Actions, Messages } from './index';
 import navigationStrings from './navigationStrings';
 import { TabBarIcon } from './TabbarIcon';
+import { navigaionIcon } from '@root/utils/assets';
 
 const Tab = createBottomTabNavigator();
 
 function DashboardTabs(props: any) {
     const { colors }: any = useTheme();
+    let mode = Appearance.getColorScheme();
 
     return (
         <Tab.Navigator
@@ -26,10 +36,14 @@ function DashboardTabs(props: any) {
                     backgroundColor: colors.secondary,
                 },
                 headerLeft: () => (
-                    <Button
-                        title={'Menu'}
-                        onPress={() => props.navigation.openDrawer()}
-                    />
+                    <TouchableOpacity
+                        onPress={() => props.navigation.openDrawer()}>
+                        <NavigationBurgerIcon
+                            source={
+                                mode === 'dark' ? navigaionIcon : navigaionIcon
+                            }
+                        />
+                    </TouchableOpacity>
                 ),
             })}>
             <Tab.Screen
@@ -59,3 +73,7 @@ function DashboardTabs(props: any) {
 }
 
 export default DashboardTabs;
+
+const NavigationBurgerIcon = styled.Image`
+    margin-left: 16px;
+`;
