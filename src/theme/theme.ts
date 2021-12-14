@@ -6,6 +6,7 @@ import {
 export const navigationTheme = {
     light: {
         ...LightTheme,
+        type: 'light',
         colors: {
             ...LightTheme.colors,
             primary: '#F6F4FF',
@@ -20,9 +21,15 @@ export const navigationTheme = {
         spacing: {
             horizontal: 15,
         },
+        fontSize: {
+            cardDate: 15,
+            cardTitle: 20,
+            cardSubTitle: 15
+        }
     },
     dark: {
         ...DarkTheme,
+        type: 'dark',
         colors: {
             ...DarkTheme.colors,
             primary: '#28303D',
@@ -37,5 +44,10 @@ export const navigationTheme = {
         spacing: {
             horizontal: 15,
         },
+        fontSize: {
+            cardDate: 15,
+            cardTitle: 20,
+            cardSubTitle: 15
+        }
     },
 };

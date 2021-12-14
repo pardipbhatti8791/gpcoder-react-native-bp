@@ -1,4 +1,6 @@
 export const storageConstants = {
     token: "@token",
-    orgID: "@orgID"
+    refreshToken: "@refreshToken",
+    orgID: "@orgID",
+    userName: "@userName"
 }

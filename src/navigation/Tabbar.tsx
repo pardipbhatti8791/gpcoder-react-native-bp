@@ -2,11 +2,9 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@react-navigation/native';
 import {
-    Appearance,
-    Button,
-    Image,
+
     TouchableOpacity,
-    View,
+
 } from 'react-native';
 // @ts-ignore
 import styled from 'styled-components/native';
@@ -19,8 +17,7 @@ import { navigaionIcon } from '@root/utils/assets';
 const Tab = createBottomTabNavigator();
 
 function DashboardTabs(props: any) {
-    const { colors }: any = useTheme();
-    let mode = Appearance.getColorScheme();
+    const { colors, type }: any = useTheme();
 
     return (
         <Tab.Navigator
@@ -40,7 +37,7 @@ function DashboardTabs(props: any) {
                         onPress={() => props.navigation.openDrawer()}>
                         <NavigationBurgerIcon
                             source={
-                                mode === 'dark' ? navigaionIcon : navigaionIcon
+                                type === 'dark' ? navigaionIcon : navigaionIcon
                             }
                         />
                     </TouchableOpacity>

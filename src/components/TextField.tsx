@@ -4,6 +4,7 @@ import { Image, TouchableOpacity } from 'react-native';
 import { withTheme } from 'styled-components';
 // @ts-ignore
 import styled from 'styled-components/native';
+import {returnThemeTypeData} from "../utils/theme-type";
 
 type TextFieldProps = {
     onChangeText: Function;
@@ -15,6 +16,7 @@ type TextFieldProps = {
     keyboardType?: string;
     autoCapitalize?: string;
     error?: string | null;
+    theme?: any
 };
 
 const TextField: React.FC<TextFieldProps> = ({
@@ -26,6 +28,7 @@ const TextField: React.FC<TextFieldProps> = ({
     onChangeText,
     autoCapitalize = 'sentences',
     error = null,
+    theme,
     ...rest
 }) => {
     const [showSecureEntry, setShowSecureEntry] = useState(false);
@@ -59,11 +62,21 @@ const TextField: React.FC<TextFieldProps> = ({
                                 setShowSecureEntry(!showSecureEntry)
                             }>
                             <Image
-                                style={{ height: 20, width: 24 }}
+                                style={{ height: 17, width: 24 }}
                                 source={
                                     showSecureEntry === true
-                                        ? require('@root/assets/eyeclose/eyeclose.png')
-                                        : require('@root/assets/eyeopen/eyeopen.png')
+                                        ? returnThemeTypeData({
+                                            screenName: 'login',
+                                            lightKey: 'eyeCloseDarkIcon',
+                                            darkKey: 'eyeCloseLightIcon',
+                                            appearance: theme.type,
+                                        })
+                                        : returnThemeTypeData({
+                                            screenName: 'login',
+                                            lightKey: 'eyeOpenDarkIcon',
+                                            darkKey: 'eyeOpenLightIcon',
+                                            appearance: theme.type,
+                                        })
                                 }></Image>
                         </TouchableOpacity>
                     </SecureEntryIcon>

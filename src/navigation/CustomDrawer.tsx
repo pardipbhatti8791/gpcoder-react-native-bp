@@ -9,14 +9,18 @@ import { TouchableOpacity } from 'react-native';
 import { clearAll } from 'storage';
 import { useActions } from 'hooks/useActions';
 import navigationStrings from 'navigation/navigationStrings';
+import { persistor } from '../store';
+import {returnThemeTypeData} from "../utils/theme-type";
 
 function CustomDrawer(props: any) {
     const { routesConfig } = useDrawer();
-    const { colors }: any = useTheme();
+    const { colors, type }: any = useTheme();
     const { setAuthentication } = useActions();
 
     const logout = async () => {
         await clearAll();
+        await persistor.flush();
+        await persistor.purge()
         setAuthentication(false);
         props.navigation.navigate(navigationStrings.LOGIN);
     };
@@ -27,7 +31,12 @@ function CustomDrawer(props: any) {
                 <HeaderWrapper>
                     <ImageWrapper>
                         <ImageContent
-                            source={require('../assets/user/user.png')}
+                            source={returnThemeTypeData({
+                                screenName: 'login',
+                                lightKey: 'userIconLightTextField',
+                                darkKey: 'userIconsDarkTextFiled',
+                                appearance: type,
+                            })}
                         />
                     </ImageWrapper>
                     <HeadingWrapper>

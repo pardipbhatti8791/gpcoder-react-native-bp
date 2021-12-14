@@ -1,5 +1,5 @@
 import { useTheme } from '@react-navigation/native';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -22,12 +22,17 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { LoginInterface } from 'interfaces/loginInterface';
 import navigationStrings from 'navigation/navigationStrings';
 import PrimaryButton from 'components/Button';
+import BackgroundGlobal from '@root/components/BackgroundGlobal';
+import { returnThemeTypeData } from '../../../utils/theme-type';
 
 const Login = (props: any) => {
     const { login } = useActions();
     const { loading, error, isAuthenticated } = useTypedSelector(
         (state) => state.auth,
     );
+    const [currentRef, setCurrentRef] = useState<any>(null);
+    const { theme } = props;
+    console.log(theme);
 
     useEffect(() => {
         if (error !== null) {
@@ -41,25 +46,13 @@ const Login = (props: any) => {
         }
     }, [isAuthenticated]);
 
-    const { colors } = useTheme();
-
-    // var mode = testMode.mode.type;
-    let mode = Appearance.getColorScheme();
-
     const handleLogin = (values: LoginInterface) => {
         login(values);
     };
 
     return (
-        <ImageBackground
-            resizeMode={'stretch'} // or cover
-            style={{ flex: 1 }} // must be passed from the parent, the number may vary depending upon your screen size
-            source={
-                mode === 'light'
-                    ? require('@root/assets/loginbackground/login.png')
-                    : require('@root/assets/loginLight/loginLight.png')
-            }>
-            <ScrollView>
+        <BackgroundGlobal>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <MainWrapper>
                     <LogoWrapper
                         style={{
@@ -74,7 +67,7 @@ const Login = (props: any) => {
                     <HeadingText>Login</HeadingText>
                     <SubHeading>
                         Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry.{' '}
+                        typesetting industry. {JSON.stringify(theme.type)}
                     </SubHeading>
                     <View>
                         <Formik
@@ -94,7 +87,12 @@ const Login = (props: any) => {
                                             setFieldValue('userName', value);
                                         }}
                                         placeholder="email"
-                                        icon={require('@root/assets/user/user.png')}
+                                        icon={returnThemeTypeData({
+                                            screenName: 'login',
+                                            lightKey: 'userIconsDarkTextFiled',
+                                            darkKey: 'userIconLightTextField',
+                                            appearance: props.theme.type,
+                                        })}
                                         keyboardType={'email-address'}
                                         autoCapitalize={'none'}
                                         error={errors ? errors.userName : null}
@@ -105,7 +103,12 @@ const Login = (props: any) => {
                                             setFieldValue('password', value);
                                         }}
                                         placeholder="********"
-                                        icon={require('@root/assets/lock/lock.png')}
+                                        icon={returnThemeTypeData({
+                                            screenName: 'login',
+                                            lightKey: 'lockIconsDarkTextFiled',
+                                            darkKey: 'lockIconsLightTextFiled',
+                                            appearance: props.theme.type,
+                                        })}
                                         secureTextEntry={true}
                                         error={errors ? errors.password : null}
                                     />
@@ -151,7 +154,8 @@ const Login = (props: any) => {
                     </ChangeProfileWrapper>
                 </MainWrapper>
             </ScrollView>
-        </ImageBackground>
+
+        </BackgroundGlobal>
     );
 };
 
@@ -163,7 +167,7 @@ const ChooseProfileBtnWrapper = styled.View`
 `;
 
 const ChangeProfileWrapper_TextDescription = styled.Text`
-    font-size: 20px;
+    font-size: 14px;
     margin-bottom: 5px;
     color: ${({ theme }: any) => theme.colors.text};
     text-align: center;
@@ -172,7 +176,7 @@ const ChangeProfileWrapper_TextDescription = styled.Text`
 const ChangeProfileWrapper_TextTitle = styled.Text`
     font-size: 20px;
     margin-bottom: 5px;
-    color: ${({ theme }: any) => theme.colors.text}; ;
+    color: ${({ theme }: any) => theme.colors.text};
 `;
 
 const ChangeProfileWrapper = styled.View`

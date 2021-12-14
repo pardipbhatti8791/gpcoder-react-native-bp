@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Login } from './index';
+import { ActionDetail, Login } from './index';
 import navigationStrings from '@root/navigation/navigationStrings';
 import DashboardTabs from '@root/navigation/Tabbar';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { getData } from 'storage';
-import { Text, View } from 'react-native';
-import MainDrawer from 'navigation/Drawer';
+import {useTheme} from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 
 function StackNavigator() {
+    const { colors }: any = useTheme();
     const { isAuthenticated } = useTypedSelector((state) => state.auth);
 
     return (
@@ -35,6 +34,20 @@ function StackNavigator() {
                     headerShown: false,
                     title: 'Home',
                 }}
+            />
+            <Stack.Screen
+                name={navigationStrings.ACTION_DETAILS}
+                component={ActionDetail}
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: colors.secondary,
+                    },
+                    headerBackTitleStyle: {
+                        color: colors.text
+                    }
+                }}
+
             />
         </Stack.Navigator>
     );

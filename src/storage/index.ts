@@ -8,7 +8,7 @@ const storeData = async (key: string, value: string) => {
     try {
         await AsyncStorage.setItem(key, JSON.stringify(value));
     } catch (e) {
-        alert('error saving data');
+        alert('error saving datas');
         // saving error
     }
 };

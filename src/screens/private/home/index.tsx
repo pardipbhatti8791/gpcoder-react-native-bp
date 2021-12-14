@@ -1,96 +1,102 @@
 import React, { useEffect } from 'react';
-import {
-    ImageBackground,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-} from 'react-native';
-import { Appearance } from 'react-native';
+import { FlatList, TouchableOpacity, Text } from 'react-native';
+import { format } from 'date-fns';
 // @ts-ignore
 import styled from 'styled-components/native';
-import { backgroundImage, backgroundImageLight } from '@root/utils/assets';
-import ActionItem from '../actions/actionItem';
-import { useActions } from '../../../hooks/useActions';
-import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { withTheme } from 'styled-components';
+import ActionItem from '@root/screens/private/actions/actionItem';
+import { useActions } from '@root/hooks/useActions';
+import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import { NotFound } from '@root/utils/globalStyle';
+import { useIsFocused } from '@react-navigation/native';
+import BackgroundGlobal from '@root/components/BackgroundGlobal';
+import HomeRosters from '@root/components/rosters/HomeRosters';
 
-export const Home = (props: any) => {
-    let mode = Appearance.getColorScheme();
+const Home = (props: any) => {
     const { navigation } = props;
-    const { getActions } = useActions();
+    const { getActions, getRosters } = useActions();
+    const isFocused = useIsFocused();
     const { orgID } = useTypedSelector((state) => state.auth);
+    const { actionsData, loading } = useTypedSelector((state) => state.actions);
+    const { rosterData, roasterLoading } = useTypedSelector(
+        (state) => state.rostersByDays,
+    );
 
     useEffect(() => {
-        console.log('mode', Appearance.getColorScheme());
-    });
-
-    useEffect(() => {
-        getActions({
-            'g-org': JSON.stringify(orgID),
-            'status': '',
-        });
-    }, []);
+        if (isFocused) {
+            getActions({
+                'g-org': JSON.stringify(orgID),
+                'status': 'urgent',
+            });
+            // format(new Date(), 'd')
+            getRosters({
+                days: '8',
+            });
+        }
+    }, [isFocused]);
 
     return (
-        <ImageBackground
-            resizeMode={'stretch'} // or cover
-            style={{ flex: 1 }} // must be passed from the parent, the number may vary depending upon your screen size
-            source={mode === 'dark' ? backgroundImage : backgroundImageLight}>
-            <ScrollView>
-                <MainFrame>
-                    <Text
-                        style={[
-                            { color: mode === 'dark' ? '#FFFFFF' : '#000000' },
-                        ]}>
-                        Action
-                    </Text>
+        <BackgroundGlobal>
+            <MainFrame>
+                {loading ? (
+                    <NotFound>Loading...</NotFound>
+                ) : actionsData.length > 0 ? (
+                    <FlatList
+                        nestedScrollEnabled={true}
+                        data={actionsData}
+                        renderItem={({ item }) => {
+                            return (
+                                <ActionItem
+                                    item={item}
+                                    navigation={navigation}
+                                    key={1}
+                                    actionTitle={true}
+                                />
+                            );
+                        }}
+                    />
+                ) : (
+                    <NotDataFoundWrapper>
+                        <NotFound>Actions</NotFound>
+                        <NotFound style={{ marginTop: 10 }}>
+                            No Action Data Found
+                        </NotFound>
+                    </NotDataFoundWrapper>
+                )}
 
-                    {/*<ActionItem item={{}} navigation={navigation} key={1}/>*/}
-                </MainFrame>
-            </ScrollView>
-        </ImageBackground>
+                <TodayText>Today, {format(new Date(), 'EEEE d/L')}</TodayText>
+
+                {roasterLoading ? (
+                    <NotFound>Loading...</NotFound>
+                ) : rosterData.length > 0 ? (
+                    <FlatList
+                        nestedScrollEnabled={true}
+                        data={rosterData}
+                        renderItem={({ item }) => {
+                            return <HomeRosters />;
+                        }}
+                    />
+                ) : (
+                    <NotFound>No Rosters Data Found</NotFound>
+                )}
+            </MainFrame>
+        </BackgroundGlobal>
     );
 };
 
-const ArrowImage = styled.Image`
-    width: 8px;
-    height: 12px;
+export default withTheme(Home);
+
+const NotDataFoundWrapper = styled.View`
+    padding-bottom: 15px;
+    justify-content: center;
+    align-items: flex-start;
 `;
 
-const ExpireText = styled.Text`
-    color: #ffffff;
+const TodayText = styled.Text`
+    color: ${({ theme }: any) => theme.colors.text};
     font-size: 20px;
     font-weight: 600;
-    margin: 5px 0;
-`;
-
-const ItemNameText = styled.Text`
-    color: #e5e5e5;
-    font-size: 15px;
-    font-weight: 400;
-`;
-
-const SiteText = styled.Text`
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 500;
-`;
-
-const ActionBox = styled.View`
-    background-color: #d93f3c;
-    margin-right: 16px;
-    margin-top: 16px;
-    border-radius: 8px;
-    flex-direction: row;
-    align-items: center;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-    padding: 14px;
-    width: 100%;
-`;
-const ActionBoxCont = styled.View``;
-
-const ArrowCont = styled.View`
-    margin-left: auto;
-    padding-right: 8px;
+    margin: 10px 0 10px 0;
 `;
 
 const MainFrame = styled.View`

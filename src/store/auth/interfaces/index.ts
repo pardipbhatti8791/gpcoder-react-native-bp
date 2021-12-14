@@ -1,4 +1,4 @@
-interface LoginResponseInterface {
+export interface LoginResponseInterface {
     accessToken: string;
     userName: string;
     refreshToken: string;

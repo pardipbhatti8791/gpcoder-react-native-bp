@@ -1,19 +1,177 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { useIsFocused } from '@react-navigation/native';
+import { View, Text, StatusBar } from 'react-native';
+
 // @ts-ignore
 import styled from 'styled-components/native';
+import { withTheme } from 'styled-components';
 
-export const Rosters = () => {
+import { TouchableOpacity } from 'react-native';
+import BackgroundGlobal from '@root/components/BackgroundGlobal';
+
+function Roster(props: any) {
+    const isFocused = useIsFocused();
+
+    const [tab, setTab] = useState<number>(1);
+
+    useEffect(() => {
+        if (isFocused) {
+        }
+    }, [isFocused]);
+
     return (
-        <Wrapper>
-            <Text>Rosters</Text>
-        </Wrapper>
-    );
-};
+        <BackgroundGlobal>
+            <StatusBar translucent={true}></StatusBar>
 
-const Wrapper = styled.View`
-    flex: 1;
+            <View>
+                <Tabs>
+                    <TouchableOpacity onPress={() => setTab(0)}>
+                        <TabItem
+                            style={
+                                tab === 0 && {
+                                    color: props.theme.colors.accentColor,
+                                }
+                            }>
+                            Last Week
+                        </TabItem>
+                    </TouchableOpacity>
+                    <VerticleLine />
+                    <TouchableOpacity onPress={() => setTab(1)}>
+                        <TabItem
+                            style={
+                                tab === 1 && {
+                                    color: props.theme.colors.accentColor,
+                                }
+                            }>
+                            This Week
+                        </TabItem>
+                    </TouchableOpacity>
+                    <VerticleLine />
+                    <TouchableOpacity onPress={() => setTab(2)}>
+                        <TabItem
+                            style={
+                                tab === 2 && {
+                                    color: props.theme.colors.accentColor,
+                                }
+                            }>
+                            Next Week
+                        </TabItem>
+                    </TouchableOpacity>
+                </Tabs>
+
+                <TouchableOpacity>
+                    <ShiftItemHorizontal>
+                        <ShiftItemVertical>
+                            <DateText>22nd</DateText>
+                            <DayText>Mon</DayText>
+                        </ShiftItemVertical>
+
+                        <ShiftItemLayout>
+                            <View>
+                                <ShiftItemHorizontal>
+                                    <Timeicon
+                                        source={require('@root/assets/clock/clock.png')}></Timeicon>
+                                    <TimeText>time + dfds</TimeText>
+                                </ShiftItemHorizontal>
+                                <TitleText>Site Name</TitleText>
+                                <CodeText numberOfLines={1}>
+                                    AZSDLS
+                                </CodeText>
+                            </View>
+                        </ShiftItemLayout>
+                    </ShiftItemHorizontal>
+                </TouchableOpacity>
+            </View>
+        </BackgroundGlobal>
+    );
+}
+
+// @ts-ignore
+export default withTheme(Roster);
+
+const DateText = styled.Text`
+    font-size: ${({ theme }: any) => theme.fontSize.cardDate}px;
+    color: ${({ theme }: any) => theme.colors.text};
+    padding-bottom: 2px;
+`;
+
+const VerticleLine = styled.View`
+    width: 1px;
+    height: 30px;
+    background-color: ${({ theme }: any) => theme.colors.textGray}; ;
+`;
+
+const TabItem = styled.Text`
+    color: ${({ theme }: any) => theme.colors.textGray};
+`;
+
+const Tabs = styled.View`
+    position: relative;
+    z-index: 1;
+    padding: 10px 15px 10px 15px;
+    margin-bottom: 8px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #19212c;
+`;
+
+const ShiftItemHorizontal = styled.View`
+    flex-direction: row;
+    align-items: center;
+`;
+
+const TimeText = styled.Text`
+    color: ${({ theme }: any) => theme.colors.text};
+`;
+
+const Timeicon = styled.Image`
+    margin-right: 8px;
+`;
+
+const DayText = styled.Text`
+    font-size: 18px;
+    font-weight: 400;
+    align-items: center;
+    display: flex;
+    text-align: center;
+    width: 100%;
+    color: ${({ theme }: any) => theme.colors.text};
+`;
+
+const TitleText = styled.Text`
+    font-size: ${({ theme }: any) => theme.fontSize.cardDate}px;
+    font-weight: 400;
+    color: ${({ theme }: any) => theme.colors.text};
+    margin-top: 3px;
+`;
+
+const CodeText = styled.Text`
+    font-size: ${({ theme }: any) => theme.fontSize.cardDate}px;
+    font-weight: 500;
+    color: ${({ theme }: any) => theme.colors.text};
+`;
+
+const ShiftItemLayout = styled.View`
+    background: #29313e;
+    border-radius: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 10px;
+    padding: 14px;
+    width: 72%;
+`;
+
+const ShiftItemVertical = styled.View`
+    background: #29313e;
+    border-radius: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 10px;
+    padding: 21px 5px;
+    width: 20%;
+    min-width: 70px;
+    text-align: center;
     justify-content: center;
     align-items: center;
-    background-color: white;
 `;

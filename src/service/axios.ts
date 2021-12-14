@@ -1,28 +1,26 @@
 import { log } from '@root/utils/console';
 import axios from 'axios';
+import { CommonActions } from '@react-navigation/native';
 import { baseURL } from '@root/service/apiEndPoints';
-import { getData } from '@root/storage';
-import { storageConstants } from '../storage/storage-constants';
 
+import { persistor, store } from '@root/store/store';
+import { navigationRef } from '../navigation/RootNavigation';
+import navigationStrings from '@root/navigation/navigationStrings';
+import { clearAll } from '../storage';
+import { ActionType } from '../store/auth/actions-types';
+
+const state = store.getState();
 const instance = axios.create({
     baseURL: baseURL,
     timeout: 5000,
-    timeoutErrorMessage: 'Timeout error',
+    timeoutErrorMessage: 'Timeout error'
 });
 
-instance.defaults.headers.common.Authorization = `Bearer ${getData(
-    storageConstants.token,
-)}`;
+export const setAuthInitalToken = (token: string) => {
+    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
 
-instance.interceptors.request.use(
-    (request) => {
-        return request;
-    },
-    (error) => {
-        console.log(error);
-        return Promise.reject(error);
-    },
-);
+instance.defaults.headers.common.Authorization = `Bearer ${state.auth.accessToken}`;
 
 instance.interceptors.response.use(
     (response) => {
@@ -31,7 +29,22 @@ instance.interceptors.response.use(
         return response;
     },
     (error) => {
-        log(error, 'error axios');
+        if (error.response.status === 401) {
+            persistor.purge().then(async () => {
+                await clearAll();
+                store.dispatch({
+                    type: ActionType.SET_AUTHENTICATION,
+                    payload: false,
+                });
+                navigationRef.current.dispatch(
+                    CommonActions.navigate({
+                        name: navigationStrings.LOGIN,
+                    }),
+                );
+            });
+        }
+
+        //
         return Promise.reject(error.response);
     },
 );

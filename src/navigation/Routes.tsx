@@ -4,19 +4,15 @@ import 'react-native-gesture-handler';
 
 import MainDrawer from '@root/navigation/Drawer';
 import { navigationTheme } from '@root/theme/theme';
+import { navigationRef } from '@root/navigation/RootNavigation';
 
 type RouteProps = {
-    scheme: string | null;
+    scheme: any;
 };
 
-const Routes: React.FC<RouteProps> = (props: any) => {
+const Routes: React.FC<RouteProps> = ({ scheme }) => {
     return (
-        <NavigationContainer
-            theme={
-                props.scheme === 'dark'
-                    ? navigationTheme.dark
-                    : navigationTheme.light
-            }>
+        <NavigationContainer ref={navigationRef} theme={scheme}>
             <MainDrawer />
         </NavigationContainer>
     );

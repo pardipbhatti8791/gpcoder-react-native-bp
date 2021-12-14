@@ -4,6 +4,8 @@ import { TouchableOpacity } from 'react-native';
 import React from 'react';
 import { withTheme } from 'styled-components';
 import { whiteRight } from '@root/utils/assets';
+import { NotFound } from '@root/utils/globalStyle'
+import navigationStrings from "../../../navigation/navigationStrings";
 
 type ActionItemProps = {
     item: ItemData;
@@ -13,7 +15,7 @@ type ActionItemProps = {
 
 type ItemData = {
     status: string;
-    actions: actionType;
+    actions: actionType[];
 };
 
 type actionType = {
@@ -27,45 +29,47 @@ type actionType = {
 const ActionItem: React.FC<ActionItemProps> = ({
     item: {
         status,
-        actions: {
-            actionByDateText,
-            actionDescription,
-            actionID,
-            actionType,
-            actionByDate,
-        },
+        actions,
     },
     navigation,
     actionTitle = false,
 }) => {
-    let expires = new Date(actionByDate);
+
 
     return (
         <ActionWrapper>
             <TitleWrapperText>
                 {actionTitle ? status : 'Actions'}
             </TitleWrapperText>
-            <TouchableOpacity
-                onPress={() => {
-                    navigation.navigate('Name', { actionID: 1 });
-                }}>
-                <ActionBox>
-                    <ActionBoxCont>
-                        <ItemNameText>{actionType}</ItemNameText>
-                        <ExpireText>
-                            Expires: {expires.getDate()}-{expires.getMonth()}-
-                            {expires.getFullYear()} ({actionByDateText}){' '}
-                        </ExpireText>
-                        <SiteText>Sites Affected: {actionID}</SiteText>
-                    </ActionBoxCont>
-                    <ArrowCont>
-                        <ArrowImage source={whiteRight}></ArrowImage>
-                    </ArrowCont>
-                </ActionBox>
-            </TouchableOpacity>
+            {actions.length > 0 ? actions.map((action) => {
+                let expires = new Date(action.actionByDate);
+                return (
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate(navigationStrings.ACTION_DETAILS, { actionID: 1 });
+                        }}>
+                        <ActionBox>
+                            <ActionBoxCont>
+                                <ItemNameText>{action.actionType}</ItemNameText>
+                                <ExpireText>
+                                    Expires: {expires.getDate()}-{expires.getMonth()}-
+                                    {expires.getFullYear()} ({action.actionByDateText}){' '}
+                                </ExpireText>
+                                <SiteText>Sites Affected: {action.actionID}</SiteText>
+                            </ActionBoxCont>
+                            <ArrowCont>
+                                <ArrowImage source={whiteRight}></ArrowImage>
+                            </ArrowCont>
+                        </ActionBox>
+                    </TouchableOpacity>
+                )
+            }) : <NotFound>No Data Found</NotFound>}
+
         </ActionWrapper>
     );
 };
+
+
 
 // @ts-ignore
 export default withTheme(ActionItem);
@@ -112,7 +116,9 @@ const ActionBox = styled.View`
 `;
 const ActionBoxCont = styled.View``;
 
-const ActionWrapper = styled.View``;
+const ActionWrapper = styled.View`
+  margin-bottom: 15px;
+`;
 
 const TitleWrapperText = styled.Text`
     color: ${({ theme }: any) => theme.colors.text};
