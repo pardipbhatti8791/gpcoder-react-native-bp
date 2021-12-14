@@ -14,9 +14,7 @@ export const getRosters = (fn: RosterInterface) => {
             type: ActionType.ROSTERS_INIT,
         });
         try {
-            const response = await service.get(
-                apiUri.shifts.shiftsByDay + fn.days,
-            );
+            const response = await service.get(fn.uri);
             dispatch({
                 type: ActionType.ROSTERS_GET_SUCCESS,
                 payload: response.data,

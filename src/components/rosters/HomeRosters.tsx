@@ -1,20 +1,44 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 // @ts-ignore
 import styled from 'styled-components/native';
 import { withTheme } from 'styled-components';
+import { format } from 'date-fns';
+import { useActions } from '../../hooks/useActions';
 
-const HomeRosters = () => {
+type HomeRostersProps = {
+    item: {
+        siteName: string;
+        notes: string;
+        rosterStart: string;
+        rosterEnd: string;
+    };
+};
+
+const HomeRosters: React.FC<HomeRostersProps> = ({ item }) => {
+    const { openModal } = useActions();
+
     return (
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+            onPress={() =>
+                openModal('RosterView', {
+                    item: item,
+                    height: '65%',
+                    button: false,
+                })
+            }>
             <ShiftItemLayout>
                 <ImageCont>
-                    <ImageView source={{ uri: '' }} />
+                    <ImageView source={require('@root/assets/profile.png')} />
                 </ImageCont>
                 <ImageRight>
-                    <ItemNameText>dateTime</ItemNameText>
-                    <SiteText>site name</SiteText>
-                    <SiteNotes numberOfLines={1}>notes</SiteNotes>
+                    <ItemNameText>
+                        {format(new Date(item.rosterStart), 'EEE HH:MM')}
+                        {' - '}
+                        {format(new Date(item.rosterEnd), 'HH:MM')}
+                    </ItemNameText>
+                    <SiteText>{item.siteName}</SiteText>
+                    <SiteNotes numberOfLines={1}>{item.notes}</SiteNotes>
                 </ImageRight>
             </ShiftItemLayout>
         </TouchableOpacity>

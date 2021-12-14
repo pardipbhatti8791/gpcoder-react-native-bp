@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { FlatList, TouchableOpacity, Text } from 'react-native';
+import { FlatList } from 'react-native';
 import { format } from 'date-fns';
+
 // @ts-ignore
 import styled from 'styled-components/native';
 import { withTheme } from 'styled-components';
@@ -11,6 +12,8 @@ import { NotFound } from '@root/utils/globalStyle';
 import { useIsFocused } from '@react-navigation/native';
 import BackgroundGlobal from '@root/components/BackgroundGlobal';
 import HomeRosters from '@root/components/rosters/HomeRosters';
+import ModalManager from '@root/store/global_modal/manager';
+import { apiUri } from '@root/service/apiEndPoints';
 
 const Home = (props: any) => {
     const { navigation } = props;
@@ -28,63 +31,71 @@ const Home = (props: any) => {
                 'g-org': JSON.stringify(orgID),
                 'status': 'urgent',
             });
-            // format(new Date(), 'd')
             getRosters({
-                days: '8',
+                uri: `${apiUri.shifts.shiftsByDay}` + format(new Date(), 'd'),
             });
         }
     }, [isFocused]);
 
     return (
-        <BackgroundGlobal>
-            <MainFrame>
-                {loading ? (
-                    <NotFound>Loading...</NotFound>
-                ) : actionsData.length > 0 ? (
-                    <FlatList
-                        nestedScrollEnabled={true}
-                        data={actionsData}
-                        renderItem={({ item }) => {
-                            return (
-                                <ActionItem
-                                    item={item}
-                                    navigation={navigation}
-                                    key={1}
-                                    actionTitle={true}
-                                />
-                            );
-                        }}
-                    />
-                ) : (
-                    <NotDataFoundWrapper>
-                        <NotFound>Actions</NotFound>
-                        <NotFound style={{ marginTop: 10 }}>
-                            No Action Data Found
-                        </NotFound>
-                    </NotDataFoundWrapper>
-                )}
+        <MainWrapper>
+            <BackgroundGlobal>
+                <MainFrame>
+                    {loading ? (
+                        <NotFound>Loading...</NotFound>
+                    ) : actionsData.length > 0 ? (
+                        <FlatList
+                            nestedScrollEnabled={true}
+                            data={actionsData}
+                            renderItem={({ item }) => {
+                                return (
+                                    <ActionItem
+                                        item={item}
+                                        navigation={navigation}
+                                        key={1}
+                                        actionTitle={true}
+                                    />
+                                );
+                            }}
+                        />
+                    ) : (
+                        <NotDataFoundWrapper>
+                            <NotFound>Actions</NotFound>
+                            <NotFound style={{ marginTop: 10 }}>
+                                No Action Data Found
+                            </NotFound>
+                        </NotDataFoundWrapper>
+                    )}
 
-                <TodayText>Today, {format(new Date(), 'EEEE d/L')}</TodayText>
+                    <TodayText>
+                        Today, {format(new Date(), 'EEEE d/L')}
+                    </TodayText>
 
-                {roasterLoading ? (
-                    <NotFound>Loading...</NotFound>
-                ) : rosterData.length > 0 ? (
-                    <FlatList
-                        nestedScrollEnabled={true}
-                        data={rosterData}
-                        renderItem={({ item }) => {
-                            return <HomeRosters />;
-                        }}
-                    />
-                ) : (
-                    <NotFound>No Rosters Data Found</NotFound>
-                )}
-            </MainFrame>
-        </BackgroundGlobal>
+                    {roasterLoading ? (
+                        <NotFound>Loading...</NotFound>
+                    ) : rosterData.length > 0 ? (
+                        <FlatList
+                            nestedScrollEnabled={true}
+                            data={rosterData}
+                            renderItem={({ item }) => {
+                                return <HomeRosters item={item} />;
+                            }}
+                        />
+                    ) : (
+                        <NotFound>No Rosters Data Found</NotFound>
+                    )}
+                </MainFrame>
+            </BackgroundGlobal>
+            <ModalManager />
+        </MainWrapper>
     );
 };
 
 export default withTheme(Home);
+
+const MainWrapper = styled.View`
+    flex: 1;
+`;
 
 const NotDataFoundWrapper = styled.View`
     padding-bottom: 15px;

@@ -1,18 +1,15 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@react-navigation/native';
-import {
-
-    TouchableOpacity,
-
-} from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 // @ts-ignore
 import styled from 'styled-components/native';
 
 import { Home, Rosters, Shifts, Actions, Messages } from './index';
 import navigationStrings from './navigationStrings';
 import { TabBarIcon } from './TabbarIcon';
-import { navigaionIcon } from '@root/utils/assets';
+import { calendarIcon, navigaionIcon } from '@root/utils/assets';
+import { RosterCalender } from '../screens/private/rosters/calendarPicker';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,6 +39,20 @@ function DashboardTabs(props: any) {
                         />
                     </TouchableOpacity>
                 ),
+                headerRight: () => {
+                    if (route.name === 'ROSTER') {
+                        return (
+                            <TouchableOpacity
+                                onPress={() =>
+                                    props.navigation.navigate(
+                                        navigationStrings.ROSTER_CALENDAR,
+                                    )
+                                }>
+                                <NavigationBurgerIcon style={{ marginRight: 15 }} source={calendarIcon} />
+                            </TouchableOpacity>
+                        );
+                    }
+                },
             })}>
             <Tab.Screen
                 name={navigationStrings.TAB_BAR_HOME}

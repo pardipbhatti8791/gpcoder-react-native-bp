@@ -6,4 +6,5 @@ export default {
     TAB_BAR_ACTIONS: 'ACTIONS',
     TAB_BAR_MESSAGES: 'MESSAGES',
     ACTION_DETAILS: 'Action Details',
+    ROSTER_CALENDAR: 'Rosters',
 };

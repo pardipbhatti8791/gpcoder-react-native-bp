@@ -23,10 +23,12 @@ import { LoginInterface } from 'interfaces/loginInterface';
 import navigationStrings from 'navigation/navigationStrings';
 import PrimaryButton from 'components/Button';
 import BackgroundGlobal from '@root/components/BackgroundGlobal';
-import { returnThemeTypeData } from '../../../utils/theme-type';
+import { returnThemeTypeData } from '@root/utils/theme-type';
+import { MainParentWrapper } from '@root/utils/globalStyle';
+import ModalManager from '@root/store/global_modal/manager';
 
 const Login = (props: any) => {
-    const { login } = useActions();
+    const { login, openModal } = useActions();
     const { loading, error, isAuthenticated } = useTypedSelector(
         (state) => state.auth,
     );
@@ -51,111 +53,134 @@ const Login = (props: any) => {
     };
 
     return (
-        <BackgroundGlobal>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <MainWrapper>
-                    <LogoWrapper
-                        style={{
-                            marginTop: 90,
-                            justifyContent: 'center',
-                            flexDirection: 'row',
-                        }}>
-                        <Image
-                            source={require('@root/assets/images/login1.png')}
-                        />
-                    </LogoWrapper>
-                    <HeadingText>Login</HeadingText>
-                    <SubHeading>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. {JSON.stringify(theme.type)}
-                    </SubHeading>
-                    <View>
-                        <Formik
-                            validationSchema={LOGIN_SCHEMA}
-                            initialValues={{
-                                userName: 'Kokoro@freeflea.com',
-                                password: '121212',
-                            }}
-                            onSubmit={(values) => {
-                                handleLogin(values);
+        <MainParentWrapper>
+            <BackgroundGlobal>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <MainWrapper>
+                        <LogoWrapper
+                            style={{
+                                marginTop: 90,
+                                justifyContent: 'center',
+                                flexDirection: 'row',
                             }}>
-                            {({ setFieldValue, handleSubmit, errors }) => (
-                                <View>
-                                    <TextField
-                                        accessibilityLabel="Email"
-                                        onChangeText={(value: any) => {
-                                            setFieldValue('userName', value);
-                                        }}
-                                        placeholder="email"
-                                        icon={returnThemeTypeData({
-                                            screenName: 'login',
-                                            lightKey: 'userIconsDarkTextFiled',
-                                            darkKey: 'userIconLightTextField',
-                                            appearance: props.theme.type,
-                                        })}
-                                        keyboardType={'email-address'}
-                                        autoCapitalize={'none'}
-                                        error={errors ? errors.userName : null}
-                                    />
-                                    <TextField
-                                        accessibilityLabel="Password"
-                                        onChangeText={(value: any) => {
-                                            setFieldValue('password', value);
-                                        }}
-                                        placeholder="********"
-                                        icon={returnThemeTypeData({
-                                            screenName: 'login',
-                                            lightKey: 'lockIconsDarkTextFiled',
-                                            darkKey: 'lockIconsLightTextFiled',
-                                            appearance: props.theme.type,
-                                        })}
-                                        secureTextEntry={true}
-                                        error={errors ? errors.password : null}
-                                    />
-
-                                    {/* </CardV> */}
-
-                                    {/*<ErrorView errors={errors} />*/}
-                                    <ForgPasswordWrapper>
-                                        <ForgPasswordWrapper__Text>
-                                            Forgot password?
-                                        </ForgPasswordWrapper__Text>
-                                    </ForgPasswordWrapper>
-
-                                    <ButtonWrapper>
-                                        <PrimaryButton
-                                            onPress={handleSubmit}
-                                            btnText={'LOGIN'}
-                                            loading={loading}
-                                        />
-                                    </ButtonWrapper>
-                                </View>
-                            )}
-                        </Formik>
-                    </View>
-
-                    <ChangeProfileWrapper>
-                        <ChangeProfileWrapper_TextTitle>
-                            Previous Title
-                        </ChangeProfileWrapper_TextTitle>
-
-                        <ChangeProfileWrapper_TextDescription>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut lab
-                        </ChangeProfileWrapper_TextDescription>
-
-                        <ChooseProfileBtnWrapper>
-                            <PrimaryButton
-                                onPress={() => {
-                                    // @ts-ignore
+                            <Image
+                                source={require('@root/assets/images/login1.png')}
+                            />
+                        </LogoWrapper>
+                        <HeadingText>Login</HeadingText>
+                        <SubHeading>
+                            Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry. {JSON.stringify(theme.type)}
+                        </SubHeading>
+                        <View>
+                            <Formik
+                                validationSchema={LOGIN_SCHEMA}
+                                initialValues={{
+                                    userName: '',
+                                    password: '',
                                 }}
-                                btnText={'Choose Profile'}></PrimaryButton>
-                        </ChooseProfileBtnWrapper>
-                    </ChangeProfileWrapper>
-                </MainWrapper>
-            </ScrollView>
+                                onSubmit={(values) => {
+                                    handleLogin(values);
+                                }}>
+                                {({ setFieldValue, handleSubmit, errors }) => (
+                                    <View>
+                                        <TextField
+                                            accessibilityLabel="Email"
+                                            onChangeText={(value: any) => {
+                                                setFieldValue(
+                                                    'userName',
+                                                    value,
+                                                );
+                                            }}
+                                            placeholder="email"
+                                            icon={returnThemeTypeData({
+                                                screenName: 'login',
+                                                lightKey:
+                                                    'userIconsDarkTextFiled',
+                                                darkKey:
+                                                    'userIconLightTextField',
+                                                appearance: props.theme.type,
+                                            })}
+                                            keyboardType={'email-address'}
+                                            autoCapitalize={'none'}
+                                            error={
+                                                errors ? errors.userName : null
+                                            }
+                                        />
+                                        <TextField
+                                            accessibilityLabel="Password"
+                                            onChangeText={(value: any) => {
+                                                setFieldValue(
+                                                    'password',
+                                                    value,
+                                                );
+                                            }}
+                                            placeholder="********"
+                                            icon={returnThemeTypeData({
+                                                screenName: 'login',
+                                                lightKey:
+                                                    'lockIconsDarkTextFiled',
+                                                darkKey:
+                                                    'lockIconsLightTextFiled',
+                                                appearance: props.theme.type,
+                                            })}
+                                            secureTextEntry={true}
+                                            error={
+                                                errors ? errors.password : null
+                                            }
+                                        />
 
-        </BackgroundGlobal>
+                                        {/* </CardV> */}
+
+                                        {/*<ErrorView errors={errors} />*/}
+                                        <ForgPasswordWrapper>
+                                            <ForgPasswordWrapper__Text>
+                                                Forgot password?
+                                            </ForgPasswordWrapper__Text>
+                                        </ForgPasswordWrapper>
+
+                                        <ButtonWrapper>
+                                            <PrimaryButton
+                                                onPress={handleSubmit}
+                                                btnText={'LOGIN'}
+                                                loading={loading}
+                                            />
+                                        </ButtonWrapper>
+                                    </View>
+                                )}
+                            </Formik>
+                        </View>
+
+                        <ChangeProfileWrapper>
+                            <ChangeProfileWrapper_TextTitle>
+                                Previous Title
+                            </ChangeProfileWrapper_TextTitle>
+
+                            <ChangeProfileWrapper_TextDescription>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit, sed do eiusmod tempor
+                                incididunt ut lab
+                            </ChangeProfileWrapper_TextDescription>
+
+                            <ChooseProfileBtnWrapper>
+                                <PrimaryButton
+                                    onPress={() => {
+                                        // @ts-ignore
+                                        openModal('AccountModalSheet', {
+                                            abc: 'hello',
+                                            height: '40%'
+                                        });
+                                    }}
+                                    btnText={'Choose Profile'}
+                                />
+                            </ChooseProfileBtnWrapper>
+                        </ChangeProfileWrapper>
+                    </MainWrapper>
+                </ScrollView>
+            </BackgroundGlobal>
+
+            <ModalManager />
+        </MainParentWrapper>
     );
 };
 

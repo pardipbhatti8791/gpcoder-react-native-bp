@@ -4,7 +4,8 @@ import { ActionDetail, Login } from './index';
 import navigationStrings from '@root/navigation/navigationStrings';
 import DashboardTabs from '@root/navigation/Tabbar';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import {useTheme} from "@react-navigation/native";
+import { useTheme } from '@react-navigation/native';
+import { RosterCalender } from '@root/screens/private/rosters/calendarPicker';
 
 const Stack = createStackNavigator();
 
@@ -44,10 +45,22 @@ function StackNavigator() {
                         backgroundColor: colors.secondary,
                     },
                     headerBackTitleStyle: {
-                        color: colors.text
-                    }
+                        color: colors.text,
+                    },
                 }}
-
+            />
+            <Stack.Screen
+                name={navigationStrings.ROSTER_CALENDAR}
+                component={RosterCalender}
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: colors.secondary,
+                    },
+                    headerBackTitleStyle: {
+                        color: colors.text,
+                    },
+                }}
             />
         </Stack.Navigator>
     );

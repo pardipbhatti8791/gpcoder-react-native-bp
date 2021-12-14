@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 export const Shifts = () => {
     return (
         <Wrapper>
-            <Text>Shifts</Text>
+            <Text>Shifts, I am working on</Text>
         </Wrapper>
     );
 };

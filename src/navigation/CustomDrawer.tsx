@@ -10,11 +10,11 @@ import { clearAll } from 'storage';
 import { useActions } from 'hooks/useActions';
 import navigationStrings from 'navigation/navigationStrings';
 import { persistor } from '../store';
-import {returnThemeTypeData} from "../utils/theme-type";
+import ListCard from "@root/components/ListCard";
 
 function CustomDrawer(props: any) {
     const { routesConfig } = useDrawer();
-    const { colors, type }: any = useTheme();
+    const { colors }: any = useTheme();
     const { setAuthentication } = useActions();
 
     const logout = async () => {
@@ -27,37 +27,7 @@ function CustomDrawer(props: any) {
 
     return (
         <DrawerWrapper backgroundColor={colors.secondary}>
-            <DrawerThreeSection>
-                <HeaderWrapper>
-                    <ImageWrapper>
-                        <ImageContent
-                            source={returnThemeTypeData({
-                                screenName: 'login',
-                                lightKey: 'userIconLightTextField',
-                                darkKey: 'userIconsDarkTextFiled',
-                                appearance: type,
-                            })}
-                        />
-                    </ImageWrapper>
-                    <HeadingWrapper>
-                        <HeadingWrapper__Content>
-                            <HeadingWrapper__Content__Title
-                                textColor={colors.accentColor}>
-                                Rodi
-                            </HeadingWrapper__Content__Title>
-                            <HeadingWrapper__Content__Status
-                                textColor={colors.text}>
-                                Unmarried
-                            </HeadingWrapper__Content__Status>
-                        </HeadingWrapper__Content>
-                        <HeadingWrapper__RightArrow>
-                            <HeadingWrapper__RightArrow_ImageContent
-                                source={require('../assets/rightArrowWhite/rightArrow.png')}
-                            />
-                        </HeadingWrapper__RightArrow>
-                    </HeadingWrapper>
-                </HeaderWrapper>
-            </DrawerThreeSection>
+            <ListCard />
 
             <DrawerFirstSection>
                 {routesConfig.map((item, i) => {

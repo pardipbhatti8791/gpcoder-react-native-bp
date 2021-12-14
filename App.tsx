@@ -12,7 +12,7 @@ import { Provider } from 'react-redux';
 // @ts-ignore
 import { ThemeProvider } from 'styled-components';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useColorScheme } from 'react-native';
+import { useColorScheme, View } from 'react-native';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from '@root/store/store';
@@ -37,8 +37,13 @@ global.fetch = function (uri, options, ...args) {
 const AppWrapper = () => {
     return (
         <Provider store={store}>
+
             <PersistGate loading={null} persistor={persistor}>
-                <App />
+                <View style={{ flex: 1, position: "relative" }}>
+                    <App />
+
+                </View>
+
             </PersistGate>
         </Provider>
     );
@@ -48,24 +53,22 @@ const App = () => {
     const scheme: any = useColorScheme();
 
     return (
-        <Provider store={store}>
-            <QueryClientProvider client={queryClient}>
-                <ThemeProvider
-                    theme={
-                        scheme === 'light'
+        <QueryClientProvider client={queryClient}>
+            <ThemeProvider
+                theme={
+                    scheme === 'dark'
+                        ? navigationTheme.dark
+                        : navigationTheme.light
+                }>
+                <Routes
+                    scheme={
+                        scheme === 'dark'
                             ? navigationTheme.dark
                             : navigationTheme.light
-                    }>
-                    <Routes
-                        scheme={
-                            scheme === 'light'
-                                ? navigationTheme.dark
-                                : navigationTheme.light
-                        }
-                    />
-                </ThemeProvider>
-            </QueryClientProvider>
-        </Provider>
+                    }
+                />
+            </ThemeProvider>
+        </QueryClientProvider>
     );
 };
 

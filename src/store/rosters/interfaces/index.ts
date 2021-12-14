@@ -1,3 +1,3 @@
 export interface RosterInterface {
-    days: string
+    uri: string
 }

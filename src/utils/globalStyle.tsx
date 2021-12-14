@@ -10,5 +10,10 @@ export const NotFoundWrapper = styled.View`
 export const NotFound = styled.Text`
     font-size: 18px;
     color: ${({ theme }: any) => theme.colors.text};
-  
 `;
+
+export const MainParentWrapper = styled.View`
+    flex: 1;
+`;
+
+export const commonStyledText = styled.Text``;
