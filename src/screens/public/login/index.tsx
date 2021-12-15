@@ -76,8 +76,8 @@ const Login = (props: any) => {
                             <Formik
                                 validationSchema={LOGIN_SCHEMA}
                                 initialValues={{
-                                    userName: '',
-                                    password: '',
+                                    userName: 'Iris@freeflea.com',
+                                    password: '121212',
                                 }}
                                 onSubmit={(values) => {
                                     handleLogin(values);

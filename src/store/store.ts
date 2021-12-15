@@ -5,11 +5,11 @@ import reducers from '@root/store/rootReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
 const persistConfig = {
     key: 'root',
-    storage: AsyncStorage
+    storage: AsyncStorage,
+    whitelist: ['auth']
 };
 
 const middlewares = [thunk, logger];

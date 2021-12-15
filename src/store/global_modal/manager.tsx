@@ -6,14 +6,14 @@ import React, {
     useState,
 } from 'react';
 
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
 // @ts-ignore
 import styled from 'styled-components/native';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
 import { useActions } from '@root/hooks/useActions';
 import { ScrollView, View } from 'react-native';
-import { AccountModalSheet, RosterView } from './modal';
+import { AccountModalSheet, RosterView, ReportsEntryList } from './modal';
 
 const ModalManager = () => {
     const { closeModal } = useActions();
@@ -64,7 +64,9 @@ const ModalManager = () => {
                     onChange={handleSheetChanges}
                     // backdropComponent={CustomBackdrop}
                 >
-                    {renderedModal}
+                    <BottomSheetScrollView showsVerticalScrollIndicator={false}>
+                        {renderedModal}
+                    </BottomSheetScrollView>
                 </BottomSheet>
             );
         }
@@ -99,7 +101,8 @@ export const WelcomeModal = (props: any) => {
 const modalLookup: any = {
     WelcomeModal,
     AccountModalSheet,
-    RosterView
+    RosterView,
+    ReportsEntryList
 };
 
 const WelcomeModalWrapper = styled.View`

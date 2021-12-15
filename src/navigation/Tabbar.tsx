@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@react-navigation/native';
-import { Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 // @ts-ignore
 import styled from 'styled-components/native';
 
@@ -9,12 +9,16 @@ import { Home, Rosters, Shifts, Actions, Messages } from './index';
 import navigationStrings from './navigationStrings';
 import { TabBarIcon } from './TabbarIcon';
 import { calendarIcon, navigaionIcon } from '@root/utils/assets';
-import { RosterCalender } from '../screens/private/rosters/calendarPicker';
+import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import PrimaryButton from '@root/components/Button';
 
 const Tab = createBottomTabNavigator();
 
 function DashboardTabs(props: any) {
     const { colors, type }: any = useTheme();
+    const { activeShift } = useTypedSelector((state) => state.activeShift);
+
+    const endShift = () => {};
 
     return (
         <Tab.Navigator
@@ -48,7 +52,24 @@ function DashboardTabs(props: any) {
                                         navigationStrings.ROSTER_CALENDAR,
                                     )
                                 }>
-                                <NavigationBurgerIcon style={{ marginRight: 15 }} source={calendarIcon} />
+                                <NavigationBurgerIcon
+                                    style={{ marginRight: 15 }}
+                                    source={calendarIcon}
+                                />
+                            </TouchableOpacity>
+                        );
+                    } else if (route.name === 'SHIFTS') {
+                        return (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    alert('End Shift');
+                                }}
+                                style={{ padding: 5 }}
+                            >
+                                <PrimaryButton
+                                    onPress={() => endShift()}
+                                    btnText={'End Shift'}
+                                />
                             </TouchableOpacity>
                         );
                     }

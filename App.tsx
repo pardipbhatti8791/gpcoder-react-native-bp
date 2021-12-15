@@ -56,13 +56,13 @@ const App = () => {
         <QueryClientProvider client={queryClient}>
             <ThemeProvider
                 theme={
-                    scheme === 'dark'
+                    scheme === 'light'
                         ? navigationTheme.dark
                         : navigationTheme.light
                 }>
                 <Routes
                     scheme={
-                        scheme === 'dark'
+                        scheme === 'light'
                             ? navigationTheme.dark
                             : navigationTheme.light
                     }

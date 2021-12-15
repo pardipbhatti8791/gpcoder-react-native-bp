@@ -5,12 +5,12 @@ import styled from 'styled-components/native';
 
 import { useDrawer } from './drawer-config';
 import { useTheme } from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native';
+import { SafeAreaView, TouchableOpacity } from 'react-native';
 import { clearAll } from 'storage';
 import { useActions } from 'hooks/useActions';
 import navigationStrings from 'navigation/navigationStrings';
 import { persistor } from '../store';
-import ListCard from "@root/components/ListCard";
+import ListCard from '@root/components/ListCard';
 
 function CustomDrawer(props: any) {
     const { routesConfig } = useDrawer();
@@ -20,35 +20,39 @@ function CustomDrawer(props: any) {
     const logout = async () => {
         await clearAll();
         await persistor.flush();
-        await persistor.purge()
+        await persistor.purge();
         setAuthentication(false);
         props.navigation.navigate(navigationStrings.LOGIN);
     };
 
     return (
-        <DrawerWrapper backgroundColor={colors.secondary}>
-            <ListCard />
+        <SafeAreaView style={{ flex: 1, backgroundColor: colors.secondary }}>
+            <DrawerWrapper backgroundColor={colors.secondary}>
+                <ListCard />
 
-            <DrawerFirstSection>
-                {routesConfig.map((item, i) => {
-                    return (
-                        <DrawerItem
-                            key={i}
-                            label={item?.label}
-                            labelStyle={{
-                                color: colors.text,
-                            }}
-                            onPress={() => props.navigation.navigate(item?.url)}
-                        />
-                    );
-                })}
-            </DrawerFirstSection>
-            <DrawerSecondSection>
-                <TouchableOpacity onPress={() => logout()}>
-                    <LogoutText textColor={colors.text}>Logout</LogoutText>
-                </TouchableOpacity>
-            </DrawerSecondSection>
-        </DrawerWrapper>
+                <DrawerFirstSection>
+                    {routesConfig.map((item, i) => {
+                        return (
+                            <DrawerItem
+                                key={i}
+                                label={item?.label}
+                                labelStyle={{
+                                    color: colors.text,
+                                }}
+                                onPress={() =>
+                                    props.navigation.navigate(item?.url)
+                                }
+                            />
+                        );
+                    })}
+                </DrawerFirstSection>
+                <DrawerSecondSection>
+                    <TouchableOpacity onPress={() => logout()}>
+                        <LogoutText textColor={colors.text}>Logout</LogoutText>
+                    </TouchableOpacity>
+                </DrawerSecondSection>
+            </DrawerWrapper>
+        </SafeAreaView>
     );
 }
 

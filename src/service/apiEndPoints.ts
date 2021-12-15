@@ -9,16 +9,16 @@ const apiUri = {
         // shiftsByWeek: 'shifts/rosters/week',
         getOrgID: '/Guard/orgs',
         startShift: '/shifts/start/',
-        activeShift: '/shifts/active/',
+        activeShift: '/shifts/active',
         endShift: '/shifts/end',
         createPetrolEntry: '/shifts/report/patrol/',
-        getShiftReports: '/shifts', // + 123/reports
+        getShiftReports: '/shifts/', // + 123/reports
         shiftReportImageUpload: '/shifts/report/upload/',
         getShiftReportFiles: '/shifts/report', // + /12/files
         deleteShiftReportFile: '/Guard/file', // + /fileID
         upcomingRosters: '/shifts/rosters/upcoming', // for shift tab (but for no shift)
         scanNewShiftCheckPoint: '/shifts/checkpoint',
-        getScannedCheckPoints: '/shifts', // + /123/checkpoints
+        getScannedCheckPoints: '/shifts/', // + /123/checkpoints
         deleteScannedCheckPoint: '/shifts/checkpoint', // + /id
         deletePetrolReports: '/shifts/report', // + /shiftReportID
         statusGet: '/Guard/actions?status=', // urgent, overdue, warning etc
