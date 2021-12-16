@@ -17,3 +17,7 @@ export const MainParentWrapper = styled.View`
 `;
 
 export const commonStyledText = styled.Text``;
+
+export const MainWrapper = styled.View`
+  margin: 0 16px 0 16px;
+`

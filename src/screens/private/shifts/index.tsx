@@ -4,9 +4,9 @@ import { Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useActions } from '@root/hooks/useActions';
 import { useIsFocused } from '@react-navigation/native';
-import { useTypedSelector } from '../../../hooks/useTypedSelector';
-import CaseActiveShift from '../../../components/shifts/case-active-shift';
-import { NotFound, NotFoundWrapper } from '../../../utils/globalStyle';
+import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import CaseActiveShift from '@root/components/shifts/case-active-shift';
+import { NotFound, NotFoundWrapper } from '@root/utils/globalStyle';
 
 export const Shifts = () => {
     const { getActiveShift } = useActions();

@@ -1,11 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ActionDetail, Login } from './index';
+import { ActionDetail, Login, Patrol } from './index';
 import navigationStrings from '@root/navigation/navigationStrings';
 import DashboardTabs from '@root/navigation/Tabbar';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useTheme } from '@react-navigation/native';
 import { RosterCalender } from '@root/screens/private/rosters/calendarPicker';
+
 
 const Stack = createStackNavigator();
 
@@ -52,6 +53,20 @@ function StackNavigator() {
             <Stack.Screen
                 name={navigationStrings.ROSTER_CALENDAR}
                 component={RosterCalender}
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: colors.secondary,
+                    },
+                    headerBackTitleStyle: {
+                        color: colors.text,
+                    },
+                }}
+            />
+
+            <Stack.Screen
+                name={navigationStrings.PATROL}
+                component={Patrol}
                 options={{
                     headerShown: true,
                     headerStyle: {

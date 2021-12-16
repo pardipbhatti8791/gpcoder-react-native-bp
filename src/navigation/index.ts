@@ -6,5 +6,6 @@ export { Shifts } from '/screens/private/shifts';
 export { Actions } from '/screens/private/actions';
 export { Messages } from '/screens/private/messages';
 import { ActionDetail } from '/screens/private/actions/actionDetails';
+import Patrol from '/screens/private/shifts/patrol';
 
-export { Login, Home, ActionDetail, Rosters };
+export { Login, Home, ActionDetail, Rosters, Patrol };

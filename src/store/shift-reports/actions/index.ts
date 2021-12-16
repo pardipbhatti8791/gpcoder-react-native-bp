@@ -14,4 +14,41 @@ interface FailedShiftReports {
     payload: string;
 }
 
-export type Action = InitShiftReport | SuccessShiftReports | FailedShiftReports;
+interface InitCreateReportEntry {
+    type: ActionType.CREATE_PATROL_ENTRY_INIT;
+}
+
+interface SuccessCreateReportEntry {
+    type: ActionType.CREATE_PATROL_ENTRY_SUCCESS;
+    payload: any;
+}
+
+interface FailedCreateReportEntry {
+    type: ActionType.CREATE_PATROL_ENTRY_FAILED;
+    payload: string;
+}
+
+interface InitUploadAttachmentReportEntry {
+    type: ActionType.UPLOAD_ATTACHMENT_PATROL_ENTRY_INIT;
+}
+
+interface SuccessUploadAttachmentReportEntry {
+    type: ActionType.UPLOAD_ATTACHMENT_PATROL_ENTRY_SUCCESS;
+    payload: any;
+}
+
+interface FailedUploadAttachmentReportEntry {
+    type: ActionType.UPLOAD_ATTACHMENT_PATROL_ENTRY_FAILED;
+    payload: string;
+}
+
+export type Action =
+    | InitShiftReport
+    | SuccessShiftReports
+    | FailedShiftReports
+    | InitCreateReportEntry
+    | SuccessCreateReportEntry
+    | FailedCreateReportEntry
+    | InitUploadAttachmentReportEntry
+    | SuccessUploadAttachmentReportEntry
+    | FailedUploadAttachmentReportEntry;

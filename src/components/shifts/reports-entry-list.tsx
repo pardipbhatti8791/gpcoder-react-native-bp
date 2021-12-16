@@ -1,22 +1,34 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 // @ts-ignore
 import styled from 'styled-components/native';
 import { withTheme } from 'styled-components';
+
+import { navigationRef } from '@root/navigation/RootNavigation';
+import navigationStrings from '../../navigation/navigationStrings';
 
 const ReportsEntryList = ({ data }: any) => {
     return (
         data?.length > 0 &&
         data.map((item: any) => (
             <ReportsEntryList__Wrapper>
-                <ReportsEntryList__Wrapper_Secondary>
-                    <TitleText>{item.name}</TitleText>
-
-                    <Image
-                        source={require('@root/assets/iconright.png')}
-                        style={{ width: 12, height: 14 }}
-                    />
-                </ReportsEntryList__Wrapper_Secondary>
+                <TouchableOpacity
+                    onPress={() =>
+                        navigationRef.current.navigate(
+                            navigationStrings.PATROL,
+                            {
+                                editable: false,
+                            },
+                        )
+                    }>
+                    <ReportsEntryList__Wrapper_Secondary>
+                        <TitleText>{item.name}</TitleText>
+                        <Image
+                            source={require('@root/assets/iconright.png')}
+                            style={{ width: 12, height: 14 }}
+                        />
+                    </ReportsEntryList__Wrapper_Secondary>
+                </TouchableOpacity>
             </ReportsEntryList__Wrapper>
         ))
     );

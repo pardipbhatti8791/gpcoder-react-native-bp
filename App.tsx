@@ -41,7 +41,6 @@ const AppWrapper = () => {
             <PersistGate loading={null} persistor={persistor}>
                 <View style={{ flex: 1, position: "relative" }}>
                     <App />
-
                 </View>
 
             </PersistGate>

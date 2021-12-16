@@ -17,6 +17,7 @@ export const navigationTheme = {
             textGray: '#808080',
             inactive: '#CBC9D6',
             greenColor: '#17907A',
+            textBlack: '#000000'
         },
         spacing: {
             horizontal: 15,
@@ -40,6 +41,7 @@ export const navigationTheme = {
             textGray: '#808080',
             inactive: 'rgba(255, 255, 255, 0.6)',
             greenColor: '#17907A',
+            textBlack: '#000000'
         },
         spacing: {
             horizontal: 15,

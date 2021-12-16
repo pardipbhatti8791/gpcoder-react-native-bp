@@ -12,7 +12,7 @@ import { ActionType } from '../store/auth/actions-types';
 const state = store.getState();
 const instance = axios.create({
     baseURL: baseURL,
-    timeout: 5000,
+    timeout: 50000,
     timeoutErrorMessage: 'Timeout error'
 });
 

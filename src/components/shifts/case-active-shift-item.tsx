@@ -3,9 +3,12 @@ import { FlatList, TouchableOpacity } from 'react-native';
 import { format } from 'date-fns';
 // @ts-ignore
 import styled from 'styled-components/native';
+
 import { MainParentWrapper } from '@root/utils/globalStyle';
 import { useActions } from '@root/hooks/useActions';
 import { reportsData } from '@root/utils/common-methods';
+import {navigationRef} from "../../navigation/RootNavigation";
+import navigationStrings from "../../navigation/navigationStrings";
 
 type CaseActiveShiftItem = {
     shiftReportData: any;
@@ -17,14 +20,13 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
     item,
 }) => {
     const { openModal } = useActions();
-
     return (
         <MainParentWrapper>
             <ShiftCode>GHBJM</ShiftCode>
             <ShiftItemHorizontal>
                 <ShiftStartTimeEndTime>Shift: </ShiftStartTimeEndTime>
                 <ShiftCode>
-                    {format(new Date(item.shiftStart), 'HH:MM')}
+                    {format(new Date(item.shiftStart), 'HH:mm')}
                 </ShiftCode>
             </ShiftItemHorizontal>
             <ShiftItemHorizontal>
@@ -40,15 +42,27 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
             </ShiftItemHorizontal>
 
             <FlatList
+                showsVerticalScrollIndicator={false}
                 data={shiftReportData}
                 renderItem={({ item }) => (
+                    <TouchableOpacity
+                        onPress={() =>
+                            navigationRef.current.navigate(
+                                navigationStrings.PATROL,
+                                {
+                                    editable: true,
+                                    item
+                                },
+
+                            )
+                        }>
                     <ItemLayout>
                         <ItemHorizontal1>
                             <Timeicon
                                 source={require('@root/assets/clock/clock.png')}
                             />
                             <StartEndTimeCategory>
-                                {format(new Date(item.reportDateTime), 'HH:MM')}{' '}
+                                {format(new Date(item.reportDateTime), 'HH:mm')}{' '}
                                 - {item.categoryName}
                             </StartEndTimeCategory>
                         </ItemHorizontal1>
@@ -58,6 +72,7 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
                             {item.description}
                         </ShiftStartTimeEndTime>
                     </ItemLayout>
+                    </TouchableOpacity>
                 )}
             />
         </MainParentWrapper>

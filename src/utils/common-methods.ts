@@ -1,3 +1,5 @@
+import GetLocation from 'react-native-get-location';
+
 export const days = [
     'Sunday',
     'Monday',
@@ -5,9 +7,8 @@ export const days = [
     'Wednesday',
     'Thursday',
     'Friday',
-    'Saturday'
-]
-
+    'Saturday',
+];
 
 export const reportsData = [
     {
@@ -41,3 +42,18 @@ export const reportsData = [
         name: 'Patrol',
     },
 ];
+
+export const getUserLocation = () =>
+    new Promise((resolve, reject) => {
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+            .then((location) => {
+                resolve(location);
+            })
+            .catch((error) => {
+                const { code, message } = error;
+                reject(error);
+            });
+    });

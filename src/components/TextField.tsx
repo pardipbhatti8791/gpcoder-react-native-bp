@@ -4,7 +4,7 @@ import { Image, TouchableOpacity } from 'react-native';
 import { withTheme } from 'styled-components';
 // @ts-ignore
 import styled from 'styled-components/native';
-import {returnThemeTypeData} from "../utils/theme-type";
+import { returnThemeTypeData } from '../utils/theme-type';
 
 type TextFieldProps = {
     onChangeText: Function;
@@ -16,7 +16,9 @@ type TextFieldProps = {
     keyboardType?: string;
     autoCapitalize?: string;
     error?: string | null;
-    theme?: any
+    theme?: any;
+    multiline?: boolean;
+    style?: any;
 };
 
 const TextField: React.FC<TextFieldProps> = ({
@@ -29,6 +31,8 @@ const TextField: React.FC<TextFieldProps> = ({
     autoCapitalize = 'sentences',
     error = null,
     theme,
+    multiline = false,
+    style = {},
     ...rest
 }) => {
     const [showSecureEntry, setShowSecureEntry] = useState(false);
@@ -52,6 +56,8 @@ const TextField: React.FC<TextFieldProps> = ({
                     keyboardType={keyboardType}
                     autoCapitalize={autoCapitalize}
                     underlineColorAndroid="rgba(0,0,0,0)"
+                    multiline={multiline}
+                    style={style}
                     {...rest}
                 />
 
@@ -66,18 +72,19 @@ const TextField: React.FC<TextFieldProps> = ({
                                 source={
                                     showSecureEntry === true
                                         ? returnThemeTypeData({
-                                            screenName: 'login',
-                                            lightKey: 'eyeCloseDarkIcon',
-                                            darkKey: 'eyeCloseLightIcon',
-                                            appearance: theme.type,
-                                        })
+                                              screenName: 'login',
+                                              lightKey: 'eyeCloseDarkIcon',
+                                              darkKey: 'eyeCloseLightIcon',
+                                              appearance: theme.type,
+                                          })
                                         : returnThemeTypeData({
-                                            screenName: 'login',
-                                            lightKey: 'eyeOpenDarkIcon',
-                                            darkKey: 'eyeOpenLightIcon',
-                                            appearance: theme.type,
-                                        })
-                                }></Image>
+                                              screenName: 'login',
+                                              lightKey: 'eyeOpenDarkIcon',
+                                              darkKey: 'eyeOpenLightIcon',
+                                              appearance: theme.type,
+                                          })
+                                }
+                            />
                         </TouchableOpacity>
                     </SecureEntryIcon>
                 )}
@@ -108,6 +115,7 @@ const TextInputField = styled.TextInput`
     flex: 1;
     color: ${({ theme }: any) => theme.colors.text};
     padding-left: 8px;
+    
 `;
 
 const Horizontal = styled.View`

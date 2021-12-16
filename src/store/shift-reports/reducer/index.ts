@@ -6,12 +6,16 @@ interface RepositoriesStateInterface {
     shiftReportLoading: boolean;
     error: string | null;
     shiftReportData: any;
+    createReportEntryLoading: boolean;
+    uploadAttachmentReportEntryLoading: boolean;
 }
 
 const initialState = {
     shiftReportLoading: false,
     error: null,
     shiftReportData: false,
+    createReportEntryLoading: false,
+    uploadAttachmentReportEntryLoading: false,
 };
 
 /**
@@ -38,6 +42,35 @@ const reducer = (
                 draft.shiftReportLoading = false;
                 draft.error = action.payload;
                 draft.shiftReportData = false;
+                return draft;
+            case ActionType.CREATE_PATROL_ENTRY_INIT:
+                draft.createReportEntryLoading = true;
+                draft.error = null;
+                return draft;
+
+            case ActionType.CREATE_PATROL_ENTRY_SUCCESS:
+                draft.createReportEntryLoading = false;
+                draft.error = null;
+                return draft;
+
+            case ActionType.CREATE_PATROL_ENTRY_FAILED:
+                draft.createReportEntryLoading = false;
+                draft.error = action.payload;
+                return draft;
+
+            case ActionType.UPLOAD_ATTACHMENT_PATROL_ENTRY_INIT:
+                draft.uploadAttachmentReportEntryLoading = true;
+                draft.error = null;
+                return draft;
+
+            case ActionType.UPLOAD_ATTACHMENT_PATROL_ENTRY_SUCCESS:
+                draft.uploadAttachmentReportEntryLoading = false;
+                draft.error = null;
+                return draft;
+
+            case ActionType.UPLOAD_ATTACHMENT_PATROL_ENTRY_FAILED:
+                draft.uploadAttachmentReportEntryLoading = false;
+                draft.error = action.payload;
                 return draft;
             default:
                 return draft;

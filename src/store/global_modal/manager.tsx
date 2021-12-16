@@ -13,7 +13,7 @@ import styled from 'styled-components/native';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
 import { useActions } from '@root/hooks/useActions';
 import { ScrollView, View } from 'react-native';
-import { AccountModalSheet, RosterView, ReportsEntryList } from './modal';
+import { AccountModalSheet, RosterView, ReportsEntryList, ImagePickerSheet } from './modal';
 
 const ModalManager = () => {
     const { closeModal } = useActions();
@@ -102,7 +102,8 @@ const modalLookup: any = {
     WelcomeModal,
     AccountModalSheet,
     RosterView,
-    ReportsEntryList
+    ReportsEntryList,
+    ImagePickerSheet
 };
 
 const WelcomeModalWrapper = styled.View`

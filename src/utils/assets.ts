@@ -11,8 +11,16 @@ import eyeOpenDark from '@root/assets/eyeopen/eye_dark.png';
 import eyeClosedLight from '@root/assets/eyeclose/eyeclose.png';
 import eyeCloseDark from '@root/assets/eyeclose/eye_dark.png';
 import calendarIcon from '@root/assets/calender/calender.png';
+import arrowSend from '@root/assets/send/send.png';
 
-export { navigaionIcon, backgroundImage, backgroundImageLight, whiteRight, calendarIcon };
+export {
+    navigaionIcon,
+    backgroundImage,
+    backgroundImageLight,
+    whiteRight,
+    calendarIcon,
+    arrowSend,
+};
 
 export const assetsData = {
     login: {
