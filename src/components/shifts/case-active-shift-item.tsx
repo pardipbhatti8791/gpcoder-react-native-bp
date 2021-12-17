@@ -7,8 +7,8 @@ import styled from 'styled-components/native';
 import { MainParentWrapper } from '@root/utils/globalStyle';
 import { useActions } from '@root/hooks/useActions';
 import { reportsData } from '@root/utils/common-methods';
-import {navigationRef} from "../../navigation/RootNavigation";
-import navigationStrings from "../../navigation/navigationStrings";
+import { navigationRef } from '../../navigation/RootNavigation';
+import navigationStrings from '../../navigation/navigationStrings';
 
 type CaseActiveShiftItem = {
     shiftReportData: any;
@@ -33,7 +33,10 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
                 <ShiftText>Shift Report Entries</ShiftText>
                 <TouchableOpacity
                     onPress={() =>
-                        openModal('ReportsEntryList', { data: reportsData, height: '75%' })
+                        openModal('ReportsEntryList', {
+                            data: reportsData,
+                            height: '75%',
+                        })
                     }>
                     <AddImage
                         source={require('@root/assets/Vector/Vector.png')}
@@ -51,27 +54,29 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
                                 navigationStrings.PATROL,
                                 {
                                     editable: true,
-                                    item
+                                    item,
                                 },
-
                             )
                         }>
-                    <ItemLayout>
-                        <ItemHorizontal1>
-                            <Timeicon
-                                source={require('@root/assets/clock/clock.png')}
-                            />
-                            <StartEndTimeCategory>
-                                {format(new Date(item.reportDateTime), 'HH:mm')}{' '}
-                                - {item.categoryName}
-                            </StartEndTimeCategory>
-                        </ItemHorizontal1>
-                        <ShiftStartTimeEndTime
-                            numberOfLines={1}
-                            style={{ marginTop: 3 }}>
-                            {item.description}
-                        </ShiftStartTimeEndTime>
-                    </ItemLayout>
+                        <ItemLayout>
+                            <ItemHorizontal1>
+                                <Timeicon
+                                    source={require('@root/assets/clock/clock.png')}
+                                />
+                                <StartEndTimeCategory>
+                                    {format(
+                                        new Date(item.reportDateTime),
+                                        'HH:mm',
+                                    )}{' '}
+                                    - {item.categoryName}
+                                </StartEndTimeCategory>
+                            </ItemHorizontal1>
+                            <ShiftStartTimeEndTime
+                                numberOfLines={1}
+                                style={{ marginTop: 3 }}>
+                                {item.description}
+                            </ShiftStartTimeEndTime>
+                        </ItemLayout>
                     </TouchableOpacity>
                 )}
             />

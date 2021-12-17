@@ -10,6 +10,7 @@ interface RepositoriesStateInterface {
     uploadAttachmentReportEntryLoading: boolean;
     shiftReportsEntriesAttachmentsLoading: boolean;
     shiftReportsEntriesAttachments: any;
+    deleteShiftReportAttachmentLoading: boolean;
 }
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
     uploadAttachmentReportEntryLoading: false,
     shiftReportsEntriesAttachmentsLoading: false,
     shiftReportsEntriesAttachments: [],
+    deleteShiftReportAttachmentLoading: false,
 };
 
 /**
@@ -90,7 +92,23 @@ const reducer = (
 
             case ActionType.GET_ATTACHMENT_PATROL_ENTRY_FAILED:
                 draft.shiftReportsEntriesAttachmentsLoading = false;
-                draft.shiftReportsEntriesAttachments = []
+                draft.shiftReportsEntriesAttachments = [];
+                draft.error = action.payload;
+                return draft;
+
+            case ActionType.DELETE_ATTACHMENT_PATROL_ENTRY_INIT:
+                draft.deleteShiftReportAttachmentLoading = true;
+                draft.error = null;
+                return draft;
+
+            case ActionType.DELETE_ATTACHMENT_PATROL_ENTRY_SUCCESS:
+                draft.deleteShiftReportAttachmentLoading = false;
+
+                draft.error = null;
+                return draft;
+
+            case ActionType.DELETE_ATTACHMENT_PATROL_ENTRY_FAILED:
+                draft.deleteShiftReportAttachmentLoading = false;
                 draft.error = action.payload;
                 return draft;
 

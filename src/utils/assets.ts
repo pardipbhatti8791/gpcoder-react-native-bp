@@ -12,6 +12,7 @@ import eyeClosedLight from '@root/assets/eyeclose/eyeclose.png';
 import eyeCloseDark from '@root/assets/eyeclose/eye_dark.png';
 import calendarIcon from '@root/assets/calender/calender.png';
 import arrowSend from '@root/assets/send/send.png';
+import galleryIcon from '@root/assets/gallery/gallery.png';
 
 export {
     navigaionIcon,
@@ -20,6 +21,7 @@ export {
     whiteRight,
     calendarIcon,
     arrowSend,
+    galleryIcon,
 };
 
 export const assetsData = {
@@ -35,5 +37,6 @@ export const assetsData = {
         eyeCloseLightIcon: eyeClosedLight,
         eyeCloseDarkIcon: eyeCloseDark,
         calendarIcon: calendarIcon,
+        galleryIcon: galleryIcon,
     },
 };

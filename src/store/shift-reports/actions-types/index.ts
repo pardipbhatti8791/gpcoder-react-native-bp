@@ -14,4 +14,8 @@ export enum ActionType {
     GET_ATTACHMENT_PATROL_ENTRY_INIT = 'get_attachment_petrol_entry_init',
     GET_ATTACHMENT_PATROL_ENTRY_SUCCESS = 'get_attachment_petrol_entry_success',
     GET_ATTACHMENT_PATROL_ENTRY_FAILED = 'get_attachment_petrol_entry_failed',
+
+    DELETE_ATTACHMENT_PATROL_ENTRY_INIT = 'delete_attachment_petrol_entry_init',
+    DELETE_ATTACHMENT_PATROL_ENTRY_SUCCESS = 'delete_attachment_petrol_entry_success',
+    DELETE_ATTACHMENT_PATROL_ENTRY_FAILED = 'delete_attachment_petrol_entry_failed',
 }

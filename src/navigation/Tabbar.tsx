@@ -64,8 +64,7 @@ function DashboardTabs(props: any) {
                                 onPress={() => {
                                     alert('End Shift');
                                 }}
-                                style={{ padding: 5 }}
-                            >
+                                style={{ padding: 5 }}>
                                 <PrimaryButton
                                     onPress={() => endShift()}
                                     btnText={'End Shift'}

@@ -18,6 +18,7 @@ import {
     RosterView,
     ReportsEntryList,
     ImagePickerSheet,
+    ShiftAttacmentSheet,
 } from './modal';
 
 // ref
@@ -109,6 +110,7 @@ const modalLookup: any = {
     RosterView,
     ReportsEntryList,
     ImagePickerSheet,
+    ShiftAttacmentSheet,
 };
 
 const WelcomeModalWrapper = styled.View`

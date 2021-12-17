@@ -6,6 +6,7 @@ import service from '@root/service/axios';
 import {
     CreateReportEntryForShiftInterface,
     ShiftReportsInterface,
+    ShiftReportAttachmentInterface,
 } from '../interfaces';
 
 /**
@@ -120,6 +121,32 @@ export const getShiftsReportsEntrieAttachments = (
         } catch (e: any) {
             dispatch({
                 type: ActionType.GET_ATTACHMENT_PATROL_ENTRY_FAILED,
+                payload: 'Something went wrong! Please try again later',
+            });
+        }
+    };
+};
+
+export const deleteShiftReportAttacments = (
+    fn: ShiftReportAttachmentInterface,
+) => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({ type: ActionType.DELETE_ATTACHMENT_PATROL_ENTRY_INIT });
+
+        try {
+            const response = await service.delete(
+                apiUri.shifts.deleteShiftReportFile + fn.id,
+            );
+
+            dispatch({
+                type: ActionType.DELETE_ATTACHMENT_PATROL_ENTRY_SUCCESS,
+                payload: response.data,
+            });
+
+            return response;
+        } catch (e: any) {
+            dispatch({
+                type: ActionType.DELETE_ATTACHMENT_PATROL_ENTRY_FAILED,
                 payload: 'Something went wrong! Please try again later',
             });
         }

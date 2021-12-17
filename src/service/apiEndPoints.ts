@@ -15,7 +15,7 @@ const apiUri = {
         getShiftReports: '/shifts/', // + 123/reports
         shiftReportImageUpload: '/shifts/report/upload/',
         getShiftReportFiles: '/shifts/report/', // + /12/files
-        deleteShiftReportFile: '/Guard/file', // + /fileID
+        deleteShiftReportFile: '/Guard/file/', // + /fileID
         upcomingRosters: '/shifts/rosters/upcoming', // for shift tab (but for no shift)
         scanNewShiftCheckPoint: '/shifts/checkpoint',
         getScannedCheckPoints: '/shifts/', // + /123/checkpoints

@@ -5,14 +5,18 @@ import navigationStrings from '@root/navigation/navigationStrings';
 import DashboardTabs from '@root/navigation/Tabbar';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useTheme } from '@react-navigation/native';
+import styled from 'styled-components/native';
+import { galleryIcon } from '@root/utils/assets';
 import { RosterCalender } from '@root/screens/private/rosters/calendarPicker';
-
+import { TouchableOpacity } from 'react-native';
+import { useActions } from '@root/hooks/useActions';
 
 const Stack = createStackNavigator();
 
-function StackNavigator() {
+function StackNavigator(props: any) {
     const { colors }: any = useTheme();
     const { isAuthenticated } = useTypedSelector((state) => state.auth);
+    const { openModal } = useActions();
 
     return (
         <Stack.Navigator
@@ -75,6 +79,21 @@ function StackNavigator() {
                     headerBackTitleStyle: {
                         color: colors.text,
                     },
+                    headerRight: () => {
+                        return (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    openModal('ShiftAttacmentSheet', {
+                                        height: '80%',
+                                    });
+                                }}>
+                                <NavigationBurgerIcon
+                                    style={{ marginRight: 15 }}
+                                    source={galleryIcon}
+                                />
+                            </TouchableOpacity>
+                        );
+                    },
                 }}
             />
         </Stack.Navigator>
@@ -82,3 +101,7 @@ function StackNavigator() {
 }
 
 export default StackNavigator;
+
+const NavigationBurgerIcon = styled.Image`
+    margin-left: 16px;
+`;

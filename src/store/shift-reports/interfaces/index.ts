@@ -24,3 +24,7 @@ export interface CreateReportEntryForShiftInterface {
         shiftReportID: number;
     };
 }
+
+export interface ShiftReportAttachmentInterface {
+    id: string;
+}

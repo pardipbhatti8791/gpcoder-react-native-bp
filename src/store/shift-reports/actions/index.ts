@@ -56,6 +56,20 @@ interface FailedGetAttachmentReportEntry {
     payload: string;
 }
 
+interface InitDeleteAttachmentReportEntry {
+    type: ActionType.DELETE_ATTACHMENT_PATROL_ENTRY_INIT;
+}
+
+interface SuccessDeleteAttachmentReportEntry {
+    type: ActionType.DELETE_ATTACHMENT_PATROL_ENTRY_SUCCESS;
+    payload: any;
+}
+
+interface FailedDeleteAttachmentReportEntry {
+    type: ActionType.DELETE_ATTACHMENT_PATROL_ENTRY_FAILED;
+    payload: string;
+}
+
 export type Action =
     | InitShiftReport
     | SuccessShiftReports
@@ -68,4 +82,7 @@ export type Action =
     | FailedUploadAttachmentReportEntry
     | InitGetAttachmentReportEntry
     | SuccessGetAttachmentReportEntry
-    | FailedGetAttachmentReportEntry;
+    | FailedGetAttachmentReportEntry
+    | InitDeleteAttachmentReportEntry
+    | SuccessDeleteAttachmentReportEntry
+    | FailedDeleteAttachmentReportEntry;

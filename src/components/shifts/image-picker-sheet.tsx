@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Platform, ScrollView, TouchableOpacity, View } from 'react-native';
 import { Formik } from 'formik';
 
@@ -14,6 +14,7 @@ import TextField from '@root/components/TextField';
 import { PATROL_ENTRY_SCHEMA } from '@root/screens/private/shifts/patrol/helper';
 import { useActions } from '@root/hooks/useActions';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
+
 const ImagePickerSheet = (props: any) => {
     const { uploadAttachmentShiftReportsEntries } = useActions();
     const [imagePath, setImagePath] = useState<any>(null);
