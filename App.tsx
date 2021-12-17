@@ -34,6 +34,7 @@ global.fetch = function (uri, options, ...args) {
     });
 };
 
+
 const AppWrapper = () => {
     return (
         <Provider store={store}>

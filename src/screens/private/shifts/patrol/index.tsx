@@ -1,39 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { format } from 'date-fns';
-import { Formik } from 'formik';
+import React, {useEffect, useState} from 'react';
+import {format} from 'date-fns';
+import {Formik} from 'formik';
 import BackgroundGlobal from '@root/components/BackgroundGlobal';
-import { MainParentWrapper, MainWrapper } from '@root/utils/globalStyle';
+import {
+    MainParentWrapper,
+    MainWrapper,
+    NotFound,
+} from '@root/utils/globalStyle';
 
 // @ts-ignore
 import styled from 'styled-components/native';
-import { withTheme } from 'styled-components';
+import {withTheme} from 'styled-components';
 import TextField from '@root/components/TextField';
-import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
-import { WINDOW_DEVICE_WIDTH } from '@root/utils/constants';
+import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
+import {WINDOW_DEVICE_WIDTH} from '@root/utils/constants';
 import ButtonSecondary from '@root/components/ButtonSecondary';
-import { arrowSend } from 'utils/assets';
-import { getUserLocation } from '@root/utils/common-methods';
+import {arrowSend} from 'utils/assets';
+import {getUserLocation} from '@root/utils/common-methods';
 import CustomTimePicker from '@root/components/TimePicker';
-import { useActions } from '@root/hooks/useActions';
-import { useTypedSelector } from '@root/hooks/useTypedSelector';
-import { navigationRef } from '@root/navigation/RootNavigation';
-import { PATROL_ENTRY_SCHEMA } from './helper';
-import { apiUri } from '../../../../service/apiEndPoints';
+import {useActions} from '@root/hooks/useActions';
+import {useTypedSelector} from '@root/hooks/useTypedSelector';
+import {navigationRef} from '@root/navigation/RootNavigation';
+import {PATROL_ENTRY_SCHEMA} from './helper';
+import {apiUri} from '../../../../service/apiEndPoints';
 import ModalManager from '../../../../store/global_modal/manager';
 
 const Patrol = (props: any) => {
-    const { createReportEntryForShift, openModal } = useActions();
     const {
-        route: { params },
+        createReportEntryForShift,
+        openModal,
+        getShiftsReportsEntrieAttachments,
+    } = useActions();
+    const {
+        route: {params},
     } = props;
     const [location, setLocation] = useState<any>({});
     const [time, setTime] = useState<any>(new Date());
     const [visibleTimer, setVisibleTimer] = useState<boolean>(false);
-    const { activeShift }: any = useTypedSelector((state) => state.activeShift);
-    const { createReportEntryLoading }: any = useTypedSelector(
-        (state) => state.shiftReports,
-    );
+    const {activeShift}: any = useTypedSelector((state) => state.activeShift);
+    const {
+        createReportEntryLoading,
+        shiftReportsEntriesAttachments,
+        shiftReportsEntriesAttachmentsLoading,
+    }: any = useTypedSelector((state) => state.shiftReports);
 
+    useEffect(() => {
+        getShiftsReportsEntrieAttachments({id: params.item.shiftReportID});
+    }, []);
 
     useEffect(() => {
         getUserLoc();
@@ -49,7 +62,7 @@ const Patrol = (props: any) => {
     };
 
     const handleCreateReportEntry = async (values: any) => {
-        const newValue = { ...values };
+        const newValue = {...values};
         if (params.editable) {
             delete newValue.shiftID;
             console.log('before', newValue);
@@ -86,11 +99,11 @@ const Patrol = (props: any) => {
                                 <TimeTitleText>
                                     {params.editable === true
                                         ? format(
-                                              new Date(
-                                                  params.item.reportDateTime,
-                                              ),
-                                              'HH:mm',
-                                          )
+                                            new Date(
+                                                params.item.reportDateTime,
+                                            ),
+                                            'HH:mm',
+                                        )
                                         : format(new Date(time), 'HH:mm')}
                                 </TimeTitleText>
                             </TouchableOpacity>
@@ -118,15 +131,15 @@ const Patrol = (props: any) => {
                             shiftID: params.item
                                 ? params.item.shiftReportID
                                 : activeShift
-                                ? activeShift.shiftID
-                                : 0,
+                                    ? activeShift.shiftID
+                                    : 0,
                         }}
                         enableReinitialize={true}
                         onSubmit={async (values) => {
                             await handleCreateReportEntry(values);
                             navigationRef.current.goBack();
                         }}>
-                        {({ setFieldValue, handleSubmit, errors, values }) => (
+                        {({setFieldValue, handleSubmit, errors, values}) => (
                             <View>
                                 <TextField
                                     accessibilityLabel="Description"
@@ -146,40 +159,90 @@ const Patrol = (props: any) => {
 
                                 {params.editable && (
                                     <ImageWrapper>
-                                        <ImageWrapper__Image
-                                            width={WINDOW_DEVICE_WIDTH - 32}>
-                                            <Image
-                                                style={{
-                                                    width:
-                                                        (WINDOW_DEVICE_WIDTH -
-                                                            32) /
-                                                        6,
-                                                    height:
-                                                        (WINDOW_DEVICE_WIDTH -
-                                                            32) /
-                                                        6,
-                                                    borderRadius: 4,
-                                                }}
-                                                source={require('@root/assets/profile.png')}
-                                            />
-                                        </ImageWrapper__Image>
-
-                                        <TouchableOpacity
-                                            onPress={() =>
-                                                openModal('ImagePickerSheet', {
-                                                    height: '70%',
-                                                    shiftReportID: params.item.shiftReportID
-                                                })
-                                            }>
-                                            <ImageWrapper__AddImageButton
-                                                width={
-                                                    WINDOW_DEVICE_WIDTH - 32
+                                        {shiftReportsEntriesAttachmentsLoading ? (
+                                            <NotFound style={{ alignSelf: 'center' }}>Loading...</NotFound>
+                                        ) : shiftReportsEntriesAttachments.length >
+                                        0 ? (
+                                            shiftReportsEntriesAttachments.map(
+                                                (attachment: any) => {
+                                                    return (
+                                                        <ImageWrapper__Image
+                                                            width={
+                                                                WINDOW_DEVICE_WIDTH -
+                                                                32
+                                                            }>
+                                                            <Image
+                                                                style={{
+                                                                    width:
+                                                                        (WINDOW_DEVICE_WIDTH -
+                                                                            32) /
+                                                                        6,
+                                                                    height:
+                                                                        (WINDOW_DEVICE_WIDTH -
+                                                                            32) /
+                                                                        6,
+                                                                    borderRadius: 4,
+                                                                }}
+                                                                source={{
+                                                                    uri:
+                                                                        'data:image/png;base64,  ' +
+                                                                        attachment.image,
+                                                                }}
+                                                            />
+                                                        </ImageWrapper__Image>
+                                                    );
+                                                },
+                                            )
+                                        ) : (
+                                            <TouchableOpacity
+                                                onPress={() =>
+                                                    openModal(
+                                                        'ImagePickerSheet',
+                                                        {
+                                                            height: '70%',
+                                                            shiftReportID:
+                                                            params.item
+                                                                .shiftReportID,
+                                                        },
+                                                    )
                                                 }>
-                                                <Image
-                                                    source={require('@root/assets/addWhite/addWhite.png')}
-                                                />
-                                            </ImageWrapper__AddImageButton>
-                                        </TouchableOpacity>
+                                                <ImageWrapper__AddImageButton
+                                                    width={
+                                                        WINDOW_DEVICE_WIDTH - 32
+                                                    }>
+                                                    <Image
+                                                        source={require('@root/assets/addWhite/addWhite.png')}
+                                                    />
+                                                </ImageWrapper__AddImageButton>
+                                            </TouchableOpacity>
+                                        )}
+
+                                        {!shiftReportsEntriesAttachmentsLoading && shiftReportsEntriesAttachments.length > 0 && (
+                                            <TouchableOpacity
+                                                onPress={() =>
+                                                    openModal(
+                                                        'ImagePickerSheet',
+                                                        {
+                                                            height: '70%',
+                                                            shiftReportID:
+                                                            params
+                                                                .item
+                                                                .shiftReportID,
+                                                        },
+                                                    )
+                                                }>
+                                                <ImageWrapper__AddImageButton
+                                                    width={
+                                                        WINDOW_DEVICE_WIDTH -
+                                                        32
+                                                    }>
+                                                    <Image
+                                                        source={require('@root/assets/addWhite/addWhite.png')}
+                                                    />
+                                                </ImageWrapper__AddImageButton>
+                                            </TouchableOpacity>
+                                        )}
+
                                     </ImageWrapper>
                                 )}
 
@@ -196,7 +259,7 @@ const Patrol = (props: any) => {
                         )}
                     </Formik>
                 </MainWrapper>
-                <ModalManager />
+                <ModalManager/>
             </MainParentWrapper>
         </BackgroundGlobal>
     );
@@ -209,56 +272,56 @@ type ImageWrapper__ImageProps = {
 };
 
 const ButtonWrapper = styled.View`
-    flex: 1;
-    align-items: flex-end;
-    margin-top: 16px;
+  flex: 1;
+  align-items: flex-end;
+  margin-top: 16px;
 `;
 
 const ImageWrapper__AddImageButton = styled.View<ImageWrapper__ImageProps>`
-    background-color: ${({ theme }: any) => theme.colors.primary};
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    margin-top: 5px;
-    margin-left: 4px;
-    width: ${({ width }: any) => width / 6}px;
-    height: ${({ width }: any) => width / 6}px;
+  background-color: ${({theme}: any) => theme.colors.primary};
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  margin-top: 5px;
+  margin-left: 4px;
+  width: ${({width}: any) => width / 6}px;
+  height: ${({width}: any) => width / 6}px;
 `;
 
 const ImageWrapper__Image = styled.View<ImageWrapper__ImageProps>`
-    width: ${({ width }: any) => width / 6}px;
-    height: ${({ width }: any) => width / 6}px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    margin: 4px 4px 4px 4px;
+  width: ${({width}: any) => width / 6}px;
+  height: ${({width}: any) => width / 6}px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  margin: 4px 4px 4px 4px;
 `;
 
 const ImageWrapper = styled.View`
-    flex-wrap: wrap;
-    flex-direction: row;
-    background-color: ${({ theme }: any) => theme.colors.secondary};
-    margin-top: 20px;
-    padding: 8px;
-    justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+  background-color: ${({theme}: any) => theme.colors.secondary};
+  margin-top: 20px;
+  padding: 8px;
+  justify-content: flex-start;
 `;
 
 const Timeicon = styled.Image`
-    margin-right: 8px;
+  margin-right: 8px;
 `;
 
 const ShiftItemHorizontal = styled.View`
-    display: flex;
-    flex-direction: row;
-    margin-top: 8px;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-top: 8px;
+  align-items: center;
 `;
 
 const TimeTitleText = styled.Text`
-    font-size: ${({ theme }: any) => theme.fontSize.cardTitle};
-    color: ${({ theme }: any) => theme.colors.text};
+  font-size: ${({theme}: any) => theme.fontSize.cardTitle};
+  color: ${({theme}: any) => theme.colors.text};
 `;
 
 const ImageRight = styled.View`
-    margin-top: 30px;
+  margin-top: 30px;
 `;

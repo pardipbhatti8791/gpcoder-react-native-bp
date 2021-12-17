@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Platform, ScrollView, TouchableOpacity, View } from 'react-native';
 import { Formik } from 'formik';
 
 import ImagePicker from 'react-native-image-crop-picker';
+
+import { bottomSheetRef } from '@root/store/global_modal/manager';
 
 // @ts-ignore
 import styled from 'styled-components/native';
@@ -11,12 +13,15 @@ import PrimaryButton from '../Button';
 import TextField from '@root/components/TextField';
 import { PATROL_ENTRY_SCHEMA } from '@root/screens/private/shifts/patrol/helper';
 import { useActions } from '@root/hooks/useActions';
-
+import { useTypedSelector } from '@root/hooks/useTypedSelector';
 const ImagePickerSheet = (props: any) => {
     const { uploadAttachmentShiftReportsEntries } = useActions();
     const [imagePath, setImagePath] = useState<any>(null);
+    const { uploadAttachmentReportEntryLoading } = useTypedSelector(
+        (state) => state.shiftReports,
+    );
 
-    const saveImage = (values: any) => {
+    const saveImage = async (values: any) => {
         if (imagePath === null) {
             console.log('Image path error');
         } else {
@@ -27,9 +32,9 @@ const ImagePickerSheet = (props: any) => {
                     ? imagePath.path
                     : imagePath.path.replace('file://', '');
 
-            console.log(osPath)
-            console.log(props.shiftReportID)
-            console.log(values.description)
+            console.log(osPath);
+            console.log(props.shiftReportID);
+            console.log(values.description);
 
             formData.append('file', {
                 // @ts-ignore
@@ -41,7 +46,7 @@ const ImagePickerSheet = (props: any) => {
             formData.append('entityId', props.shiftReportID);
             formData.append('description', values.description);
 
-            uploadAttachmentShiftReportsEntries(formData);
+            await uploadAttachmentShiftReportsEntries(formData);
         }
     };
 
@@ -56,6 +61,7 @@ const ImagePickerSheet = (props: any) => {
                     enableReinitialize={true}
                     onSubmit={async (values) => {
                         await saveImage(values);
+                        bottomSheetRef.current.close();
                     }}>
                     {({ setFieldValue, handleSubmit, errors, values }) => (
                         <SheetContentWrapper>
@@ -139,7 +145,7 @@ const ImagePickerSheet = (props: any) => {
                             <ButtonWrapper>
                                 <PrimaryButton
                                     onPress={() => handleSubmit()}
-                                    loading={false}
+                                    loading={uploadAttachmentReportEntryLoading}
                                     btnText={'Save'}
                                 />
                             </ButtonWrapper>

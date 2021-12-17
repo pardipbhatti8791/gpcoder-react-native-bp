@@ -10,4 +10,8 @@ export enum ActionType {
     UPLOAD_ATTACHMENT_PATROL_ENTRY_INIT = 'upload_attachment_petrol_entry_init',
     UPLOAD_ATTACHMENT_PATROL_ENTRY_SUCCESS = 'upload_attachment_petrol_entry_success',
     UPLOAD_ATTACHMENT_PATROL_ENTRY_FAILED = 'upload_attachment_petrol_entry_failed',
+
+    GET_ATTACHMENT_PATROL_ENTRY_INIT = 'get_attachment_petrol_entry_init',
+    GET_ATTACHMENT_PATROL_ENTRY_SUCCESS = 'get_attachment_petrol_entry_success',
+    GET_ATTACHMENT_PATROL_ENTRY_FAILED = 'get_attachment_petrol_entry_failed',
 }

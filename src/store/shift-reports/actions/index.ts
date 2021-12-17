@@ -42,6 +42,20 @@ interface FailedUploadAttachmentReportEntry {
     payload: string;
 }
 
+interface InitGetAttachmentReportEntry {
+    type: ActionType.GET_ATTACHMENT_PATROL_ENTRY_INIT;
+}
+
+interface SuccessGetAttachmentReportEntry {
+    type: ActionType.GET_ATTACHMENT_PATROL_ENTRY_SUCCESS;
+    payload: any;
+}
+
+interface FailedGetAttachmentReportEntry {
+    type: ActionType.GET_ATTACHMENT_PATROL_ENTRY_FAILED;
+    payload: string;
+}
+
 export type Action =
     | InitShiftReport
     | SuccessShiftReports
@@ -51,4 +65,7 @@ export type Action =
     | FailedCreateReportEntry
     | InitUploadAttachmentReportEntry
     | SuccessUploadAttachmentReportEntry
-    | FailedUploadAttachmentReportEntry;
+    | FailedUploadAttachmentReportEntry
+    | InitGetAttachmentReportEntry
+    | SuccessGetAttachmentReportEntry
+    | FailedGetAttachmentReportEntry;

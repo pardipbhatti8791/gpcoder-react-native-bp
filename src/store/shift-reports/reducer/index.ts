@@ -8,6 +8,8 @@ interface RepositoriesStateInterface {
     shiftReportData: any;
     createReportEntryLoading: boolean;
     uploadAttachmentReportEntryLoading: boolean;
+    shiftReportsEntriesAttachmentsLoading: boolean;
+    shiftReportsEntriesAttachments: any;
 }
 
 const initialState = {
@@ -16,6 +18,8 @@ const initialState = {
     shiftReportData: false,
     createReportEntryLoading: false,
     uploadAttachmentReportEntryLoading: false,
+    shiftReportsEntriesAttachmentsLoading: false,
+    shiftReportsEntriesAttachments: [],
 };
 
 /**
@@ -72,6 +76,24 @@ const reducer = (
                 draft.uploadAttachmentReportEntryLoading = false;
                 draft.error = action.payload;
                 return draft;
+
+            case ActionType.GET_ATTACHMENT_PATROL_ENTRY_INIT:
+                draft.shiftReportsEntriesAttachmentsLoading = true;
+                draft.error = null;
+                return draft;
+
+            case ActionType.GET_ATTACHMENT_PATROL_ENTRY_SUCCESS:
+                draft.shiftReportsEntriesAttachmentsLoading = false;
+                draft.shiftReportsEntriesAttachments = action.payload;
+                draft.error = null;
+                return draft;
+
+            case ActionType.GET_ATTACHMENT_PATROL_ENTRY_FAILED:
+                draft.shiftReportsEntriesAttachmentsLoading = false;
+                draft.shiftReportsEntriesAttachments = []
+                draft.error = action.payload;
+                return draft;
+
             default:
                 return draft;
         }

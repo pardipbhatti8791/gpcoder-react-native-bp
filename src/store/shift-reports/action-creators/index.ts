@@ -96,3 +96,32 @@ export const uploadAttachmentShiftReportsEntries = (data: FormData) => {
         }
     };
 };
+
+/**
+ * @param fn
+ */
+export const getShiftsReportsEntrieAttachments = (
+    fn: ShiftReportsInterface,
+) => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.GET_ATTACHMENT_PATROL_ENTRY_INIT,
+        });
+        try {
+            const response = await service.get(
+                apiUri.shifts.getShiftReportFiles + fn.id + '/files',
+            );
+            dispatch({
+                type: ActionType.GET_ATTACHMENT_PATROL_ENTRY_SUCCESS,
+                payload: response.data,
+            });
+
+            return response;
+        } catch (e: any) {
+            dispatch({
+                type: ActionType.GET_ATTACHMENT_PATROL_ENTRY_FAILED,
+                payload: 'Something went wrong! Please try again later',
+            });
+        }
+    };
+};
