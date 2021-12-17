@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Text } from 'react-native';
 // @ts-ignore
 import styled from 'styled-components/native';
 import { useActions } from '@root/hooks/useActions';
@@ -7,6 +6,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
 import CaseActiveShift from '@root/components/shifts/case-active-shift';
 import { NotFound, NotFoundWrapper } from '@root/utils/globalStyle';
+import NoCurrentShift from '@root/components/shifts/no-current-shift';
 
 export const Shifts = () => {
     const { getActiveShift } = useActions();
@@ -28,6 +28,6 @@ export const Shifts = () => {
     ) : isActiveShift ? (
         <CaseActiveShift item={activeShift} />
     ) : (
-        <NotFound>Not Shift Found</NotFound>
+        <NoCurrentShift/>
     );
 };

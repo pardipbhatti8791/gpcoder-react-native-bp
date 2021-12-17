@@ -123,7 +123,7 @@ const ImagePickerSheet = (props: any) => {
                                         imagePath !== null
                                             ? imagePath.path
                                             : '',
-                                }}></ImageSelect>
+                                }} />
 
                             <TextFieldWrapper>
                                 <TextField

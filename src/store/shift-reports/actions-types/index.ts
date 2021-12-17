@@ -18,4 +18,14 @@ export enum ActionType {
     DELETE_ATTACHMENT_PATROL_ENTRY_INIT = 'delete_attachment_petrol_entry_init',
     DELETE_ATTACHMENT_PATROL_ENTRY_SUCCESS = 'delete_attachment_petrol_entry_success',
     DELETE_ATTACHMENT_PATROL_ENTRY_FAILED = 'delete_attachment_petrol_entry_failed',
+
+    END_SHIFT_INIT = 'end_shift_init',
+    END_SHIFT_SUCCESS = 'end_shift_success',
+    END_SHIFT_FAILED = 'end_shift_failed',
+
+    START_SHIFT_INIT = 'start_shift_init',
+    START_SHIFT_SUCCESS = 'start_shift_success',
+    START_SHIFT_FAILED = 'start_shift_failed',
+
+    SET_SHIFT_REPORT_ENTRY_ID = 'set_shift_report_entry_id',
 }

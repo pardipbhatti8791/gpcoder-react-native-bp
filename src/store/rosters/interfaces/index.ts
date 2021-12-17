@@ -1,3 +1,7 @@
 export interface RosterInterface {
-    uri: string
+    uri: string;
+}
+
+export interface UpcomingRostersInterface {
+    orgID: string;
 }

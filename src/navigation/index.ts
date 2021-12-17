@@ -7,5 +7,6 @@ export { Actions } from '/screens/private/actions';
 export { Messages } from '/screens/private/messages';
 import { ActionDetail } from '/screens/private/actions/actionDetails';
 import Patrol from '/screens/private/shifts/patrol';
+import ScanScreen from '/components/shifts/qr-scanner';
 
-export { Login, Home, ActionDetail, Rosters, Patrol };
+export { Login, Home, ActionDetail, Rosters, Patrol, ScanScreen };

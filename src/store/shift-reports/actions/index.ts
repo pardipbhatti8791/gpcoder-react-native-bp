@@ -70,6 +70,37 @@ interface FailedDeleteAttachmentReportEntry {
     payload: string;
 }
 
+interface InitEndShift {
+    type: ActionType.END_SHIFT_INIT;
+}
+
+interface SuccessEndShift {
+    type: ActionType.END_SHIFT_SUCCESS;
+}
+
+interface FailedEndShift {
+    type: ActionType.END_SHIFT_FAILED;
+    payload: string;
+}
+
+interface InitStartShift {
+    type: ActionType.START_SHIFT_INIT;
+}
+
+interface SuccessStartShift {
+    type: ActionType.START_SHIFT_SUCCESS;
+}
+
+interface FailedStartShift {
+    type: ActionType.START_SHIFT_FAILED;
+    payload: string;
+}
+
+interface ShiftReportEntryID {
+    type: ActionType.SET_SHIFT_REPORT_ENTRY_ID;
+    payload: string;
+}
+
 export type Action =
     | InitShiftReport
     | SuccessShiftReports
@@ -85,4 +116,11 @@ export type Action =
     | FailedGetAttachmentReportEntry
     | InitDeleteAttachmentReportEntry
     | SuccessDeleteAttachmentReportEntry
-    | FailedDeleteAttachmentReportEntry;
+    | FailedDeleteAttachmentReportEntry
+    | ShiftReportEntryID
+    | InitEndShift
+    | SuccessEndShift
+    | FailedEndShift
+    | InitStartShift
+    | SuccessStartShift
+    | FailedStartShift;

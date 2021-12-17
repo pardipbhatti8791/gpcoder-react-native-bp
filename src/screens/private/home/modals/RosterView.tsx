@@ -5,8 +5,14 @@ import { format } from 'date-fns';
 import { withTheme } from 'styled-components';
 // @ts-ignore
 import styled from 'styled-components/native';
+import { useActions } from '@root/hooks/useActions';
+import { getUserLocation } from '../../../../utils/common-methods';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 
-const RosterView = ({ item, button }) => {
+const RosterView = ({ item, button }: any) => {
+    const { startShiftAction } = useActions();
+    const orgID = useTypedSelector((state) => state.auth.orgID);
+
     return (
         <ScrollView>
             <MainFrame>
@@ -43,7 +49,28 @@ const RosterView = ({ item, button }) => {
                 <LocationText>Report to Dock master</LocationText>
 
                 {button && (
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={async () => {
+                            try {
+                                const uLocationData: any =
+                                    await getUserLocation();
+                                await startShiftAction({
+                                    type: 'auto',
+                                    orgID: orgID,
+                                    startAuto: {
+                                        rosterID: item.rosterID,
+                                        geoLocation: {
+                                            latitude: uLocationData.latitude,
+                                            longitude: uLocationData.longitude,
+                                        },
+                                    },
+                                });
+                            } catch (e) {
+                                alert(
+                                    'Please enable the location from settings!',
+                                );
+                            }
+                        }}>
                         <View style={{ alignItems: 'center' }}>
                             <StartBtnImage
                                 source={require('@root/assets/startshiftbtn/startshiftbtn.png')}

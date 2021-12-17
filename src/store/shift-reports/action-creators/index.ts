@@ -7,6 +7,8 @@ import {
     CreateReportEntryForShiftInterface,
     ShiftReportsInterface,
     ShiftReportAttachmentInterface,
+    EndShiftInterface,
+    StartShiftInterface,
 } from '../interfaces';
 
 /**
@@ -147,6 +149,81 @@ export const deleteShiftReportAttacments = (
         } catch (e: any) {
             dispatch({
                 type: ActionType.DELETE_ATTACHMENT_PATROL_ENTRY_FAILED,
+                payload: 'Something went wrong! Please try again later',
+            });
+        }
+    };
+};
+
+export const setShiftReportEntryID = (fn: ShiftReportAttachmentInterface) => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.SET_SHIFT_REPORT_ENTRY_ID,
+            payload: fn.id,
+        });
+    };
+};
+
+/**
+ * @param fn
+ */
+export const startShiftAction = (fn: StartShiftInterface) => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.START_SHIFT_INIT,
+        });
+        try {
+            const response = await service.post(
+                apiUri.shifts.startShift,
+                fn.type === 'auto' ? fn.startAuto : fn.startManual,
+                {
+                    headers: {
+                        'g-org': fn.orgID,
+                    },
+                },
+            );
+            dispatch({
+                type: ActionType.START_SHIFT_SUCCESS,
+                payload: response.data,
+            });
+
+            return response;
+        } catch (e: any) {
+            dispatch({
+                type: ActionType.START_SHIFT_FAILED,
+                payload: 'Something went wrong! Please try again later',
+            });
+        }
+    };
+};
+
+/**
+ * @param fn
+ */
+export const endShiftAction = (fn: EndShiftInterface) => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.END_SHIFT_INIT,
+        });
+        try {
+            const response = await service.post(
+                apiUri.shifts.endShift,
+                fn.item,
+                {
+                    headers: {
+                        'g-org': fn.orgID,
+                    },
+                },
+            );
+            dispatch({
+                type: ActionType.END_SHIFT_SUCCESS,
+                payload: response.data,
+            });
+
+            return response;
+        } catch (e: any) {
+            dispatch({
+                type: ActionType.END_SHIFT_FAILED,
                 payload: 'Something went wrong! Please try again later',
             });
         }

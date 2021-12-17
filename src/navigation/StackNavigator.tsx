@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ActionDetail, Login, Patrol } from './index';
+import { ActionDetail, Login, Patrol, ScanScreen } from './index';
 import navigationStrings from '@root/navigation/navigationStrings';
 import DashboardTabs from '@root/navigation/Tabbar';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -69,6 +69,20 @@ function StackNavigator(props: any) {
             />
 
             <Stack.Screen
+                name={navigationStrings.QRSCAN}
+                component={ScanScreen}
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: colors.secondary,
+                    },
+                    headerBackTitleStyle: {
+                        color: colors.text,
+                    },
+                }}
+            />
+
+            <Stack.Screen
                 name={navigationStrings.PATROL}
                 component={Patrol}
                 options={{
@@ -79,13 +93,14 @@ function StackNavigator(props: any) {
                     headerBackTitleStyle: {
                         color: colors.text,
                     },
-                    headerRight: () => {
+                    headerRight: (props: any) => {
                         return (
                             <TouchableOpacity
                                 onPress={() => {
-                                    openModal('ShiftAttacmentSheet', {
+                                    openModal('ShiftAttachmentSheet', {
                                         height: '80%',
                                     });
+                                    console.log('props----', props)
                                 }}>
                                 <NavigationBurgerIcon
                                     style={{ marginRight: 15 }}

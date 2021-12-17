@@ -13,9 +13,15 @@ type HomeRostersProps = {
         rosterStart: string;
         rosterEnd: string;
     };
+    showButton?: boolean;
+    height?: string;
 };
 
-const HomeRosters: React.FC<HomeRostersProps> = ({ item }) => {
+const HomeRosters: React.FC<HomeRostersProps> = ({
+    item,
+    showButton = false,
+    height = '65%',
+}) => {
     const { openModal } = useActions();
 
     return (
@@ -23,8 +29,8 @@ const HomeRosters: React.FC<HomeRostersProps> = ({ item }) => {
             onPress={() =>
                 openModal('RosterView', {
                     item: item,
-                    height: '65%',
-                    button: false,
+                    height: height,
+                    button: showButton,
                 })
             }>
             <ShiftItemLayout>

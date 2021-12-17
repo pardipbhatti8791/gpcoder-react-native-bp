@@ -11,6 +11,9 @@ interface RepositoriesStateInterface {
     shiftReportsEntriesAttachmentsLoading: boolean;
     shiftReportsEntriesAttachments: any;
     deleteShiftReportAttachmentLoading: boolean;
+    shiftReportEntryID: string;
+    endShiftLoading: boolean;
+    startShiftLoading: boolean;
 }
 
 const initialState = {
@@ -22,6 +25,9 @@ const initialState = {
     shiftReportsEntriesAttachmentsLoading: false,
     shiftReportsEntriesAttachments: [],
     deleteShiftReportAttachmentLoading: false,
+    shiftReportEntryID: '',
+    endShiftLoading: false,
+    startShiftLoading: false,
 };
 
 /**
@@ -112,6 +118,39 @@ const reducer = (
                 draft.error = action.payload;
                 return draft;
 
+            case ActionType.START_SHIFT_INIT:
+                draft.startShiftLoading = true;
+                draft.error = null;
+                return draft;
+
+            case ActionType.START_SHIFT_SUCCESS:
+                draft.startShiftLoading = false;
+                draft.error = null;
+                return draft;
+
+            case ActionType.START_SHIFT_FAILED:
+                draft.startShiftLoading = false;
+                draft.error = action.payload;
+                return draft;
+
+            case ActionType.END_SHIFT_INIT:
+                draft.endShiftLoading = true;
+                draft.error = null;
+                return draft;
+
+            case ActionType.END_SHIFT_SUCCESS:
+                draft.endShiftLoading = false;
+                draft.error = null;
+                return draft;
+
+            case ActionType.END_SHIFT_FAILED:
+                draft.endShiftLoading = false;
+                draft.error = action.payload;
+                return draft;
+
+            case ActionType.SET_SHIFT_REPORT_ENTRY_ID:
+                draft.shiftReportEntryID = action.payload;
+                return draft;
             default:
                 return draft;
         }

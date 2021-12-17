@@ -6,12 +6,16 @@ interface RepositoriesStateInterface {
     roasterLoading: boolean;
     error: string | null;
     rosterData: any;
+    upcomingRoasterLoading: boolean;
+    upcomingRosterData: any;
 }
 
 const initialState = {
     roasterLoading: false,
     error: null,
     rosterData: [],
+    upcomingRoasterLoading: false,
+    upcomingRosterData: [],
 };
 
 /**
@@ -40,6 +44,25 @@ const reducer = (
                 draft.roasterLoading = false;
                 draft.error = action.payload;
                 draft.rosterData = [];
+
+                return draft;
+
+            case ActionType.UPCOMING_ROSTERS_INIT:
+                draft.upcomingRoasterLoading = true;
+                draft.error = null;
+                draft.upcomingRosterData = [];
+
+                return draft;
+            case ActionType.UPCOMING_ROSTERS_GET_SUCCESS:
+                draft.upcomingRoasterLoading = false;
+                draft.error = null;
+                draft.upcomingRosterData = action.payload;
+
+                return draft;
+            case ActionType.UPCOMING_ROSTERS_GET_FAILED:
+                draft.upcomingRoasterLoading = false;
+                draft.error = action.payload;
+                draft.upcomingRosterData = [];
 
                 return draft;
             default:

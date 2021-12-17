@@ -8,16 +8,18 @@ type PrimaryButtonProps = {
     onPress: Function;
     btnText: string;
     loading?: boolean;
+    backgroundColor?: string;
 };
 
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
     onPress,
     btnText,
     loading = false,
+    backgroundColor,
 }) => {
     return (
         <TouchableOpacity onPress={() => onPress()}>
-            <PrimaryButton__Wrapper>
+            <PrimaryButton__Wrapper backgroundColor={backgroundColor}>
                 <PrimaryButton__Wrapper__Text>
                     {loading ? 'Loading...' : btnText}
                 </PrimaryButton__Wrapper__Text>
@@ -30,10 +32,10 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 export default withTheme(PrimaryButton);
 
 const PrimaryButton__Wrapper = styled.View`
-    flex: 1;
     justify-content: center;
     align-items: center;
-    background-color: ${({ theme }: any) => theme.colors.greenColor};
+    background-color: ${({ theme, backgroundColor }: any) =>
+        backgroundColor ? backgroundColor : theme.colors.greenColor};
     height: 60px;
     border-radius: 8px;
 `;

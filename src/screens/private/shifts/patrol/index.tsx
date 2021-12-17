@@ -16,7 +16,7 @@ import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { WINDOW_DEVICE_WIDTH } from '@root/utils/constants';
 import ButtonSecondary from '@root/components/ButtonSecondary';
 import { arrowSend } from 'utils/assets';
-import { getUserLocation } from '@root/utils/common-methods';
+import {actionsButtonIcons, getUserLocation} from '@root/utils/common-methods';
 import CustomTimePicker from '@root/components/TimePicker';
 import { useActions } from '@root/hooks/useActions';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
@@ -24,6 +24,8 @@ import { navigationRef } from '@root/navigation/RootNavigation';
 import { PATROL_ENTRY_SCHEMA } from './helper';
 import { apiUri } from '../../../../service/apiEndPoints';
 import ModalManager from '../../../../store/global_modal/manager';
+import { FloatingAction } from 'react-native-floating-action';
+import navigationStrings from "../../../../navigation/navigationStrings";
 
 const Patrol = (props: any) => {
     const {
@@ -33,6 +35,7 @@ const Patrol = (props: any) => {
     } = useActions();
     const {
         route: { params },
+        navigation
     } = props;
     const [location, setLocation] = useState<any>({});
     const [time, setTime] = useState<any>(new Date());
@@ -263,6 +266,14 @@ const Patrol = (props: any) => {
                     </Formik>
                 </MainWrapper>
                 <ModalManager />
+                <FloatingAction
+                    actions={actionsButtonIcons}
+                    onPressItem={(name) => {
+                        navigation.navigate(navigationStrings.QRSCAN)
+                    }}
+                    overlayColor={'rgba(255, 255, 255, 0)'}
+                    color={'#16a086'}
+                />
             </MainParentWrapper>
         </BackgroundGlobal>
     );

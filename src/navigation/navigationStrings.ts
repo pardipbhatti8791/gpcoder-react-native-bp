@@ -8,4 +8,5 @@ export default {
     ACTION_DETAILS: 'Action Details',
     ROSTER_CALENDAR: 'Rosters',
     PATROL:'Patrol',
+    QRSCAN:'QR Scan',
 };

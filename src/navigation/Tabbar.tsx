@@ -11,12 +11,17 @@ import { TabBarIcon } from './TabbarIcon';
 import { calendarIcon, navigaionIcon } from '@root/utils/assets';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
 import PrimaryButton from '@root/components/Button';
+import { useActions } from '../hooks/useActions';
+import { getUserLocation } from '../utils/common-methods';
 
 const Tab = createBottomTabNavigator();
 
 function DashboardTabs(props: any) {
     const { colors, type }: any = useTheme();
-    const { activeShift } = useTypedSelector((state) => state.activeShift);
+    const { endShiftAction } = useActions();
+    const { isActiveShift } = useTypedSelector((state) => state.activeShift);
+    const orgID = useTypedSelector((state) => state.auth.orgID);
+    const { endShiftLoading } = useTypedSelector((state) => state.shiftReports);
 
     const endShift = () => {};
 
@@ -58,18 +63,33 @@ function DashboardTabs(props: any) {
                                 />
                             </TouchableOpacity>
                         );
-                    } else if (route.name === 'SHIFTS') {
+                    } else if (route.name === 'SHIFTS' && isActiveShift ) {
                         return (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    alert('End Shift');
+                            <PrimaryButton
+                                onPress={async () => {
+                                    try {
+                                        const uLocationData: any =
+                                            await getUserLocation();
+                                        await endShiftAction({
+                                            orgID: orgID,
+                                            item: {
+                                                latitude:
+                                                    uLocationData.latitude,
+                                                longitude:
+                                                    uLocationData.longitude,
+                                            },
+                                        });
+
+                                    } catch (e) {
+                                        alert(
+                                            'Please enable the location from settings!',
+                                        );
+                                    }
                                 }}
-                                style={{ padding: 5 }}>
-                                <PrimaryButton
-                                    onPress={() => endShift()}
-                                    btnText={'End Shift'}
-                                />
-                            </TouchableOpacity>
+                                btnText={
+                                    endShiftLoading ? 'Ending...' : 'End Shift'
+                                }
+                            />
                         );
                     }
                 },

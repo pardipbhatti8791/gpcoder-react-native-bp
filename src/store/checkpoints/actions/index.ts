@@ -15,7 +15,23 @@ interface FailedShiftCheckpoints {
     payload: string;
 }
 
+interface InitScannedCheckpoints {
+    type: ActionType.SCANNED_CHECKPOINTS_INIT;
+}
+
+interface SuccessScannedCheckpoints {
+    type: ActionType.SCANNED_CHECKPOINTS_GET_SUCCESS;
+}
+
+interface FailedScannedCheckpoints {
+    type: ActionType.SCANNED_CHECKPOINTS_GET_FAILED;
+    payload: string;
+}
+
 export type Action =
     | InitShiftCheckpoints
     | SuccessShiftCheckpoints
-    | FailedShiftCheckpoints;
+    | FailedShiftCheckpoints
+    | InitScannedCheckpoints
+    | SuccessScannedCheckpoints
+    | FailedScannedCheckpoints;

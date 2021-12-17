@@ -27,4 +27,24 @@ interface RosterErrorAction {
     payload: string;
 }
 
-export type Action = RostersInit | RosterSuccessAction | RosterErrorAction;
+interface UpcomingRostersInit {
+    type: ActionType.UPCOMING_ROSTERS_INIT;
+}
+
+interface UpcomingRosterSuccessAction {
+    type: ActionType.UPCOMING_ROSTERS_GET_SUCCESS;
+    payload: ItemData[];
+}
+
+interface UpcomingRosterErrorAction {
+    type: ActionType.UPCOMING_ROSTERS_GET_FAILED;
+    payload: string;
+}
+
+export type Action =
+    | RostersInit
+    | RosterSuccessAction
+    | RosterErrorAction
+    | UpcomingRostersInit
+    | UpcomingRosterSuccessAction
+    | UpcomingRosterErrorAction;

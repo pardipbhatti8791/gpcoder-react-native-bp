@@ -54,6 +54,15 @@ export const getUserLocation = () =>
             })
             .catch((error) => {
                 const { code, message } = error;
-                reject(error);
+                return reject(error);
             });
     });
+
+
+export const actionsButtonIcons = [
+    {
+        icon: require('@root/assets/scan/scan.png'),
+        name: 'bt_accessibility',
+        position: 1,
+    },
+];

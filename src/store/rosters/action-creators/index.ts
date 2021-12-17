@@ -3,7 +3,7 @@ import { ActionType } from '@root/store/rosters/actions-types';
 import { Action } from '@root/store/rosters/actions';
 import { apiUri } from '@root/service/apiEndPoints';
 import service from '@root/service/axios';
-import { RosterInterface } from '../interfaces';
+import { RosterInterface, UpcomingRostersInterface } from '../interfaces';
 
 /**
  * @param fn
@@ -23,6 +23,34 @@ export const getRosters = (fn: RosterInterface) => {
         } catch (e: any) {
             dispatch({
                 type: ActionType.ROSTERS_GET_FAILED,
+                payload: 'Something went wrong! Please try again later',
+            });
+        }
+    };
+};
+
+/**
+ * @param fn
+ */
+export const getUpcomingRosters = (fn: UpcomingRostersInterface) => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.UPCOMING_ROSTERS_INIT,
+        });
+        try {
+            const response = await service.get(apiUri.shifts.upcomingRosters, {
+                headers: {
+                    'g-org': fn.orgID,
+                },
+            });
+            dispatch({
+                type: ActionType.UPCOMING_ROSTERS_GET_SUCCESS,
+                payload: response.data,
+            });
+            return response;
+        } catch (e: any) {
+            dispatch({
+                type: ActionType.UPCOMING_ROSTERS_GET_FAILED,
                 payload: 'Something went wrong! Please try again later',
             });
         }
