@@ -203,7 +203,7 @@ const Tabs = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: #19212c;
+    background-color: ${({ theme }: any) => theme.colors.primary};
 `;
 
 const ShiftItemHorizontal = styled.View`
@@ -243,7 +243,7 @@ const CodeText = styled.Text`
 `;
 
 const ShiftItemLayout = styled.View`
-    background: #29313e;
+    background: ${({ theme }: any) => theme.colors.primary};
     border-radius: 8px;
     margin-left: 8px;
     margin-right: 8px;
@@ -253,7 +253,7 @@ const ShiftItemLayout = styled.View`
 `;
 
 const ShiftItemVertical = styled.View`
-    background: #29313e;
+    background: ${({ theme }: any) => theme.colors.primary};
     border-radius: 8px;
     margin-left: 8px;
     margin-right: 8px;

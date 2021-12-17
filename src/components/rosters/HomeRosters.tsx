@@ -67,18 +67,8 @@ const ItemNameText = styled.Text`
 `;
 
 const ShiftItemLayout = styled.View`
-    background: #29313e;
-    border: 2px solid #29313e;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    padding: 14px;
-    flex-direction: row;
-    align-items: center;
-`;
+    background: ${({ theme }: any) => theme.colors.primary};
 
-const ShiftItemLayoutOnClick = styled.View`
-    background: #29313e;
-    border-color: #f18122;
     border-radius: 8px;
     margin-bottom: 10px;
     padding: 14px;
