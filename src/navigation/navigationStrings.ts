@@ -9,4 +9,5 @@ export default {
     ROSTER_CALENDAR: 'Rosters',
     PATROL:'Patrol',
     QRSCAN:'QR Scan',
+    START_MANUAL_SHIFT :'Start Manual Shift',
 };

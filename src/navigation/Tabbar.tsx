@@ -63,7 +63,7 @@ function DashboardTabs(props: any) {
                                 />
                             </TouchableOpacity>
                         );
-                    } else if (route.name === 'SHIFTS' && isActiveShift) {
+                    } else if (route.name === 'SHIFTS' && isActiveShift ) {
                         return (
                             <PrimaryButton
                                 onPress={async () => {
@@ -74,11 +74,12 @@ function DashboardTabs(props: any) {
                                             orgID: orgID,
                                             item: {
                                                 latitude:
-                                                    uLocationData.latitude,
+                                                uLocationData.latitude,
                                                 longitude:
-                                                    uLocationData.longitude,
+                                                uLocationData.longitude,
                                             },
                                         });
+
                                     } catch (e) {
                                         alert(
                                             'Please enable the location from settings!',
@@ -122,5 +123,5 @@ function DashboardTabs(props: any) {
 export default DashboardTabs;
 
 const NavigationBurgerIcon = styled.Image`
-    margin-left: 16px;
+  margin-left: 16px;
 `;
