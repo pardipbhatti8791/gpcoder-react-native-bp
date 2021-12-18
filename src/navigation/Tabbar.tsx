@@ -63,7 +63,7 @@ function DashboardTabs(props: any) {
                                 />
                             </TouchableOpacity>
                         );
-                    } else if (route.name === 'SHIFTS' && isActiveShift ) {
+                    } else if (route.name === 'SHIFTS' && isActiveShift) {
                         return (
                             <PrimaryButton
                                 onPress={async () => {
@@ -79,7 +79,6 @@ function DashboardTabs(props: any) {
                                                     uLocationData.longitude,
                                             },
                                         });
-
                                     } catch (e) {
                                         alert(
                                             'Please enable the location from settings!',
