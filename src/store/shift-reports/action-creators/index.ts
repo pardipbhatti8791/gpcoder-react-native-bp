@@ -168,11 +168,13 @@ export const setShiftReportEntryID = (fn: ShiftReportAttachmentInterface) => {
  * @param fn
  */
 export const startShiftAction = (fn: StartShiftInterface) => {
+    console.log('testing', fn);
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.START_SHIFT_INIT,
         });
         try {
+            console.log('shiftData', fn.startManual);
             const response = await service.post(
                 apiUri.shifts.startShift,
                 fn.type === 'auto' ? fn.startAuto : fn.startManual,
