@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { FlatList, Text } from 'react-native';
+import React, {useEffect} from 'react';
+import {FlatList, Text, TouchableOpacity} from 'react-native';
 // @ts-ignore
 import styled from 'styled-components/native';
-import { withTheme } from 'styled-components';
+import {withTheme} from 'styled-components';
 import {
     MainParentWrapper,
     MainWrapper,
@@ -11,20 +11,27 @@ import {
 } from '@root/utils/globalStyle';
 import BackgroundGlobal from '../BackgroundGlobal';
 import HomeRosters from '@root/components/rosters/HomeRosters';
-import { useActions } from '../../hooks/useActions';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import {useActions} from '../../hooks/useActions';
+import {useTypedSelector} from '../../hooks/useTypedSelector';
 import ModalManager from '../../store/global_modal/manager';
 import PrimaryButton from '../Button';
+import navigationStrings from "../../navigation/navigationStrings";
 
-const NoCurrentShift = (props: any) => {
-    const { getUpcomingRosters } = useActions();
-    const { upcomingRosterData, upcomingRoasterLoading } = useTypedSelector(
+
+type ShiftProps = {
+    navigation: any;
+}
+
+const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
+    const {getUpcomingRosters, openModal} = useActions();
+    const {upcomingRosterData, upcomingRoasterLoading} = useTypedSelector(
         (state) => state.rostersByDays,
     );
     const orgID = useTypedSelector((state) => state.auth.orgID);
 
+
     useEffect(() => {
-        getUpcomingRosters({ orgID: orgID });
+        getUpcomingRosters({orgID: orgID});
     }, []);
 
     return (
@@ -37,7 +44,9 @@ const NoCurrentShift = (props: any) => {
                         </AvailableToStartText>
 
                         <InfoImage
-                            source={require('@root/assets/info/info.png')}></InfoImage>
+                            source={require('@root/assets/info/info.png')}/>
+
+
                     </ParentBoth>
 
                     <PressToStartText>
@@ -48,7 +57,7 @@ const NoCurrentShift = (props: any) => {
                     ) : upcomingRosterData.length > 0 ? (
                         <FlatList
                             data={upcomingRosterData}
-                            renderItem={({ item }) => {
+                            renderItem={({item}) => {
                                 return (
                                     <HomeRosters
                                         item={item}
@@ -63,16 +72,23 @@ const NoCurrentShift = (props: any) => {
                     )}
 
                     <BtnWrapper>
-                        <PrimaryButton
-                            onPress={() => alert('ok')}
-                            btnText={'My shift is not here'}
-                            loading={false}
-                            backgroundColor={'#d93f3c'}
-                        />
+                        <TouchableOpacity onPress={() => {
+
+                                navigation.navigate(navigationStrings.START_MANUAL_SHIFT)
+
+
+                        }}>
+                            <StartManualShiftBtn>
+                                <MyShiftText>
+                                    My Shift is not here
+                                </MyShiftText>
+                            </StartManualShiftBtn>
+                        </TouchableOpacity>
+
                     </BtnWrapper>
                 </MainWrapper>
             </BackgroundGlobal>
-            <ModalManager />
+            <ModalManager/>
         </MainParentWrapper>
     );
 };
@@ -80,53 +96,45 @@ const NoCurrentShift = (props: any) => {
 // @ts-ignore
 export default withTheme(NoCurrentShift);
 
+const MyShiftText = styled.Text`
+  font-size: ${({theme}: any) => theme.fontSize.cardDate}px;
+  color: ${({theme}: any) => theme.colors.text};
+`;
+
+const StartManualShiftBtn = styled.View`
+  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
+  background-color: #D93F3C;
+  height: 60px;
+  border-radius: 8px;
+`;
+
+
 const BtnWrapper = styled.View`
-    margin-top: 40px;
+  margin-top: 40px;
 `;
 
 const AvailableToStartText = styled.Text`
-    font-size: ${({ theme }: any) => theme.fontSize.cardTitle};
-    color: ${({ theme }: any) => theme.colors.text};
+  font-size: ${({theme}: any) => theme.fontSize.cardTitle}px;
+  color: ${({theme}: any) => theme.colors.text};
 `;
 const PressToStartText = styled.Text`
-    font-size: ${({ theme }: any) => theme.fontSize.cardDate};
-    color: ${({ theme }: any) => theme.colors.textGray};
-    margin-top: 8px;
-    margin-bottom: 8px;
-`;
-
-const ImageRight = styled.View``;
-
-const ShiftItemLayout = styled.View`
-  background: #29313e;
-  border: 2px solid #29313E;
-  border-radius: 8px;
-  margin-bottom: 10px
-  padding: 14px;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const ImageCont = styled.View`
-    padding-right: 9px;
-`;
-
-const ImageView = styled.Image`
-    height: 64px;
-    width: 64px;
-    border: 2px;
-    border-radius: 4px;
+  font-size: ${({theme}: any) => theme.fontSize.cardDate}px;
+  color: ${({theme}: any) => theme.colors.textGray};
+  margin-top: 8px;
+  margin-bottom: 8px;
 `;
 
 const ParentBoth = styled.View`
-    flex-direction: row;
-    margin-top: 32px;
+  flex-direction: row;
+  margin-top: 32px;
 `;
 
 const InfoImage = styled.Image`
-    height: 19px;
-    width: 19px;
-    position: relative;
-    top: -8px;
-    left: 8px;
+  height: 19px;
+  width: 19px;
+  position: relative;
+  top: -8px;
+  left: 8px;
 `;

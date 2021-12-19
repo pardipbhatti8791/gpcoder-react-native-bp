@@ -8,7 +8,7 @@ import CaseActiveShift from '@root/components/shifts/case-active-shift';
 import { NotFound, NotFoundWrapper } from '@root/utils/globalStyle';
 import NoCurrentShift from '@root/components/shifts/no-current-shift';
 
-export const Shifts = () => {
+export const Shifts = (props:any) => {
     const { getActiveShift } = useActions();
     const isFocused = useIsFocused();
     const { activeShift, activeLoading, isActiveShift } = useTypedSelector(
@@ -18,6 +18,7 @@ export const Shifts = () => {
     useEffect(() => {
         if (isFocused) {
             getActiveShift({ orgId: 1 });
+
         }
     }, [isFocused]);
 
@@ -28,6 +29,6 @@ export const Shifts = () => {
     ) : isActiveShift ? (
         <CaseActiveShift item={activeShift} />
     ) : (
-        <NoCurrentShift/>
+        <NoCurrentShift navigation = {props.navigation}/>
     );
 };

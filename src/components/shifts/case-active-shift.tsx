@@ -12,7 +12,6 @@ import { useTypedSelector } from '@root/hooks/useTypedSelector';
 import ModalManager from '@root/store/global_modal/manager';
 import CaseActiveShiftItem from './case-active-shift-item';
 import CaseScannedShiftItem from './case-scanned-shift-item';
-import { getShiftsCheckPointsEntries } from '../../store/checkpoints/action-creators';
 
 type CaseActiveShiftProps = {
     item: any;
@@ -36,6 +35,7 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({ item }) => {
         }
     }, [isFocused]);
 
+    // @ts-ignore
     return (
         <MainParentWrapper>
             <BackgroundGlobal>

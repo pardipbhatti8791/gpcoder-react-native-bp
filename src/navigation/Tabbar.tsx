@@ -74,9 +74,9 @@ function DashboardTabs(props: any) {
                                             orgID: orgID,
                                             item: {
                                                 latitude:
-                                                    uLocationData.latitude,
+                                                uLocationData.latitude,
                                                 longitude:
-                                                    uLocationData.longitude,
+                                                uLocationData.longitude,
                                             },
                                         });
 
@@ -123,5 +123,5 @@ function DashboardTabs(props: any) {
 export default DashboardTabs;
 
 const NavigationBurgerIcon = styled.Image`
-    margin-left: 16px;
+  margin-left: 16px;
 `;

@@ -1,23 +1,26 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { ActionDetail, Login, Patrol, ScanScreen } from './index';
+import {createStackNavigator} from '@react-navigation/stack';
+import {ActionDetail, Login, Patrol, ScanScreen} from './index';
 import navigationStrings from '@root/navigation/navigationStrings';
 import DashboardTabs from '@root/navigation/Tabbar';
-import { useTypedSelector } from 'hooks/useTypedSelector';
-import { useTheme } from '@react-navigation/native';
+import {useTypedSelector} from 'hooks/useTypedSelector';
+import {useTheme} from '@react-navigation/native';
+// @ts-ignore
 import styled from 'styled-components/native';
-import { galleryIcon } from '@root/utils/assets';
-import { RosterCalender } from '@root/screens/private/rosters/calendarPicker';
-import { TouchableOpacity } from 'react-native';
-import { useActions } from '@root/hooks/useActions';
+import {galleryIcon} from '@root/utils/assets';
+import {RosterCalender} from '@root/screens/private/rosters/calendarPicker';
+import {TouchableOpacity} from 'react-native';
+import {useActions} from '@root/hooks/useActions';
+import StartManualShift from "../screens/private/shifts/manualShift";
 
 const Stack = createStackNavigator();
 
 function StackNavigator(props: any) {
-    const { colors }: any = useTheme();
-    const { isAuthenticated } = useTypedSelector((state) => state.auth);
-    const { openModal } = useActions();
+    const {colors}: any = useTheme();
+    const {isAuthenticated} = useTypedSelector((state) => state.auth);
+    const {openModal} = useActions();
 
+    // @ts-ignore
     return (
         <Stack.Navigator
             initialRouteName={
@@ -44,6 +47,20 @@ function StackNavigator(props: any) {
             <Stack.Screen
                 name={navigationStrings.ACTION_DETAILS}
                 component={ActionDetail}
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: colors.secondary,
+                    },
+                    headerBackTitleStyle: {
+                        color: colors.text,
+                    },
+                }}
+            />
+
+            <Stack.Screen
+                name={navigationStrings.START_MANUAL_SHIFT}
+                component={StartManualShift}
                 options={{
                     headerShown: true,
                     headerStyle: {
@@ -100,10 +117,10 @@ function StackNavigator(props: any) {
                                     openModal('ShiftAttachmentSheet', {
                                         height: '80%',
                                     });
-                                    console.log('props----', props)
+
                                 }}>
                                 <NavigationBurgerIcon
-                                    style={{ marginRight: 15 }}
+                                    style={{marginRight: 15}}
                                     source={galleryIcon}
                                 />
                             </TouchableOpacity>
@@ -111,6 +128,8 @@ function StackNavigator(props: any) {
                     },
                 }}
             />
+
+
         </Stack.Navigator>
     );
 }
@@ -118,5 +137,5 @@ function StackNavigator(props: any) {
 export default StackNavigator;
 
 const NavigationBurgerIcon = styled.Image`
-    margin-left: 16px;
+  margin-left: 16px;
 `;

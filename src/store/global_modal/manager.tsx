@@ -1,9 +1,7 @@
 import React, {
     useCallback,
     useMemo,
-    useRef,
     useEffect,
-    useState,
 } from 'react';
 
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
@@ -13,6 +11,7 @@ import styled from 'styled-components/native';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
 import { useActions } from '@root/hooks/useActions';
 import { ScrollView, View } from 'react-native';
+// @ts-ignore
 import {
     AccountModalSheet,
     RosterView,

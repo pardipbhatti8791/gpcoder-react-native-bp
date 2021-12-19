@@ -70,7 +70,7 @@ const Login = (props: any) => {
                         <HeadingText>Login</HeadingText>
                         <SubHeading>
                             Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. {JSON.stringify(theme.type)}
+                            typesetting industry.
                         </SubHeading>
                         <View>
                             <Formik
@@ -130,9 +130,7 @@ const Login = (props: any) => {
                                             }
                                         />
 
-                                        {/* </CardV> */}
 
-                                        {/*<ErrorView errors={errors} />*/}
                                         <ForgPasswordWrapper>
                                             <ForgPasswordWrapper__Text>
                                                 Forgot password?
