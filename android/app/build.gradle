@@ -45,7 +45,7 @@ import com.android.build.OutputFile
  *   //         'devDisabledIn${productFlavor}${buildType}'
  *   //         'devDisabledIn${buildType}'
  *
- *   // the root of your project, i.e. where "package.json" lives
+ *   // t   he root of your project, i.e. where "package.json" lives
  *   root: "../../",
  *
  *   // where to put the JS bundle asset in debug mode
@@ -136,6 +136,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        missingDimensionStrategy 'react-native-camera', 'general'
     }
     splits {
         abi {

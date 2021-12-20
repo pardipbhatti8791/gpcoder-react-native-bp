@@ -54,6 +54,7 @@ export const getUserLocation = () =>
             })
             .catch((error) => {
                 const { code, message } = error;
+                console.log('LOCATION ERROR ===>  ',error+"       "+message)
                 return reject(error);
             });
     });

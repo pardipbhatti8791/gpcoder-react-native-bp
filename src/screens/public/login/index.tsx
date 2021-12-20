@@ -52,6 +52,8 @@ const Login = (props: any) => {
         login(values);
     };
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <MainParentWrapper>
             <BackgroundGlobal>
@@ -162,6 +164,7 @@ const Login = (props: any) => {
 
                             <ChooseProfileBtnWrapper>
                                 <PrimaryButton
+                                   heightBT={30}
                                     onPress={() => {
                                         // @ts-ignore
                                         openModal('AccountModalSheet', {
@@ -185,8 +188,9 @@ const Login = (props: any) => {
 export default withTheme(Login);
 
 const ChooseProfileBtnWrapper = styled.View`
-    height: 35px;
-    margin-top: 10px;
+  height: 35px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 const ChangeProfileWrapper_TextDescription = styled.Text`

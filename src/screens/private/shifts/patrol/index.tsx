@@ -80,6 +80,7 @@ const Patrol = (props: any) => {
         });
     };
 
+    // @ts-ignore
     return (
         <BackgroundGlobal>
             <MainParentWrapper>
@@ -152,12 +153,12 @@ const Patrol = (props: any) => {
                                     placeholder="Enter Description"
                                     keyboardType={'default'}
                                     autoCapitalize={'none'}
-                                    multiline={true}
+                                    multiline={true}ß
                                     value={values.description}
                                     style={{
                                         minHeight: 60,
                                     }}
-                                    error={errors ? errors.description : null}
+                                    errßor={errors ? errors.description : null}
                                 />
 
                                 {params.editable && (
