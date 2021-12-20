@@ -3,6 +3,10 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { withTheme } from 'styled-components';
 import { RepositoriesStateResponse } from '@root/store/checkpoints/interfaces';
+import {actionsButtonIcons} from "../../utils/common-methods";
+import {navigationRef} from "../../navigation/RootNavigation";
+import navigationStrings from "../../navigation/navigationStrings";
+import { FloatingAction } from 'react-native-floating-action';
 
 const CaseScannedShiftItem: React.FC<RepositoriesStateResponse> = ({
     checkpoint,
@@ -21,6 +25,8 @@ const CaseScannedShiftItem: React.FC<RepositoriesStateResponse> = ({
                 />
                 <TimeText>checkpoint</TimeText>
             </ItemHorizontal>
+
+
         </ItemLayout1>
     );
 };

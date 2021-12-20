@@ -40,6 +40,7 @@ const ModalManager = () => {
         }else  {
             // @ts-ignore
             bottomSheetRef.current.close();
+            console.log("here")
         }
     }, [modalProps]);
 
@@ -58,6 +59,7 @@ const ModalManager = () => {
     const handleSheetChanges = useCallback((index: number) => {
         if (index === 0) {
             closeModal();
+
         }
     }, []);
 

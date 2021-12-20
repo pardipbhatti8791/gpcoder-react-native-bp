@@ -67,7 +67,7 @@ function DashboardTabs(props: any) {
                         return (
                             <BtnWrapper>
                                 <PrimaryButton
-                                    heightBT={35}
+                                    heightBT={38}
                                     onPress={async () => {
                                         try {
                                             const uLocationData: any =

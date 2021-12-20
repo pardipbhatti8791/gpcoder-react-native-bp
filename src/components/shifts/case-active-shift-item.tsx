@@ -94,14 +94,7 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
 
                 )}
             />
-            <FloatingAction
-                actions={actionsButtonIcons}
-                onPressItem={(name) => {
-                    navigationRef.current.navigate(navigationStrings.QRSCAN)
-                }}
-                overlayColor={'rgba(255, 255, 255, 0)'}
-                color={'#16a086'}
-            />
+
         </MainParentWrapper>
     );
 };

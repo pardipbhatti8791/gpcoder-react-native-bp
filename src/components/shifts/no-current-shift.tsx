@@ -23,7 +23,8 @@ type ShiftProps = {
 }
 
 const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
-    const {getUpcomingRosters, openModal} = useActions();
+    const {getUpcomingRosters, closeModal} = useActions();
+    const {modalProps} = useTypedSelector(state => state.modalSheet)
     const {upcomingRosterData, upcomingRoasterLoading} = useTypedSelector(
         (state) => state.rostersByDays,
     );
@@ -31,6 +32,9 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
 
 
     useEffect(() => {
+        if (modalProps !== null) {
+            closeModal()
+        }
         getUpcomingRosters({orgID: orgID});
     }, []);
 

@@ -16,14 +16,24 @@ import ModalManager from '@root/store/global_modal/manager';
 import { apiUri } from '@root/service/apiEndPoints';
 
 const Home = (props: any) => {
-    const { navigation } = props;
-    const { getActions, getRosters } = useActions();
+    const { getActions, getRosters, closeModal } = useActions();
     const isFocused = useIsFocused();
     const { orgID } = useTypedSelector((state) => state.auth);
     const { actionsData, loading } = useTypedSelector((state) => state.actions);
     const { rosterData, roasterLoading } = useTypedSelector(
         (state) => state.rostersByDays,
     );
+    const { modalProps } = useTypedSelector(state => state.modalSheet)
+
+    useEffect(() => {
+
+        if (isFocused) {
+            if(modalProps !== null) {
+                closeModal()
+            }
+
+        }
+    }, [isFocused])
 
     useEffect(() => {
         if (isFocused) {
