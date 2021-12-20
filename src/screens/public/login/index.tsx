@@ -132,7 +132,6 @@ const Login = (props: any) => {
                                             }
                                         />
 
-
                                         <ForgPasswordWrapper>
                                             <ForgPasswordWrapper__Text>
                                                 Forgot password?
@@ -164,12 +163,12 @@ const Login = (props: any) => {
 
                             <ChooseProfileBtnWrapper>
                                 <PrimaryButton
-                                   heightBT={30}
+                                    heightBT={40}
                                     onPress={() => {
                                         // @ts-ignore
                                         openModal('AccountModalSheet', {
                                             abc: 'hello',
-                                            height: '40%'
+                                            height: '40%',
                                         });
                                     }}
                                     btnText={'Choose Profile'}
@@ -188,9 +187,7 @@ const Login = (props: any) => {
 export default withTheme(Login);
 
 const ChooseProfileBtnWrapper = styled.View`
-  height: 35px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+    height: 45px;
 `;
 
 const ChangeProfileWrapper_TextDescription = styled.Text`

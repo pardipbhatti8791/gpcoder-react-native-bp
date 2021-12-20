@@ -16,7 +16,10 @@ import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { WINDOW_DEVICE_WIDTH } from '@root/utils/constants';
 import ButtonSecondary from '@root/components/ButtonSecondary';
 import { arrowSend } from 'utils/assets';
-import {actionsButtonIcons, getUserLocation} from '@root/utils/common-methods';
+import {
+    actionsButtonIcons,
+    getUserLocation,
+} from '@root/utils/common-methods';
 import CustomTimePicker from '@root/components/TimePicker';
 import { useActions } from '@root/hooks/useActions';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
@@ -25,7 +28,7 @@ import { PATROL_ENTRY_SCHEMA } from './helper';
 import { apiUri } from '../../../../service/apiEndPoints';
 import ModalManager from '../../../../store/global_modal/manager';
 import { FloatingAction } from 'react-native-floating-action';
-import navigationStrings from "../../../../navigation/navigationStrings";
+import navigationStrings from '../../../../navigation/navigationStrings';
 
 const Patrol = (props: any) => {
     const {
@@ -35,7 +38,7 @@ const Patrol = (props: any) => {
     } = useActions();
     const {
         route: { params },
-        navigation
+        navigation,
     } = props;
     const [location, setLocation] = useState<any>({});
     const [time, setTime] = useState<any>(new Date());
@@ -48,7 +51,11 @@ const Patrol = (props: any) => {
     }: any = useTypedSelector((state) => state.shiftReports);
 
     useEffect(() => {
-        getShiftsReportsEntrieAttachments({ id: params.item.shiftReportID });
+        if (params.editable) {
+            getShiftsReportsEntrieAttachments({
+                id: params.item.shiftReportID,
+            });
+        }
     }, []);
 
     useEffect(() => {
@@ -153,7 +160,8 @@ const Patrol = (props: any) => {
                                     placeholder="Enter Description"
                                     keyboardType={'default'}
                                     autoCapitalize={'none'}
-                                    multiline={true}ß
+                                    multiline={true}
+                                    ß
                                     value={values.description}
                                     style={{
                                         minHeight: 60,
@@ -270,7 +278,7 @@ const Patrol = (props: any) => {
                 <FloatingAction
                     actions={actionsButtonIcons}
                     onPressItem={(name) => {
-                        navigation.navigate(navigationStrings.QRSCAN)
+                        navigation.navigate(navigationStrings.QRSCAN);
                     }}
                     overlayColor={'rgba(255, 255, 255, 0)'}
                     color={'#16a086'}

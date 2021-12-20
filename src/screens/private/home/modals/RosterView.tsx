@@ -10,7 +10,7 @@ import { getUserLocation } from '../../../../utils/common-methods';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 
 const RosterView = ({ item, button }: any) => {
-    const { startShiftAction } = useActions();
+    const { startShiftAction, getActiveShift } = useActions();
     const orgID = useTypedSelector((state) => state.auth.orgID);
 
     return (
@@ -65,6 +65,7 @@ const RosterView = ({ item, button }: any) => {
                                         },
                                     },
                                 });
+                                await getActiveShift({ orgID: orgID });
                             } catch (e) {
                                 alert(
                                     'Please enable the location from settings!',

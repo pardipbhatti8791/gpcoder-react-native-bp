@@ -18,7 +18,7 @@ const Tab = createBottomTabNavigator();
 
 function DashboardTabs(props: any) {
     const { colors, type }: any = useTheme();
-    const { endShiftAction } = useActions();
+    const { endShiftAction, getActiveShift } = useActions();
     const { isActiveShift } = useTypedSelector((state) => state.activeShift);
     const orgID = useTypedSelector((state) => state.auth.orgID);
     const { endShiftLoading } = useTypedSelector((state) => state.shiftReports);
@@ -63,34 +63,38 @@ function DashboardTabs(props: any) {
                                 />
                             </TouchableOpacity>
                         );
-                    } else if (route.name === 'SHIFTS' && isActiveShift ) {
+                    } else if (route.name === 'SHIFTS' && isActiveShift) {
                         return (
-                            <PrimaryButton
-                                heightBT={25}
-                                onPress={async () => {
-                                    try {
-                                        const uLocationData: any =
-                                            await getUserLocation();
-                                        await endShiftAction({
-                                            orgID: orgID,
-                                            item: {
-                                                latitude:
-                                                uLocationData.latitude,
-                                                longitude:
-                                                uLocationData.longitude,
-                                            },
-                                        });
-
-                                    } catch (e) {
-                                        alert(
-                                            'Please enable the location from settings!',
-                                        );
+                            <BtnWrapper>
+                                <PrimaryButton
+                                    heightBT={35}
+                                    onPress={async () => {
+                                        try {
+                                            const uLocationData: any =
+                                                await getUserLocation();
+                                            await endShiftAction({
+                                                orgID: orgID,
+                                                item: {
+                                                    latitude:
+                                                        uLocationData.latitude,
+                                                    longitude:
+                                                        uLocationData.longitude,
+                                                },
+                                            });
+                                            getActiveShift({ orgID: orgID });
+                                        } catch (e) {
+                                            alert(
+                                                'Please enable the location from settings!',
+                                            );
+                                        }
+                                    }}
+                                    btnText={
+                                        endShiftLoading
+                                            ? 'Ending...'
+                                            : 'End Shift'
                                     }
-                                }}
-                                btnText={
-                                    endShiftLoading ? 'Ending...' : 'End Shift'
-                                }
-                            />
+                                />
+                            </BtnWrapper>
                         );
                     }
                 },
@@ -124,5 +128,9 @@ function DashboardTabs(props: any) {
 export default DashboardTabs;
 
 const NavigationBurgerIcon = styled.Image`
-  margin-left: 16px;
+    margin-left: 16px;
+`;
+
+const BtnWrapper = styled.View`
+    margin: 8px;
 `;
