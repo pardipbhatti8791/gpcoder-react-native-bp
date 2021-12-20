@@ -1,7 +1,7 @@
 import React, {
     useCallback,
     useMemo,
-    useEffect,
+    useEffect, useRef,
 } from 'react';
 
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
@@ -21,10 +21,11 @@ import {
 } from './modal';
 
 // ref
-export const bottomSheetRef: any = React.createRef();
+// export const bottomSheetRef: any = React.createRef();
 
 const ModalManager = () => {
     const { closeModal } = useActions();
+    const  bottomSheetRef = useRef(null)
     /**
      * * @{ get current modal }
      */
@@ -34,7 +35,11 @@ const ModalManager = () => {
 
     useEffect(() => {
         if (modalProps !== null) {
+            // @ts-ignore
             bottomSheetRef.current.expand();
+        }else  {
+            // @ts-ignore
+            bottomSheetRef.current.close();
         }
     }, [modalProps]);
 

@@ -66,6 +66,7 @@ function DashboardTabs(props: any) {
                     } else if (route.name === 'SHIFTS' && isActiveShift ) {
                         return (
                             <PrimaryButton
+                                heightBT={25}
                                 onPress={async () => {
                                     try {
                                         const uLocationData: any =

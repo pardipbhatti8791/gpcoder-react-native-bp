@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, View } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, View} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import CalendarPicker from 'react-native-calendar-picker';
 
 import BackgroundGlobal from '@root/components/BackgroundGlobal';
-import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import {useTypedSelector} from '@root/hooks/useTypedSelector';
 import HomeRosters from '@root/components/rosters/HomeRosters';
-import { MainParentWrapper, NotFound } from '../../../utils/globalStyle';
-import { apiUri } from '@root/service/apiEndPoints';
-import { format } from 'date-fns';
-import { useActions } from '@root/hooks/useActions';
+import {MainParentWrapper, NotFound} from '../../../utils/globalStyle';
+import {apiUri} from '@root/service/apiEndPoints';
+import {format} from 'date-fns';
+import {useActions} from '@root/hooks/useActions';
 import ModalManager from '@root/store/global_modal/manager';
 
 export function RosterCalender() {
     const isFocused = useIsFocused();
-    const { getRosters } = useActions();
+    const {getRosters} = useActions();
 
-    const { rosterData, roasterLoading } = useTypedSelector(
+    const {rosterData, roasterLoading} = useTypedSelector(
         (state) => state.rostersByDays,
     );
 
@@ -28,6 +28,7 @@ export function RosterCalender() {
         }
     }, [isFocused]);
 
+    // @ts-ignore
     const onDateChange = (date) => {
         getRosters({
             uri: `${apiUri.shifts.shiftsByDay}` + format(new Date(date), 'd'),
@@ -37,9 +38,9 @@ export function RosterCalender() {
     return (
         <MainParentWrapper>
             <BackgroundGlobal>
-                <View style={{ marginTop: 16, marginHorizontal: 8 }}>
+                <View style={{marginTop: 16, marginHorizontal: 8}}>
                     <CalendarPicker
-                        style={{ backgroundColor: '#19212C' }}
+                        style={{backgroundColor: '#19212C'}}
                         startFromMonday={true}
                         allowRangeSelection={false}
                         minDate={new Date(2018, 1, 1)}
@@ -69,7 +70,7 @@ export function RosterCalender() {
                         ]}
                         previousTitle="Previous"
                         nextTitle="Next"
-                        todayBackgroundColor="#F18122"
+                        todayBackgroundColor="#808080"
                         selectedDayColor="#F18122"
                         selectedDayTextColor="#000000"
                         scaleFactor={375}
@@ -86,8 +87,8 @@ export function RosterCalender() {
                             <FlatList
                                 nestedScrollEnabled={true}
                                 data={rosterData}
-                                renderItem={({ item }) => {
-                                    return <HomeRosters item={item} />;
+                                renderItem={({item}) => {
+                                    return <HomeRosters item={item}/>;
                                 }}
                             />
                         ) : (
@@ -96,7 +97,7 @@ export function RosterCalender() {
                     </View>
                 </View>
             </BackgroundGlobal>
-            <ModalManager />
+            <ModalManager/>
         </MainParentWrapper>
     );
 }
