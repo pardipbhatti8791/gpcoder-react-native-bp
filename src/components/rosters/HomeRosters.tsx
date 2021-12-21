@@ -39,9 +39,9 @@ const HomeRosters: React.FC<HomeRostersProps> = ({
                 </ImageCont>
                 <ImageRight>
                     <ItemNameText>
-                        {format(new Date(item.rosterStart), 'EEE HH:MM')}
+                        {format(new Date(item.rosterStart), 'EEE HH:mm')}
                         {' - '}
-                        {format(new Date(item.rosterEnd), 'HH:MM')}
+                        {format(new Date(item.rosterEnd), 'HH:mm')}
                     </ItemNameText>
                     <SiteText>{item.siteName}</SiteText>
                     <SiteNotes numberOfLines={1}>{item.notes}</SiteNotes>

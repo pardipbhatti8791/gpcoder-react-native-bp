@@ -93,7 +93,7 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({ item }) => {
                             <NotFound>Loading...</NotFound>
                         ) : (
                             <CaseActiveShiftItem
-                                item={item}
+                                shiftItem={item}
                                 shiftReportData={shiftReportData}
                             />
                         )}
