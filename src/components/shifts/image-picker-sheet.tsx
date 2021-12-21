@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 
 import ImagePicker from 'react-native-image-crop-picker';
 
+// @ts-ignore
 import { bottomSheetRef } from '@root/store/global_modal/manager';
 
 // @ts-ignore
@@ -16,7 +17,7 @@ import { useActions } from '@root/hooks/useActions';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
 
 const ImagePickerSheet = (props: any) => {
-    const { uploadAttachmentShiftReportsEntries } = useActions();
+    const { uploadAttachmentShiftReportsEntries,closeModal } = useActions();
     const [imagePath, setImagePath] = useState<any>(null);
     const { uploadAttachmentReportEntryLoading } = useTypedSelector(
         (state) => state.shiftReports,
@@ -48,6 +49,7 @@ const ImagePickerSheet = (props: any) => {
             formData.append('description', values.description);
 
             await uploadAttachmentShiftReportsEntries(formData);
+            closeModal()
         }
     };
 

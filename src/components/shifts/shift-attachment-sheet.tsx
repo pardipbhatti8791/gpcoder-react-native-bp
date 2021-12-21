@@ -1,10 +1,11 @@
 import React from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import { withTheme } from 'styled-components';
 import { useActions } from '@root/hooks/useActions';
 // @ts-ignore
 import styled from 'styled-components/native';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import {BottomSheetFlatList} from "@gorhom/bottom-sheet";
 
 
 const ShiftAttachmentSheet = () => {
@@ -42,6 +43,8 @@ const ShiftAttachmentSheet = () => {
                                         uri:
                                             'data:image/png;base64,  ' +
                                             item.image,
+
+
                                     }} />
 
                                 <FilesText>Description</FilesText>
@@ -53,6 +56,7 @@ const ShiftAttachmentSheet = () => {
                     </CustomMainWrapper>
                 );
             }} />
+
     );
 };
 
@@ -60,9 +64,11 @@ const ShiftAttachmentSheet = () => {
 export default withTheme(ShiftAttachmentSheet);
 
 const FilesTextDescription = styled.Text`
-    margin: 5px 0 0 8px;
-    font-size: ${({ theme }: any) => theme.fontSize.cardText}px;
-    color: ${({ theme }: any) => theme.colors.text};
+   
+  margin-top: 5px;
+  margin-left: 8px;
+    // font-size: ${({ theme }: any) => theme.fontSize.cardText}px;
+    // color: ${({ theme }: any) => theme.colors.text};
 `;
 
 const FilesText = styled.Text`

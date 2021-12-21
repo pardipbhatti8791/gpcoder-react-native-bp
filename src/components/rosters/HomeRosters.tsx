@@ -15,12 +15,14 @@ type HomeRostersProps = {
     };
     showButton?: boolean;
     height?: string;
+    navigate?:any
 };
 
 const HomeRosters: React.FC<HomeRostersProps> = ({
     item,
     showButton = false,
     height = '65%',
+    navigate
 }) => {
     const { openModal } = useActions();
 
@@ -31,6 +33,7 @@ const HomeRosters: React.FC<HomeRostersProps> = ({
                     item: item,
                     height: height,
                     button: showButton,
+                    navigate
                 })
             }>
             <ShiftItemLayout>

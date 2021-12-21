@@ -6,10 +6,14 @@ import { withTheme } from 'styled-components';
 // @ts-ignore
 import styled from 'styled-components/native';
 import { useActions } from '@root/hooks/useActions';
-import { getUserLocation } from '../../../../utils/common-methods';
+import {navigationRef} from '@root/navigation/RootNavigation';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
+import NavigationStrings from "../../../../navigation/navigationStrings";
+import {getUserLocation} from "../../../../utils/common-methods";
 
-const RosterView = ({ item, button }: any) => {
+
+
+const RosterView = ({ item, button ,props}: any) => {
     const { startShiftAction, getActiveShift } = useActions();
     const orgID = useTypedSelector((state) => state.auth.orgID);
 
@@ -51,6 +55,7 @@ const RosterView = ({ item, button }: any) => {
                 {button && (
                     <TouchableOpacity
                         onPress={async () => {
+
                             try {
                                 const uLocationData: any =
                                     await getUserLocation();
@@ -65,12 +70,15 @@ const RosterView = ({ item, button }: any) => {
                                         },
                                     },
                                 });
-                                await getActiveShift({ orgID: orgID });
+
+                                 getActiveShift({ orgID: orgID });
                             } catch (e) {
                                 alert(
                                     'Please enable the location from settings!',
                                 );
                             }
+
+
                         }}>
                         <View style={{ alignItems: 'center' }}>
                             <StartBtnImage

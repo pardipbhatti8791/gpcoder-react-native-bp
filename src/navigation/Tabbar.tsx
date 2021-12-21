@@ -81,6 +81,8 @@ function DashboardTabs(props: any) {
                                                         uLocationData.longitude,
                                                 },
                                             });
+
+
                                             getActiveShift({ orgID: orgID });
                                         } catch (e) {
                                             alert(
