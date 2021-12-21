@@ -34,16 +34,13 @@ global.fetch = function (uri, options, ...args) {
     });
 };
 
-
 const AppWrapper = () => {
     return (
         <Provider store={store}>
-
             <PersistGate loading={null} persistor={persistor}>
-                <View style={{ flex: 1, position: "relative" }}>
+                <View style={{ flex: 1, position: 'relative' }}>
                     <App />
                 </View>
-
             </PersistGate>
         </Provider>
     );

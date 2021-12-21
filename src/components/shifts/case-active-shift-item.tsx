@@ -12,17 +12,16 @@ import { actionsButtonIcons, reportsData } from '@root/utils/common-methods';
 import { navigationRef } from '@root/navigation/RootNavigation';
 import navigationStrings from '@root/navigation/navigationStrings';
 
-
 interface CaseActiveShiftItem
     extends Pick<PanGestureHandlerProps, 'simultaneousHandlers'> {
-    onRemove: (item: any) => void;
+    onRemove?: (item: any) => void;
     shiftReportData: any;
-    item: any;
+    shiftItem: any;
 }
 
 const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
     shiftReportData,
-    item,
+    shiftItem,
     simultaneousHandlers,
     onRemove,
 }) => {
@@ -33,7 +32,7 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
             <ShiftItemHorizontal>
                 <ShiftStartTimeEndTime>Shift: </ShiftStartTimeEndTime>
                 <ShiftCode>
-                    {format(new Date(item.shiftStart), 'HH:mm')}
+                    {format(new Date(shiftItem.shiftStart), 'HH:mm')}
                 </ShiftCode>
             </ShiftItemHorizontal>
             <ShiftItemHorizontal>
@@ -54,47 +53,51 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
             <FlatList
                 showsVerticalScrollIndicator={false}
                 data={shiftReportData}
-                renderItem={({ item, i }: any) => (
-
-                        <TouchableOpacity
-                            onPress={() => {
-                                {
-                                    setShiftReportEntryID({
-                                        id: item.shiftReportID,
-                                    });
-                                    navigationRef.current.navigate(
-                                        navigationStrings.PATROL,
-                                        {
-                                            editable: true,
-                                            item,
-                                        },
-                                    );
-                                }
-                            }}>
-                            <ItemLayout>
-                                <ItemHorizontal1>
-                                    <Timeicon
-                                        source={require('@root/assets/clock/clock.png')}
-                                    />
-                                    <StartEndTimeCategory>
-                                        {format(
-                                            new Date(item.reportDateTime),
-                                            'HH:mm',
-                                        )}{' '}
-                                        - {item.categoryName}
-                                    </StartEndTimeCategory>
-                                </ItemHorizontal1>
-                                <ShiftStartTimeEndTime
-                                    numberOfLines={1}
-                                    style={{ marginTop: 3 }}>
-                                    {item.description}
-                                </ShiftStartTimeEndTime>
-                            </ItemLayout>
-                        </TouchableOpacity>
-
-                )}
+                renderItem={({ item, i }: any) => {
+                    const d = item.reportDateTime.split('T')[1].split(':')
+                  return  (
+                    <TouchableOpacity
+                        onPress={() => {
+                            {
+                                setShiftReportEntryID({
+                                    id: item.shiftReportID,
+                                });
+                                navigationRef.current.navigate(
+                                    navigationStrings.PATROL,
+                                    {
+                                        editable: true,
+                                        item,
+                                    },
+                                );
+                            }
+                        }}>
+                        <ItemLayout>
+                            <ItemHorizontal1>
+                                <Timeicon
+                                    source={require('@root/assets/clock/clock.png')}
+                                />
+                                <StartEndTimeCategory>
+                                    {d[0]}{':'}{d[1]}
+                                    - {item.categoryName}
+                                </StartEndTimeCategory>
+                            </ItemHorizontal1>
+                            <ShiftStartTimeEndTime
+                                numberOfLines={1}
+                                style={{ marginTop: 3 }}>
+                                {item.description}
+                            </ShiftStartTimeEndTime>
+                        </ItemLayout>
+                    </TouchableOpacity>
+                )}}
             />
-
+            <FloatingAction
+                actions={actionsButtonIcons}
+                onPressItem={(name) => {
+                    navigationRef.current.navigate(navigationStrings.QRSCAN);
+                }}
+                overlayColor={'rgba(255, 255, 255, 0)'}
+                color={'#16a086'}
+            />
         </MainParentWrapper>
     );
 };
