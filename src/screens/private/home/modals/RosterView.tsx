@@ -6,11 +6,10 @@ import { withTheme } from 'styled-components';
 // @ts-ignore
 import styled from 'styled-components/native';
 import { useActions } from '@root/hooks/useActions';
-import {navigationRef} from '@root/navigation/RootNavigation';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
-import NavigationStrings from "../../../../navigation/navigationStrings";
 import {getUserLocation} from "../../../../utils/common-methods";
-
+import {navigationRef} from "../../../../navigation/RootNavigation";
+import NavigationStrings from "../../../../navigation/navigationStrings";
 
 
 const RosterView = ({ item, button ,props}: any) => {
@@ -55,7 +54,6 @@ const RosterView = ({ item, button ,props}: any) => {
                 {button && (
                     <TouchableOpacity
                         onPress={async () => {
-
                             try {
                                 const uLocationData: any =
                                     await getUserLocation();
@@ -71,7 +69,8 @@ const RosterView = ({ item, button ,props}: any) => {
                                     },
                                 });
 
-                                 getActiveShift({ orgID: orgID });
+                               await  getActiveShift({ orgID: orgID });
+                             //   navigationRef.current.navigate(NavigationStrings.TAB_BAR_SHIFTS)
                             } catch (e) {
                                 alert(
                                     'Please enable the location from settings!',
@@ -99,8 +98,8 @@ const SheetItemLayout = styled.View`
   background: ${(props: any) => props.theme.colors.secondary};
   border: 2px solid #29313E;
   border-radius: 8px;
-  margin-bottom: -12px
-  margin-top: 10px
+  margin-bottom: -12px;
+  margin-top: 10px;
   padding: 14px;
   display: flex;
   flex-direction: column;

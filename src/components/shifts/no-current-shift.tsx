@@ -68,7 +68,7 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
                                         item={item}
                                         showButton={true}
                                         height={'85%'}
-
+                                        navigation={navigation}
                                     />
                                 );
                             }}
