@@ -7,7 +7,6 @@ import styled, {withTheme} from "styled-components/native";
 import { format } from 'date-fns';
 import {useActions} from "@root/hooks/useActions";
 import {useTypedSelector} from "@root/hooks/useTypedSelector";
-import {navigationRef} from "../../../../navigation/RootNavigation";
 
 // @ts-ignore
 const AutoShiftStart =({route})=> {
@@ -76,7 +75,7 @@ const AutoShiftStart =({route})=> {
                                         'Please enable the location from settings!',
                                     );
                                 }
-                                
+
 
                             }}>
                             <View style={{ alignItems: 'center' }}>
