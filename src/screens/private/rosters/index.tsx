@@ -108,6 +108,8 @@ function Roster(props: any) {
                             nestedScrollEnabled={true}
                             data={rosterData}
                             renderItem={({ item }) => {
+                                const d = item.rosterStart.split('T')[1].split(':')
+                                const d1 = item.rosterEnd.split('T')[1].split(':')
                                 return (
                                     <TouchableOpacity
                                         onPress={() =>
@@ -148,15 +150,12 @@ function Roster(props: any) {
                                                                 new Date(
                                                                     item.rosterStart,
                                                                 ),
-                                                                'EEE HH:MM',
+                                                                'EEE',
                                                             )}
+
+                                                            {' '+ d[0]}{':'}{d[1]}
                                                             {' - '}
-                                                            {format(
-                                                                new Date(
-                                                                    item.rosterEnd,
-                                                                ),
-                                                                'HH:MM',
-                                                            )}
+                                                            {d1[0]}{':'}{d1[1]}
                                                         </TimeText>
                                                     </ShiftItemHorizontal>
                                                     <TitleText>

@@ -22,7 +22,7 @@ const AutoShiftStart =({route})=> {
 
                     <LocationText>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                        do eiusmod tempor incididunt ut lab
+
                     </LocationText>
 
                     <SheetItemLayout>
@@ -34,9 +34,12 @@ const AutoShiftStart =({route})=> {
 
                     <LocationText style={{ marginBottom: 7 }}>
                         Rostered For{' '}
-                        {format(new Date(route.params.item.rosterStart), 'EEE HH:MM')}
+                        {format(new Date(route.params.item.rosterStart), 'EEE')}
+                        {' '}
+                        {route.params.item.rosterStart.split('T')[1].split(':')[0]}:{route.params.item.rosterStart.split('T')[1].split(':')[1]}
                         {' - '}
-                        {format(new Date(route.params.item.rosterEnd), 'HH:MM')}
+                        {route.params.item.rosterEnd.split('T')[1].split(':')[0]}:{route.params.item.rosterEnd.split('T')[1].split(':')[1]}
+
                     </LocationText>
 
                     <LocationText>
@@ -48,9 +51,9 @@ const AutoShiftStart =({route})=> {
 
                     <LocationText>item.siteAddress</LocationText>
 
-                    <LocationText>Report to Dock master</LocationText>
+                    <LocationText>Report to Dock master </LocationText>
 
-
+                    {route.params.button && (
                         <TouchableOpacity
                             onPress={async () => {
                                 try {
@@ -84,6 +87,7 @@ const AutoShiftStart =({route})=> {
                                 />
                             </View>
                         </TouchableOpacity>
+                        )}
 
                 </MainFrame>
             </ScrollView>

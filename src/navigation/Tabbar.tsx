@@ -54,7 +54,7 @@ function DashboardTabs(props: any) {
                             <TouchableOpacity
                                 onPress={() =>
                                     props.navigation.navigate(
-                                        navigationStrings.ROSTER_CALENDAR,
+                                        navigationStrings.ROSTER_CALENDAR,{ navigation:props.navigation}
                                     )
                                 }>
                                 <NavigationBurgerIcon

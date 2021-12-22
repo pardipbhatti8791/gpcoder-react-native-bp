@@ -46,10 +46,15 @@ function CustomDrawer(props: any) {
                         );
                     })}
                 </DrawerFirstSection>
+
                 <DrawerSecondSection>
                     <TouchableOpacity onPress={() => logout()}>
                         <LogoutText textColor={colors.text}>Logout</LogoutText>
                     </TouchableOpacity>
+                </DrawerSecondSection>
+
+                <DrawerSecondSection>
+                   <VersionText>V 1.0</VersionText>
                 </DrawerSecondSection>
             </DrawerWrapper>
         </SafeAreaView>
@@ -58,6 +63,7 @@ function CustomDrawer(props: any) {
 
 export default CustomDrawer;
 
+
 type DrawerWrapperProps = {
     backgroundColor: string;
 };
@@ -65,7 +71,10 @@ type DrawerWrapperProps = {
 type TextColorProps = {
     textColor: string;
 };
-
+const VersionText = styled.Text<TextColorProps>`
+  color: ${({ textColor }: any) => textColor};
+  font-size: 16px;
+`;
 
 const LogoutText = styled.Text<TextColorProps>`
     color: ${({ textColor }: any) => textColor};

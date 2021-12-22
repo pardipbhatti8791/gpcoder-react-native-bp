@@ -7,6 +7,7 @@ import {format} from 'date-fns';
 import {useActions} from '../../hooks/useActions';
 import {navigationRef} from "../../navigation/RootNavigation";
 import NavigationStrings from "../../navigation/navigationStrings";
+import button from "../Button";
 
 type HomeRostersProps = {
     item: {
@@ -32,16 +33,14 @@ const HomeRosters: React.FC<HomeRostersProps> = ({
     return (
         <TouchableOpacity
             onPress={() => {
-
-                navigation.navigate(NavigationStrings.AUTO_SHIFT_START,{item:item,navigation:navigation})
+                {
+                    navigation.navigate(NavigationStrings.AUTO_SHIFT_START, {
+                        item: item,
+                        navigation: navigation,
+                        button: showButton
+                    })
+                }
             }
-
-                // openModal('RosterView', {
-                //     item: item,
-                //     height: height,
-                //     button: showButton,
-                //     navigate
-                // })
             }>
             <ShiftItemLayout>
                 <ImageCont>
@@ -49,9 +48,9 @@ const HomeRosters: React.FC<HomeRostersProps> = ({
                 </ImageCont>
                 <ImageRight>
                     <ItemNameText>
-                        {format(new Date(item.rosterStart), 'EEE HH:mm')}
+                        {item.rosterStart.split('T')[1].split(':')[0]}:{item.rosterStart.split('T')[1].split(':')[1]}
                         {' - '}
-                        {format(new Date(item.rosterEnd), 'HH:mm')}
+                        {item.rosterEnd.split('T')[1].split(':')[0]}:{item.rosterEnd.split('T')[1].split(':')[1]}
                     </ItemNameText>
                     <SiteText>{item.siteName}</SiteText>
                     <SiteNotes numberOfLines={1}>{item.notes}</SiteNotes>

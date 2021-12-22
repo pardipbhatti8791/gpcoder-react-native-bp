@@ -6,8 +6,8 @@ import { withTheme } from 'styled-components';
 // @ts-ignore
 import styled from 'styled-components/native';
 import { useActions } from '@root/hooks/useActions';
-import { useTypedSelector } from '../../../../hooks/useTypedSelector';
-import {getUserLocation} from "../../../../utils/common-methods";
+import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import {getUserLocation} from "@root/utils/common-methods";
 import {navigationRef} from "../../../../navigation/RootNavigation";
 import NavigationStrings from "../../../../navigation/navigationStrings";
 
@@ -35,9 +35,12 @@ const RosterView = ({ item, button ,props}: any) => {
 
                 <LocationText style={{ marginBottom: 7 }}>
                     Rostered For{' '}
-                    {format(new Date(item.rosterStart), 'EEE HH:MM')}
+                    {format(new Date(item.rosterStart), 'EEE')}
+                    {' '}
+                    {item.rosterStart.split('T')[1].split(':')[0]}:{item.rosterStart.split('T')[1].split(':')[1]}
                     {' - '}
-                    {format(new Date(item.rosterEnd), 'HH:MM')}
+                    {item.rosterEnd.split('T')[1].split(':')[0]}:{item.rosterEnd.split('T')[1].split(':')[1]}
+
                 </LocationText>
 
                 <LocationText>
@@ -76,8 +79,6 @@ const RosterView = ({ item, button ,props}: any) => {
                                     'Please enable the location from settings!',
                                 );
                             }
-
-
                         }}>
                         <View style={{ alignItems: 'center' }}>
                             <StartBtnImage
