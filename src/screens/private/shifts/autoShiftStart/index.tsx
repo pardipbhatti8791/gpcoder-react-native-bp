@@ -20,11 +20,6 @@ const AutoShiftStart =({route})=> {
                 <MainFrame>
                     <AboutText fontSize={20}>Start Shift</AboutText>
 
-                    <LocationText>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-
-                    </LocationText>
-
                     <SheetItemLayout>
                         <LocationText>Location Name</LocationText>
                         <SiteText>{route.params.item.siteName}</SiteText>
@@ -44,12 +39,12 @@ const AutoShiftStart =({route})=> {
 
                     <LocationText>
                         Instructions{'\n'}
-                        {route.params.item.notes}
+
                     </LocationText>
 
                     <AboutText fontSize={20}>About The Site</AboutText>
 
-                    <LocationText>item.siteAddress</LocationText>
+                    <LocationText>{route.params.item.siteAddress}</LocationText>
 
                     <LocationText>Report to Dock master </LocationText>
 

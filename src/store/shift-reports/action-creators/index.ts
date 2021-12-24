@@ -52,6 +52,7 @@ export const createReportEntryForShift = (
             const response = await service[
                 fn.type === 'create' ? 'post' : 'put'
             ](fn.url, fn.type === 'create' ? fn.create : fn.update);
+
             dispatch({
                 type: ActionType.CREATE_PATROL_ENTRY_SUCCESS,
                 payload: response.data,

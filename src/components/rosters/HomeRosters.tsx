@@ -4,10 +4,8 @@ import {TouchableOpacity, View, Text} from 'react-native';
 import styled from 'styled-components/native';
 import {withTheme} from 'styled-components';
 import {format} from 'date-fns';
-import {useActions} from '../../hooks/useActions';
-import {navigationRef} from "../../navigation/RootNavigation";
-import NavigationStrings from "../../navigation/navigationStrings";
-import button from "../Button";
+import {useActions} from '@root/hooks/useActions';
+import NavigationStrings from "@root/navigation/navigationStrings";
 
 type HomeRostersProps = {
     item: {
@@ -18,14 +16,16 @@ type HomeRostersProps = {
     };
     showButton?: boolean;
     height?: string;
-    navigation? :any
+    navigation?: any
+    type?: string
 };
 
 const HomeRosters: React.FC<HomeRostersProps> = ({
                                                      item,
                                                      showButton = false,
                                                      height = '65%',
-                                                     navigation
+                                                     navigation,
+                                                     type
 
                                                  }) => {
     const {openModal} = useActions();
@@ -33,29 +33,69 @@ const HomeRosters: React.FC<HomeRostersProps> = ({
     return (
         <TouchableOpacity
             onPress={() => {
-                {
-                    navigation.navigate(NavigationStrings.AUTO_SHIFT_START, {
-                        item: item,
-                        navigation: navigation,
-                        button: showButton
-                    })
-                }
+                type === 'modal' ? openModal('RosterView', {
+                    item,
+                    button: false,
+                    height: '65%',
+                }) : navigation.navigate(NavigationStrings.AUTO_SHIFT_START, {
+                    item: item,
+                    navigation: navigation,
+                    button: showButton,
+
+                })
+
             }
             }>
-            <ShiftItemLayout>
-                <ImageCont>
-                    <ImageView source={require('@root/assets/profile.png')}/>
-                </ImageCont>
-                <ImageRight>
-                    <ItemNameText>
-                        {item.rosterStart.split('T')[1].split(':')[0]}:{item.rosterStart.split('T')[1].split(':')[1]}
-                        {' - '}
-                        {item.rosterEnd.split('T')[1].split(':')[0]}:{item.rosterEnd.split('T')[1].split(':')[1]}
-                    </ItemNameText>
-                    <SiteText>{item.siteName}</SiteText>
-                    <SiteNotes numberOfLines={1}>{item.notes}</SiteNotes>
-                </ImageRight>
-            </ShiftItemLayout>
+
+            <ShiftItemHorizontal>
+                <ShiftItemVertical>
+                    <DateText>
+                        {format(
+                            new Date(
+                                item.rosterStart,
+                            ),
+                            'do',
+                        )}
+                    </DateText>
+                    <DayText>
+                        {format(
+                            new Date(
+                                item.rosterStart,
+                            ),
+                            'EE',
+                        )}
+                    </DayText>
+                </ShiftItemVertical>
+
+                <ShiftItemLayout>
+                    <ItemView>
+                        <ShiftItemHorizontal>
+                            <Timeicon
+                                source={require('@root/assets/clock/clock.png')}
+                            />
+                            <TimeText>
+                                {format(
+                                    new Date(
+                                        item.rosterStart,
+                                    ),
+                                    'EEE',
+                                )}
+
+                                {item.rosterStart.split('T')[1].split(':')[0]}:{item.rosterStart.split('T')[1].split(':')[1]}
+                                {' - '}
+                                {item.rosterEnd.split('T')[1].split(':')[0]}:{item.rosterEnd.split('T')[1].split(':')[1]}
+                            </TimeText>
+                        </ShiftItemHorizontal>
+                        <TitleText>
+                            {item.siteName}
+                        </TitleText>
+                        <CodeText numberOfLines={1}>
+                            {item.notes}
+                        </CodeText>
+                    </ItemView>
+                </ShiftItemLayout>
+            </ShiftItemHorizontal>
+
         </TouchableOpacity>
     );
 };
@@ -63,27 +103,52 @@ const HomeRosters: React.FC<HomeRostersProps> = ({
 // @ts-ignore
 export default withTheme(HomeRosters);
 
-const SiteNotes = styled.Text`
+
+const TimeText = styled.Text`
   color: ${({theme}: any) => theme.colors.text};
+`;
+
+const Timeicon = styled.Image`
+  margin-right: 8px;
+`;
+
+const DateText = styled.Text`
+  font-size: ${({theme}: any) => theme.fontSize.cardDate}px;
+  color: ${({theme}: any) => theme.colors.text};
+  padding-bottom: 2px;
+`;
+
+const DayText = styled.Text`
+  font-size: 18px;
+  font-weight: 400;
+  align-items: center;
+  display: flex;
+  text-align: center;
+  width: 100%;
+  color: ${({theme}: any) => theme.colors.text};
+`;
+
+const TitleText = styled.Text`
+  font-size: ${({theme}: any) => theme.fontSize.cardDate}px;
+  font-weight: 400;
+  color: ${({theme}: any) => theme.colors.text};
+  margin-top: 3px;
+`;
+
+const CodeText = styled.Text`
   font-size: ${({theme}: any) => theme.fontSize.cardDate}px;
   font-weight: 500;
-`;
-
-const SiteText = styled.Text`
   color: ${({theme}: any) => theme.colors.text};
-  font-size: ${({theme}: any) => theme.fontSize.cardTitle}px;
-  font-weight: 500;
 `;
 
-const ItemNameText = styled.Text`
-  color: ${({theme}: any) => theme.colors.textGray};
-  font-size: ${({theme}: any) => theme.fontSize.cardSubTitle}px;
-  font-weight: 400;
+const ItemView = styled.View`
+  width: 100%;
 `;
+
 
 const ShiftItemLayout = styled.View`
+  flex: auto;
   background: ${({theme}: any) => theme.colors.primary};
-
   border-radius: 8px;
   margin-bottom: 10px;
   padding: 14px;
@@ -91,15 +156,21 @@ const ShiftItemLayout = styled.View`
   align-items: center;
 `;
 
-const ImageView = styled.Image`
-  height: 64px;
-  width: 64px;
-  border: 2px;
-  border-radius: 4px;
+const ShiftItemVertical = styled.View`
+  background: ${({theme}: any) => theme.colors.primary};
+  border-radius: 8px;
+  margin-right: 8px;
+  margin-bottom: 10px;
+  padding: 21px 5px;
+  width: 20%;
+  min-width: 70px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 `;
 
-const ImageCont = styled.View`
-  padding-right: 9px;
+const ShiftItemHorizontal = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;
 
-const ImageRight = styled.View``;

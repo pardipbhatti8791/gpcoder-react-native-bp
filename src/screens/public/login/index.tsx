@@ -70,10 +70,7 @@ const Login = (props: any) => {
                             />
                         </LogoWrapper>
                         <HeadingText>Login</HeadingText>
-                        <SubHeading>
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry.
-                        </SubHeading>
+
                         <View>
                             <Formik
                                 validationSchema={LOGIN_SCHEMA}

@@ -88,7 +88,7 @@ const Home = (props: any) => {
                             nestedScrollEnabled={true}
                             data={rosterData}
                             renderItem={({ item }) => {
-                                return <HomeRosters item={item} navigation={props.navigation} />;
+                                return <HomeRosters item={item} navigation={props.navigation} type={'modal'} />;
                             }}
                         />
                     ) : (

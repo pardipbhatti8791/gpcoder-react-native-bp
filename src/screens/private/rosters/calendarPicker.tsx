@@ -34,6 +34,8 @@ export function RosterCalender (props:any) {
 
     // @ts-ignore
     const onDateChange = (date) => {
+
+
         getRosters({
             uri: `${apiUri.shifts.shiftsByDay}` + format(new Date(date), 'd'),
         });
@@ -93,7 +95,7 @@ export function RosterCalender (props:any) {
                                 nestedScrollEnabled={true}
                                 data={rosterData}
                                 renderItem={({item}) => {
-                                    return <HomeRosters item={item} navigation={props.navigation} />;
+                                    return <HomeRosters item={item} navigation={props.navigation} type={'modal'}/>;
                                 }}
                             />
 

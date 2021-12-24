@@ -17,9 +17,10 @@ import { useActions } from '@root/hooks/useActions';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
 
 const ImagePickerSheet = (props: any) => {
-    const { uploadAttachmentShiftReportsEntries,closeModal } = useActions();
+
+    const { uploadAttachmentShiftReportsEntries,closeModal,getShiftsReportsEntrieAttachments } = useActions();
     const [imagePath, setImagePath] = useState<any>(null);
-    const { uploadAttachmentReportEntryLoading } = useTypedSelector(
+    const { uploadAttachmentReportEntryLoading,shiftReportEntryID } = useTypedSelector(
         (state) => state.shiftReports,
     );
 
@@ -49,6 +50,7 @@ const ImagePickerSheet = (props: any) => {
             formData.append('description', values.description);
 
             await uploadAttachmentShiftReportsEntries(formData);
+             getShiftsReportsEntrieAttachments({id: shiftReportEntryID});
             closeModal()
         }
     };
@@ -57,7 +59,6 @@ const ImagePickerSheet = (props: any) => {
         <ScrollView>
             <CustomMainWrapper>
                 <Formik
-                    validationSchema={PATROL_ENTRY_SCHEMA}
                     initialValues={{
                         description: '',
                     }}
@@ -77,9 +78,9 @@ const ImagePickerSheet = (props: any) => {
                                     <TouchableOpacity
                                         onPress={() => {
                                             ImagePicker.openCamera({
-                                                width: 300,
-                                                height: 400,
+
                                                 cropping: true,
+                                                compressImageQuality:1
                                             }).then((image) => {
                                                 setImagePath(image);
                                             });
@@ -87,7 +88,9 @@ const ImagePickerSheet = (props: any) => {
                                         <Tabs>
                                             <ImageBT>
                                                 <AddImage
-                                                    source={require('@root/assets/cameracolor/cameracolor.png')}></AddImage>
+                                                    source={require('@root/assets/cameracolor/cameracolor.png')}>
+
+                                                </AddImage>
                                                 <TabsText>Click Image</TabsText>
                                             </ImageBT>
                                         </Tabs>
@@ -98,9 +101,9 @@ const ImagePickerSheet = (props: any) => {
                                     <TouchableOpacity
                                         onPress={() => {
                                             ImagePicker.openPicker({
-                                                width: 300,
-                                                height: 400,
                                                 cropping: true,
+                                                compressImageQuality:1
+
                                             }).then(async (image) => {
                                                 setImagePath(image);
                                             });
@@ -141,7 +144,7 @@ const ImagePickerSheet = (props: any) => {
                                     style={{
                                         minHeight: 60,
                                     }}
-                                    error={errors ? errors.description : null}
+
                                 />
                             </TextFieldWrapper>
 

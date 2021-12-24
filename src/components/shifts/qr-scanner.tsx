@@ -56,7 +56,7 @@ const ScanScreen = (props: any) => {
                         item: {
                             shiftID: data && data.activeShift.shiftID,
                             checkpointCode:
-                                'F9449EFC-4B1E-4FA9-9BE2-2A26605F3E7C',
+                                e.data.substr(7),
                             scannedDateTime: new Date(),
                             geoLocation: {
                                 latitude: location.latitude,
@@ -69,6 +69,7 @@ const ScanScreen = (props: any) => {
                 } catch (e) {
                     alert('Something went wrong, Please try again!');
                 }
+
             }
         }
     };
