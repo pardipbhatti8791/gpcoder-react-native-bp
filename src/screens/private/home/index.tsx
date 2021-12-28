@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { format } from 'date-fns';
-
 // @ts-ignore
 import styled from 'styled-components/native';
 import { withTheme } from 'styled-components';
@@ -24,6 +23,7 @@ const Home = (props: any) => {
         (state) => state.rostersByDays,
     );
     const { modalProps } = useTypedSelector(state => state.modalSheet)
+
 
     useEffect(() => {
 
@@ -61,7 +61,7 @@ const Home = (props: any) => {
                                 return (
                                     <ActionItem
                                         item={item}
-                                        navigation={navigation}
+                                        navigation={props.navigation}
                                         key={1}
                                         actionTitle={true}
                                     />

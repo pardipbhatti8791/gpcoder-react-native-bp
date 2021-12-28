@@ -62,6 +62,7 @@ const ShiftAttachmentSheet = () => {
                                         });
 
                                       await  getShiftsReportsEntrieAttachments({id: shiftReportEntryID});
+                                        setCancelable(true)
                                         setShowAlert(false)
                                     }}
                                 />

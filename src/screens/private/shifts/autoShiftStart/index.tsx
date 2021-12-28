@@ -25,7 +25,7 @@ const AutoShiftStart =({route})=> {
                         <SiteText>{route.params.item.siteName}</SiteText>
                     </SheetItemLayout>
 
-                    <LocationText></LocationText>
+                    <LocationText> </LocationText>
 
                     <LocationText style={{ marginBottom: 7 }}>
                         Rostered For{' '}
