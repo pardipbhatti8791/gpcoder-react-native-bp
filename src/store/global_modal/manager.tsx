@@ -52,7 +52,7 @@ const ModalManager = () => {
             '0%',
             modalProps !== null && modalProps.hasOwnProperty('height')
                 ? modalProps.height
-                : '50%',
+                : '70%',
         ],
         [modalProps],
     );
