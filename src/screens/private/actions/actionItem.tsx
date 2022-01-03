@@ -9,7 +9,7 @@ import navigationStrings from "../../../navigation/navigationStrings";
 
 type ActionItemProps = {
     item: ItemData;
-    navigation: any;
+    navigation?: any;
     actionTitle: boolean;
 };
 

@@ -6,10 +6,13 @@ import { withTheme } from 'styled-components';
 // @ts-ignore
 import styled from 'styled-components/native';
 import { useActions } from '@root/hooks/useActions';
-import { getUserLocation } from '../../../../utils/common-methods';
-import { useTypedSelector } from '../../../../hooks/useTypedSelector';
+import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import {getUserLocation} from "@root/utils/common-methods";
+import {navigationRef} from "../../../../navigation/RootNavigation";
+import NavigationStrings from "../../../../navigation/navigationStrings";
 
-const RosterView = ({ item, button }: any) => {
+
+const RosterView = ({ item, button ,props}: any) => {
     const { startShiftAction, getActiveShift } = useActions();
     const orgID = useTypedSelector((state) => state.auth.orgID);
 
@@ -32,9 +35,12 @@ const RosterView = ({ item, button }: any) => {
 
                 <LocationText style={{ marginBottom: 7 }}>
                     Rostered For{' '}
-                    {format(new Date(item.rosterStart), 'EEE HH:MM')}
+                    {format(new Date(item.rosterStart), 'EEE')}
+                    {' '}
+                    {item.rosterStart.split('T')[1].split(':')[0]}:{item.rosterStart.split('T')[1].split(':')[1]}
                     {' - '}
-                    {format(new Date(item.rosterEnd), 'HH:MM')}
+                    {item.rosterEnd.split('T')[1].split(':')[0]}:{item.rosterEnd.split('T')[1].split(':')[1]}
+
                 </LocationText>
 
                 <LocationText>
@@ -65,7 +71,9 @@ const RosterView = ({ item, button }: any) => {
                                         },
                                     },
                                 });
-                                await getActiveShift({ orgID: orgID });
+
+                               await  getActiveShift({ orgID: orgID });
+                             //   navigationRef.current.navigate(NavigationStrings.TAB_BAR_SHIFTS)
                             } catch (e) {
                                 alert(
                                     'Please enable the location from settings!',
@@ -91,8 +99,8 @@ const SheetItemLayout = styled.View`
   background: ${(props: any) => props.theme.colors.secondary};
   border: 2px solid #29313E;
   border-radius: 8px;
-  margin-bottom: -12px
-  margin-top: 10px
+  margin-bottom: -12px;
+  margin-top: 10px;
   padding: 14px;
   display: flex;
   flex-direction: column;

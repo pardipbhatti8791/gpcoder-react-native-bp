@@ -26,13 +26,14 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
     onRemove,
 }) => {
     const { openModal, setShiftReportEntryID } = useActions();
+    const d = shiftItem.shiftStart.split('T')[1].split(':')
     return (
         <MainParentWrapper>
-            <ShiftCode>GHBJM</ShiftCode>
+            <ShiftCode>{shiftItem.siteName}</ShiftCode>
             <ShiftItemHorizontal>
                 <ShiftStartTimeEndTime>Shift: </ShiftStartTimeEndTime>
                 <ShiftCode>
-                    {format(new Date(shiftItem.shiftStart), 'HH:mm')}
+                    {d[0]}{':'}{d[1]}
                 </ShiftCode>
             </ShiftItemHorizontal>
             <ShiftItemHorizontal>
@@ -90,14 +91,7 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
                     </TouchableOpacity>
                 )}}
             />
-            <FloatingAction
-                actions={actionsButtonIcons}
-                onPressItem={(name) => {
-                    navigationRef.current.navigate(navigationStrings.QRSCAN);
-                }}
-                overlayColor={'rgba(255, 255, 255, 0)'}
-                color={'#16a086'}
-            />
+
         </MainParentWrapper>
     );
 };

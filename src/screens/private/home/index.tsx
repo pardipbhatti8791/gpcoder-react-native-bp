@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { format } from 'date-fns';
-
 // @ts-ignore
 import styled from 'styled-components/native';
 import { withTheme } from 'styled-components';
@@ -16,14 +15,25 @@ import ModalManager from '@root/store/global_modal/manager';
 import { apiUri } from '@root/service/apiEndPoints';
 
 const Home = (props: any) => {
-    const { navigation } = props;
-    const { getActions, getRosters } = useActions();
+    const { getActions, getRosters, closeModal } = useActions();
     const isFocused = useIsFocused();
     const { orgID } = useTypedSelector((state) => state.auth);
     const { actionsData, loading } = useTypedSelector((state) => state.actions);
     const { rosterData, roasterLoading } = useTypedSelector(
         (state) => state.rostersByDays,
     );
+    const { modalProps } = useTypedSelector(state => state.modalSheet)
+
+
+    useEffect(() => {
+
+        if (isFocused) {
+            if(modalProps !== null) {
+                closeModal()
+            }
+
+        }
+    }, [isFocused])
 
     useEffect(() => {
         if (isFocused) {
@@ -51,7 +61,7 @@ const Home = (props: any) => {
                                 return (
                                     <ActionItem
                                         item={item}
-                                        navigation={navigation}
+                                        navigation={props.navigation}
                                         key={1}
                                         actionTitle={true}
                                     />
@@ -78,7 +88,7 @@ const Home = (props: any) => {
                             nestedScrollEnabled={true}
                             data={rosterData}
                             renderItem={({ item }) => {
-                                return <HomeRosters item={item} />;
+                                return <HomeRosters item={item} navigation={props.navigation} type={'modal'} />;
                             }}
                         />
                     ) : (

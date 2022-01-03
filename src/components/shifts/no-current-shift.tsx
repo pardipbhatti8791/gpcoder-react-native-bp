@@ -23,7 +23,8 @@ type ShiftProps = {
 }
 
 const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
-    const {getUpcomingRosters, openModal} = useActions();
+    const {getUpcomingRosters, closeModal,getActiveShift} = useActions();
+    const {modalProps} = useTypedSelector(state => state.modalSheet)
     const {upcomingRosterData, upcomingRoasterLoading} = useTypedSelector(
         (state) => state.rostersByDays,
     );
@@ -31,6 +32,10 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
 
 
     useEffect(() => {
+        if (modalProps !== null) {
+            closeModal()
+
+        }
         getUpcomingRosters({orgID: orgID});
     }, []);
 
@@ -63,6 +68,7 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
                                         item={item}
                                         showButton={true}
                                         height={'85%'}
+                                        navigation={navigation}
                                     />
                                 );
                             }}
@@ -73,10 +79,7 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
 
                     <BtnWrapper>
                         <TouchableOpacity onPress={() => {
-
                                 navigation.navigate(navigationStrings.START_MANUAL_SHIFT)
-
-
                         }}>
                             <StartManualShiftBtn>
                                 <MyShiftText>
@@ -88,7 +91,7 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
                     </BtnWrapper>
                 </MainWrapper>
             </BackgroundGlobal>
-            <ModalManager/>
+            <ModalManager />
         </MainParentWrapper>
     );
 };

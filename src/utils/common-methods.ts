@@ -12,13 +12,28 @@ export const days = [
 
 export const reportsData = [
     {
+        name: 'Patrol',
+    },
+    {
+        name:'Maintenance',
+    },
+    {
+        name: 'Accident/Incident/Hazard',
+    },
+    {
+        name: 'Welfare Check',
+    },
+    {
+        name: 'Fire Alarm',
+    },
+    {
         name: 'Intoxication',
     },
     {
-        name: 'Crowd Count',
+        name: 'Vehicle Report',
     },
     {
-        name: 'Armed Holdup',
+        name: 'Crowd Count',
     },
     {
         name: 'Bomb Threat',
@@ -27,20 +42,13 @@ export const reportsData = [
         name: 'Boat Report',
     },
     {
-        name: 'Vehicle Report',
+        name: 'Armed Holdup',
     },
-    {
-        name: 'Accident/Incident/Hazard',
-    },
-    {
-        name: 'Fire Alarm',
-    },
-    {
-        name: 'Welfare Check',
-    },
-    {
-        name: 'Patrol',
-    },
+
+
+
+
+
 ];
 
 export const getUserLocation = () =>

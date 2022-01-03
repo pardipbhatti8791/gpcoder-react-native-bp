@@ -23,6 +23,8 @@ import {
 // ref
 // export const bottomSheetRef: any = React.createRef();
 
+
+
 const ModalManager = () => {
     const { closeModal } = useActions();
     const  bottomSheetRef = useRef(null)
@@ -40,6 +42,7 @@ const ModalManager = () => {
         }else  {
             // @ts-ignore
             bottomSheetRef.current.close();
+            console.log("here")
         }
     }, [modalProps]);
 
@@ -49,7 +52,7 @@ const ModalManager = () => {
             '0%',
             modalProps !== null && modalProps.hasOwnProperty('height')
                 ? modalProps.height
-                : '50%',
+                : '70%',
         ],
         [modalProps],
     );
@@ -58,6 +61,7 @@ const ModalManager = () => {
     const handleSheetChanges = useCallback((index: number) => {
         if (index === 0) {
             closeModal();
+
         }
     }, []);
 

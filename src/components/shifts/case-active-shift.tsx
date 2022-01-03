@@ -1,37 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, Text, FlatList } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {TouchableOpacity, Text, FlatList} from 'react-native';
 
 // @ts-ignore
 import styled from 'styled-components/native';
-import { withTheme } from 'styled-components';
-import { MainParentWrapper, NotFound } from '@root/utils/globalStyle';
+import {withTheme} from 'styled-components';
+import {MainParentWrapper, NotFound} from '@root/utils/globalStyle';
 import BackgroundGlobal from '@root/components/BackgroundGlobal';
-import { useIsFocused } from '@react-navigation/native';
-import { useActions } from '@root/hooks/useActions';
-import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import {useIsFocused} from '@react-navigation/native';
+import {useActions} from '@root/hooks/useActions';
+import {useTypedSelector} from '@root/hooks/useTypedSelector';
 import ModalManager from '@root/store/global_modal/manager';
 import CaseActiveShiftItem from './case-active-shift-item';
 import CaseScannedShiftItem from './case-scanned-shift-item';
+import {FloatingAction} from "react-native-floating-action";
+import {actionsButtonIcons} from "../../utils/common-methods";
+import {navigationRef} from "../../navigation/RootNavigation";
+import navigationStrings from "../../navigation/navigationStrings";
 
 type CaseActiveShiftProps = {
     item: any;
 };
-
-const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({ item }) => {
+const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({item}) => {
     const [tab, setTab] = useState<string>('1');
-    const { getShiftsReportsEntries, getShiftsCheckPointsEntries } =
+    const {getShiftsReportsEntries, getShiftsCheckPointsEntries,closeModal} =
         useActions();
-    const { shiftReportData, shiftReportLoading } = useTypedSelector(
+    const {shiftReportData, shiftReportLoading} = useTypedSelector(
         (state) => state.shiftReports,
     );
-    const { shiftCheckpointsData, shiftCheckoutLoading } = useTypedSelector(
+    const {shiftCheckpointsData, shiftCheckoutLoading} = useTypedSelector(
         (state) => state.checkpoints,
     );
+    const {modalProps} = useTypedSelector(state => state.modalSheet)
     const isFocused = useIsFocused();
+
 
     useEffect(() => {
         if (isFocused) {
-            getShiftsReportsEntries({ id: item.shiftID });
+            if (modalProps !== null) {
+                closeModal()
+            }
+            getShiftsReportsEntries({id: item.shiftID});
         }
     }, [isFocused]);
 
@@ -43,21 +51,21 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({ item }) => {
                     <TouchableOpacity
                         onPress={() => {
                             setTab('1');
-                            getShiftsReportsEntries({ id: item.shiftID });
+                            getShiftsReportsEntries({id: item.shiftID});
                         }}
-                        style={{ width: '50%' }}>
+                        style={{width: '50%'}}>
                         <Tabs
                             style={[
                                 tab === '1'
-                                    ? { backgroundColor: '#F18122' }
-                                    : { backgroundColor: '#28303D' },
+                                    ? {backgroundColor: '#F18122'}
+                                    : {backgroundColor: '#28303D'},
                             ]}>
                             <Text
                                 style={[
                                     tab === '1'
-                                        ? { color: '#000000' }
-                                        : { color: '#FFFFFF' },
-                                    { textAlign: 'center' },
+                                        ? {color: '#000000'}
+                                        : {color: '#FFFFFF'},
+                                    {textAlign: 'center'},
                                 ]}>
                                 Shift Report Entries
                             </Text>
@@ -66,21 +74,21 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({ item }) => {
                     <TouchableOpacity
                         onPress={() => {
                             setTab('2');
-                            getShiftsCheckPointsEntries({ id: item.shiftID });
+                            getShiftsCheckPointsEntries({id: item.shiftID});
                         }}
-                        style={{ width: '50%' }}>
+                        style={{width: '50%'}}>
                         <Tabs
                             style={
                                 tab === '2'
-                                    ? { backgroundColor: '#F18122' }
-                                    : { backgroundColor: '#28303D' }
+                                    ? {backgroundColor: '#F18122'}
+                                    : {backgroundColor: '#28303D'}
                             }>
                             <Text
                                 style={[
                                     tab === '1'
-                                        ? { color: '#FFFFFF' }
-                                        : { color: '#000000' },
-                                    { textAlign: 'center' },
+                                        ? {color: '#FFFFFF'}
+                                        : {color: '#000000'},
+                                    {textAlign: 'center'},
                                 ]}>
                                 Scanned Checkpoints
                             </Text>
@@ -107,7 +115,7 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({ item }) => {
                         ) : (
                             <FlatList
                                 data={shiftCheckpointsData}
-                                renderItem={({ item }) => {
+                                renderItem={({item}) => {
                                     return (
                                         <CaseScannedShiftItem
                                             checkpoint={item.checkpoint}
@@ -120,10 +128,21 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({ item }) => {
                                 }}
                             />
                         )}
+
+
                     </MainWrapper>
                 )}
             </BackgroundGlobal>
-            <ModalManager />
+            <ModalManager/>
+
+            <FloatingAction
+                actions={actionsButtonIcons}
+                onPressItem={(name) => {
+                    navigationRef.current.navigate(navigationStrings.QRSCAN)
+                }}
+                overlayColor={'rgba(255, 255, 255, 0)'}
+                color={'#16a086'}
+            />
         </MainParentWrapper>
     );
 };
@@ -132,29 +151,30 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({ item }) => {
 export default withTheme(CaseActiveShift);
 
 const MainWrapper = styled.View`
-    flex: 1;
-    padding-left: 16px;
-    padding-right: 16px;
-    margin-top: 32px;
+  flex: 1;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-top: 32px;
 `;
 
 const TabHorizontal = styled.View`
-    margin: 20px auto 0 auto;
-    display: flex;
-    width: 75%;
-    height: 50px;
-    flex-direction: row;
-    align-items: center;
-    border-radius: 10px;
+  margin: 20px auto 0 auto;
+  display: flex;
+  width: 75%;
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #28303d;
 `;
 
 const Tabs = styled.View`
-    padding-left: 15px;
-    padding-right: 15px;
-    height: 50px;
-    border-radius: 10px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    background-color: #28303d;
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 50px;
+  border-radius: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #28303d;
 `;

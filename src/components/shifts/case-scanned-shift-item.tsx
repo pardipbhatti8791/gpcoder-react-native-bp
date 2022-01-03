@@ -3,6 +3,11 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { withTheme } from 'styled-components';
 import { RepositoriesStateResponse } from '@root/store/checkpoints/interfaces';
+import {actionsButtonIcons} from "../../utils/common-methods";
+import {navigationRef} from "../../navigation/RootNavigation";
+import navigationStrings from "../../navigation/navigationStrings";
+import { FloatingAction } from 'react-native-floating-action';
+import { format } from 'date-fns';
 
 const CaseScannedShiftItem: React.FC<RepositoriesStateResponse> = ({
     checkpoint,
@@ -15,12 +20,14 @@ const CaseScannedShiftItem: React.FC<RepositoriesStateResponse> = ({
                 <TimeiconScanned
                     source={require('@root/assets/clock/clock.png')}
                 />
-                <TimeText>lsdfdsf</TimeText>
+                <TimeText>{ format(new Date(scannedDateTime), 'HH:mm') }</TimeText>
                 <TimeiconScanned
                     source={require('@root/assets/locicon/locicon.png')}
                 />
-                <TimeText>checkpoint</TimeText>
+                <TimeText>{checkpoint}</TimeText>
             </ItemHorizontal>
+
+
         </ItemLayout1>
     );
 };

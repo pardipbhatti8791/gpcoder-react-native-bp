@@ -54,7 +54,7 @@ function DashboardTabs(props: any) {
                             <TouchableOpacity
                                 onPress={() =>
                                     props.navigation.navigate(
-                                        navigationStrings.ROSTER_CALENDAR,
+                                        navigationStrings.ROSTER_CALENDAR,{ navigation:props.navigation}
                                     )
                                 }>
                                 <NavigationBurgerIcon
@@ -67,7 +67,7 @@ function DashboardTabs(props: any) {
                         return (
                             <BtnWrapper>
                                 <PrimaryButton
-                                    heightBT={35}
+                                    heightBT={38}
                                     onPress={async () => {
                                         try {
                                             const uLocationData: any =
@@ -81,6 +81,8 @@ function DashboardTabs(props: any) {
                                                         uLocationData.longitude,
                                                 },
                                             });
+
+
                                             getActiveShift({ orgID: orgID });
                                         } catch (e) {
                                             alert(

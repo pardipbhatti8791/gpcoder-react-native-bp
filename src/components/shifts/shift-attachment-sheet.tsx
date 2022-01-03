@@ -1,13 +1,18 @@
-import React from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import { withTheme } from 'styled-components';
 import { useActions } from '@root/hooks/useActions';
 // @ts-ignore
 import styled from 'styled-components/native';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import {BottomSheetFlatList} from "@gorhom/bottom-sheet";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 
 const ShiftAttachmentSheet = () => {
+    const [showalert,setShowAlert] = useState(false)
+    const [cancelable,setCancelable] =useState(true)
+    const [btnText,setbtnText]=useState('Confirm')
     const {
         shiftReportsEntriesAttachments,
         deleteShiftReportAttachmentLoading,
@@ -20,20 +25,48 @@ const ShiftAttachmentSheet = () => {
         <FlatList
             data={shiftReportsEntriesAttachments}
             renderItem={({ item, index }) => {
+                // @ts-ignore
                 return (
                     <CustomMainWrapper>
                         <ItemView>
                             <DeleteIcon>
                                 <TouchableOpacity
                                     onPress={async () => {
-                                        await deleteShiftReportAttacments({
-                                            id: item.documentID,
-                                        });
-                                        getShiftsReportsEntrieAttachments({ id: shiftReportEntryID });
+                                        setbtnText('Confirm')
+                                        setShowAlert(true)
                                     }}>
                                     <DeleteImage
                                         source={require('@root/assets/minus/minus.png')} />
                                 </TouchableOpacity>
+
+                                <AwesomeAlert
+                                    show={showalert}
+                                    showProgress={false}
+                                    title="Alert"
+                                    message="Are you sure to delete this?"
+                                    closeOnTouchOutside={cancelable}
+                                    closeOnHardwareBackPress={cancelable}
+                                    showCancelButton={cancelable}
+                                    showConfirmButton={true}
+                                    cancelText="Cancel"
+                                    confirmText={btnText}
+                                    confirmButtonColor="#DD6B55"
+                                    onCancelPressed={() => {
+                                        setShowAlert(false)
+                                    }}
+                                    onConfirmPressed={async () => {
+                                        setbtnText('Deleting...')
+                                        setCancelable(false)
+                                        await deleteShiftReportAttacments({
+                                            id: item.documentID,
+                                        });
+
+                                      await  getShiftsReportsEntrieAttachments({id: shiftReportEntryID});
+                                        setCancelable(true)
+                                        setShowAlert(false)
+                                    }}
+                                />
+
                             </DeleteIcon>
 
                             <FilesBackground>
@@ -42,6 +75,8 @@ const ShiftAttachmentSheet = () => {
                                         uri:
                                             'data:image/png;base64,  ' +
                                             item.image,
+
+
                                     }} />
 
                                 <FilesText>Description</FilesText>
@@ -53,6 +88,7 @@ const ShiftAttachmentSheet = () => {
                     </CustomMainWrapper>
                 );
             }} />
+
     );
 };
 
@@ -60,9 +96,11 @@ const ShiftAttachmentSheet = () => {
 export default withTheme(ShiftAttachmentSheet);
 
 const FilesTextDescription = styled.Text`
-    margin: 5px 0 0 8px;
-    font-size: ${({ theme }: any) => theme.fontSize.cardText}px;
-    color: ${({ theme }: any) => theme.colors.text};
+   
+  margin-top: 5px;
+  margin-left: 8px;
+    // font-size: ${({ theme }: any) => theme.fontSize.cardText}px;
+    // color: ${({ theme }: any) => theme.colors.text};
 `;
 
 const FilesText = styled.Text`

@@ -11,8 +11,12 @@ import {apiUri} from '@root/service/apiEndPoints';
 import {format} from 'date-fns';
 import {useActions} from '@root/hooks/useActions';
 import ModalManager from '@root/store/global_modal/manager';
+import {navigationRef} from "../../../navigation/RootNavigation";
 
-export function RosterCalender() {
+
+
+// @ts-ignore
+export function RosterCalender (props:any) {
     const isFocused = useIsFocused();
     const {getRosters} = useActions();
 
@@ -30,6 +34,8 @@ export function RosterCalender() {
 
     // @ts-ignore
     const onDateChange = (date) => {
+
+
         getRosters({
             uri: `${apiUri.shifts.shiftsByDay}` + format(new Date(date), 'd'),
         });
@@ -81,6 +87,7 @@ export function RosterCalender() {
                         onDateChange={onDateChange}
                     />
                     <View>
+
                         {roasterLoading ? (
                             <NotFound>Loading...</NotFound>
                         ) : rosterData.length > 0 ? (
@@ -88,9 +95,11 @@ export function RosterCalender() {
                                 nestedScrollEnabled={true}
                                 data={rosterData}
                                 renderItem={({item}) => {
-                                    return <HomeRosters item={item}/>;
+                                    return <HomeRosters item={item} navigation={props.navigation} type={'modal'}/>;
                                 }}
                             />
+
+
                         ) : (
                             <NotFound>No Rosters Data Found</NotFound>
                         )}

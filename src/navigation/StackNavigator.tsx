@@ -12,6 +12,7 @@ import {RosterCalender} from '@root/screens/private/rosters/calendarPicker';
 import {TouchableOpacity} from 'react-native';
 import {useActions} from '@root/hooks/useActions';
 import StartManualShift from "../screens/private/shifts/manualShift";
+import AutoShiftStart from "../screens/private/shifts/autoShiftStart";
 
 const Stack = createStackNavigator();
 
@@ -125,6 +126,20 @@ function StackNavigator(props: any) {
                                 />
                             </TouchableOpacity>
                         );
+                    },
+                }}
+            />
+
+            <Stack.Screen
+                name={navigationStrings.AUTO_SHIFT_START}
+                component={AutoShiftStart}
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: colors.secondary,
+                    },
+                    headerBackTitleStyle: {
+                        color: colors.text,
                     },
                 }}
             />
