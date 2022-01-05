@@ -29,7 +29,7 @@ const CaseActiveShiftItem: React.FC<CaseActiveShiftItem> = ({
     const d = shiftItem.shiftStart.split('T')[1].split(':')
     return (
         <MainParentWrapper>
-            <ShiftCode>{shiftItem.siteName}</ShiftCode>
+            <ShiftCode>{shiftItem.description}</ShiftCode>
             <ShiftItemHorizontal>
                 <ShiftStartTimeEndTime>Shift: </ShiftStartTimeEndTime>
                 <ShiftCode>

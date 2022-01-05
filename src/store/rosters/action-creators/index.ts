@@ -1,9 +1,9 @@
-import { Dispatch } from 'redux';
-import { ActionType } from '@root/store/rosters/actions-types';
-import { Action } from '@root/store/rosters/actions';
-import { apiUri } from '@root/service/apiEndPoints';
+import {Dispatch} from 'redux';
+import {ActionType} from '@root/store/rosters/actions-types';
+import {Action} from '@root/store/rosters/actions';
+import {apiUri} from '@root/service/apiEndPoints';
 import service from '@root/service/axios';
-import { RosterInterface, UpcomingRostersInterface } from '../interfaces';
+import {RosterInterface, UpcomingRostersInterface} from '../interfaces';
 
 /**
  * @param fn
@@ -14,7 +14,14 @@ export const getRosters = (fn: RosterInterface) => {
             type: ActionType.ROSTERS_INIT,
         });
         try {
-            const response = await service.get(fn.uri);
+            // @ts-ignore
+
+            const response = await service.get( fn.type === 'week' ? fn.uri :fn.uri+'?val='+fn.val , {
+                headers: {
+                    'g-org': fn.orgID,
+                },
+            })
+
             dispatch({
                 type: ActionType.ROSTERS_GET_SUCCESS,
                 payload: response.data,

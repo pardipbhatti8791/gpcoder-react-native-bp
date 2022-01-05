@@ -8,31 +8,39 @@ import { withTheme } from 'styled-components';
 
 import { TouchableOpacity } from 'react-native';
 import BackgroundGlobal from '@root/components/BackgroundGlobal';
-import { apiUri } from '../../../service/apiEndPoints';
-import { useActions } from '../../../hooks/useActions';
-import { useTypedSelector } from '../../../hooks/useTypedSelector';
-import HomeRosters from '../../../components/rosters/HomeRosters';
+import { apiUri } from '@root/service/apiEndPoints';
+import { useActions } from '@root/hooks/useActions';
+import { useTypedSelector } from '@root/hooks/useTypedSelector';
 import {
     MainParentWrapper,
     NotFound,
     NotFoundWrapper,
-} from '../../../utils/globalStyle';
+} from '@root/utils/globalStyle';
 import { format } from 'date-fns';
-import ModalManager from '../../../store/global_modal/manager';
+import ModalManager from '@root/store/global_modal/manager';
+import {useNetInfo} from "@react-native-community/netinfo";
+import {NetworkStateView} from "@root/components/NetworkStateView";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Roster(props: any) {
     const isFocused = useIsFocused();
     const { getRosters, openModal ,closeModal} = useActions();
-
-
+    const orgID = useTypedSelector((state) => state.auth.orgID);
+    const [scannedData, setScannedData] = useState();
     const [tab, setTab] = useState<number>(1);
     const { rosterData, roasterLoading} = useTypedSelector(
         (state) => state.rostersByDays,
     );
     const { modalProps } = useTypedSelector(state => state.modalSheet)
+    const netInfo = useNetInfo();
+    // @ts-ignore
+    AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
+        // @ts-ignore
+        setScannedData(asyncStorageRes)
+    }).catch(() => {
 
+    });
     useEffect(() => {
-
         if (isFocused) {
             if(modalProps !== null) {
                 closeModal()
@@ -45,6 +53,8 @@ function Roster(props: any) {
         if (isFocused) {
             getRosters({
                 uri: `${apiUri.shifts.shiftsByWeek}` + tab,
+                orgID:orgID,
+                type:'week'
             });
         }
     }, [isFocused, tab]);
@@ -53,7 +63,6 @@ function Roster(props: any) {
         <MainParentWrapper>
             <BackgroundGlobal>
                 <StatusBar translucent={true}></StatusBar>
-
                 <View>
                     <Tabs>
                         <TouchableOpacity
@@ -177,7 +186,13 @@ function Roster(props: any) {
                         </NotFoundWrapperRoster>
                     )}
                 </View>
+
             </BackgroundGlobal>
+            {
+                netInfo.isInternetReachable === true && scannedData != null ? (
+                    <NetworkStateView/>
+                ) : null
+            }
             <ModalManager />
         </MainParentWrapper>
     );

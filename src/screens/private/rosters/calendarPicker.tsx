@@ -14,11 +14,11 @@ import ModalManager from '@root/store/global_modal/manager';
 import {navigationRef} from "../../../navigation/RootNavigation";
 
 
-
 // @ts-ignore
-export function RosterCalender (props:any) {
+export function RosterCalender(props: any) {
     const isFocused = useIsFocused();
     const {getRosters} = useActions();
+    const orgID = useTypedSelector((state) => state.auth.orgID);
 
     const {rosterData, roasterLoading} = useTypedSelector(
         (state) => state.rostersByDays,
@@ -27,17 +27,24 @@ export function RosterCalender (props:any) {
     useEffect(() => {
         if (isFocused) {
             getRosters({
-                uri: `${apiUri.shifts.shiftsByDay}` + format(new Date(), 'd'),
+                uri: `${apiUri.shifts.shiftByDate}`,
+                val: format(new Date(), 'y/L/d'),
+                orgID: orgID,
+                type: 'date'
+
             });
+            alert(format(new Date(), 'y/L/d'))
         }
     }, [isFocused]);
 
     // @ts-ignore
     const onDateChange = (date) => {
-
-
+        const newDate = new Date(date);
         getRosters({
-            uri: `${apiUri.shifts.shiftsByDay}` + format(new Date(date), 'd'),
+            uri: `${apiUri.shifts.shiftByDate}`,
+            val: format(newDate, 'y/L/d'),
+            orgID: orgID,
+            type: 'date'
         });
     };
 

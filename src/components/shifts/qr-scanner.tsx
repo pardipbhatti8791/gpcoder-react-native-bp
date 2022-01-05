@@ -5,10 +5,13 @@ import { Linking } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 // @ts-ignore
 import styled from 'styled-components/native';
-import { getUserLocation } from '../../utils/common-methods';
-import { useActions } from '../../hooks/useActions';
+import { getUserLocation } from '@root/utils/common-methods';
+import { useActions } from '@root/hooks/useActions';
 import { NotFound, NotFoundWrapper } from '../../utils/globalStyle';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import {useNetInfo} from "@react-native-community/netinfo";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CHECKPOINT_ID,SHIFT_ID,LATITUDE,LONGITUDE,CURRENT_TIME} from "@root/utils/constants";
 
 type LocationProps = {
     latitude: number;
@@ -25,6 +28,7 @@ const ScanScreen = (props: any) => {
     const [loading, setLoading] = useState<boolean>(false);
     const data = useTypedSelector((state) => state.activeShift);
     const orgID = useTypedSelector((state) => state.auth.orgID);
+    const netInfo = useNetInfo();
 
     useEffect(() => {
         getUserCurrentLocation();
@@ -47,31 +51,48 @@ const ScanScreen = (props: any) => {
     };
 
     const onSuccess = async (e: any) => {
-        if (scannedData) {
-            if (Object.keys(e).length > 0) {
-                setScannedData(false);
-                try {
-                    await setScannedCheckPointsEntries({
-                        orgID: orgID,
-                        item: {
-                            shiftID: data && data.activeShift.shiftID,
-                            checkpointCode:
-                                e.data.substr(7),
-                            scannedDateTime: new Date(),
-                            geoLocation: {
-                                latitude: location.latitude,
-                                longitude: location.longitude,
+        if (netInfo.isInternetReachable===true)
+        {
+            if (scannedData) {
+                if (Object.keys(e).length > 0) {
+                    setScannedData(false);
+                    try {
+                        await setScannedCheckPointsEntries({
+                            orgID: orgID,
+                            item: {
+                                shiftID: data && data.activeShift.shiftID,
+                                checkpointCode:
+                                    e.data.substr(7),
+                                scannedDateTime: new Date(),
+                                geoLocation: {
+                                    latitude: location.latitude,
+                                    longitude: location.longitude,
+                                },
                             },
-                        },
-                    });
-                    alert('Scanned Success!');
-                    props.navigation.goBack();
-                } catch (e) {
-                    alert('Something went wrong, Please try again!');
-                }
+                        });
+                        alert('Scanned Success!');
 
+                    } catch (e) {
+                        alert('Something went wrong, Please try again!');
+                    }
+
+                }
             }
+        } else {
+            AsyncStorage.setItem('SCANNED_ITEM',JSON.stringify({
+                shiftID: data && data.activeShift.shiftID,
+                checkpointCode:
+                    e.data.substr(7),
+                scannedDateTime: new Date(),
+                geoLocation: {
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                },
+            }))
+            alert('Internet not reachable...')
+            props.navigation.goBack();
         }
+
     };
 
     return (

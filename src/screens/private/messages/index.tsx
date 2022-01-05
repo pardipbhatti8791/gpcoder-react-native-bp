@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Button,
     ScrollView,
@@ -9,6 +9,9 @@ import {
 // @ts-ignore
 import styled from 'styled-components/native';
 import BackgroundGlobal from '@root/components/BackgroundGlobal';
+import {NetworkStateView} from "@root/components/NetworkStateView";
+import {useNetInfo} from "@react-native-community/netinfo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const data = [
     {
@@ -22,6 +25,15 @@ const data = [
 ];
 
 export const Messages = () => {
+
+    const netInfo = useNetInfo()
+    const [scannedData, setScannedData] = useState();
+    AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
+        // @ts-ignore
+        setScannedData(asyncStorageRes)
+    }).catch(() => {
+
+    });
     return (
         <BackgroundGlobal>
             <StatusBar translucent={true}></StatusBar>
@@ -44,6 +56,11 @@ export const Messages = () => {
                     ))}
                 </ScrollView>
             </MainFrame>
+            {
+                netInfo.isInternetReachable === true && scannedData != null ? (
+                    <NetworkStateView/>
+                ) : null
+            }
         </BackgroundGlobal>
     );
 };

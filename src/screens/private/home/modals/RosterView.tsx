@@ -21,11 +21,6 @@ const RosterView = ({ item, button ,props}: any) => {
             <MainFrame>
                 <AboutText fontSize={20}>Start Shift</AboutText>
 
-                <LocationText>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut lab
-                </LocationText>
-
                 <SheetItemLayout>
                     <LocationText>Location Name</LocationText>
                     <SiteText>{item.siteName}</SiteText>
@@ -45,12 +40,12 @@ const RosterView = ({ item, button ,props}: any) => {
 
                 <LocationText>
                     Instructions{'\n'}
-                    {item.notes}
+                    {item.guardInstruction}
                 </LocationText>
 
                 <AboutText fontSize={20}>About The Site</AboutText>
 
-                <LocationText>{item.siteAddress}</LocationText>
+                <LocationText>{item.notes}</LocationText>
 
                 <LocationText>Report to Dock master</LocationText>
 
@@ -72,8 +67,8 @@ const RosterView = ({ item, button ,props}: any) => {
                                     },
                                 });
 
-                               await  getActiveShift({ orgID: orgID });
-                             //   navigationRef.current.navigate(NavigationStrings.TAB_BAR_SHIFTS)
+                                await  getActiveShift({ orgID: orgID });
+                                //   navigationRef.current.navigate(NavigationStrings.TAB_BAR_SHIFTS)
                             } catch (e) {
                                 alert(
                                     'Please enable the location from settings!',

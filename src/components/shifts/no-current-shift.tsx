@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Text, TouchableOpacity} from 'react-native';
 // @ts-ignore
 import styled from 'styled-components/native';
@@ -11,11 +11,14 @@ import {
 } from '@root/utils/globalStyle';
 import BackgroundGlobal from '../BackgroundGlobal';
 import HomeRosters from '@root/components/rosters/HomeRosters';
-import {useActions} from '../../hooks/useActions';
-import {useTypedSelector} from '../../hooks/useTypedSelector';
-import ModalManager from '../../store/global_modal/manager';
+import {useActions} from '@root/hooks/useActions';
+import {useTypedSelector} from '@root/hooks/useTypedSelector';
+import ModalManager from '@root/store/global_modal/manager';
 import PrimaryButton from '../Button';
-import navigationStrings from "../../navigation/navigationStrings";
+import navigationStrings from "@root/navigation/navigationStrings";
+import {useNetInfo} from "@react-native-community/netinfo";
+import {NetworkStateView} from "../NetworkStateView";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 type ShiftProps = {
@@ -25,12 +28,19 @@ type ShiftProps = {
 const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
     const {getUpcomingRosters, closeModal,getActiveShift} = useActions();
     const {modalProps} = useTypedSelector(state => state.modalSheet)
+    const [scannedData, setScannedData] = useState();
     const {upcomingRosterData, upcomingRoasterLoading} = useTypedSelector(
         (state) => state.rostersByDays,
     );
     const orgID = useTypedSelector((state) => state.auth.orgID);
+    const netInfo = useNetInfo();
 
+    AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
+        // @ts-ignore
+        setScannedData(asyncStorageRes)
+    }).catch(() => {
 
+    });
     useEffect(() => {
         if (modalProps !== null) {
             closeModal()
@@ -92,6 +102,12 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
                 </MainWrapper>
             </BackgroundGlobal>
             <ModalManager />
+
+            {
+                netInfo.isInternetReachable === true && scannedData != null ? (
+                    <NetworkStateView/>
+                ) : null
+            }
         </MainParentWrapper>
     );
 };

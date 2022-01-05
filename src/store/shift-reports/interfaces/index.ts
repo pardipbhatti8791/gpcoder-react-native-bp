@@ -52,7 +52,8 @@ export interface StartShiftInterface {
     startManual?: {
         startTime: string;
         endTime: string;
-        guardNotes: string;
+        reason: string;
+        location:string;
         geoLocation: {
             latitude: number;
             longitude: number;

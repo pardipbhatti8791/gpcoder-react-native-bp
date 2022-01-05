@@ -13,6 +13,7 @@ type HomeRostersProps = {
         notes: string;
         rosterStart: string;
         rosterEnd: string;
+        guardInstruction :string;
     };
     showButton?: boolean;
     height?: string;

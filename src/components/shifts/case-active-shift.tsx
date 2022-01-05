@@ -16,6 +16,9 @@ import {FloatingAction} from "react-native-floating-action";
 import {actionsButtonIcons} from "../../utils/common-methods";
 import {navigationRef} from "../../navigation/RootNavigation";
 import navigationStrings from "../../navigation/navigationStrings";
+import {NetworkStateView} from "../NetworkStateView";
+import {useNetInfo} from "@react-native-community/netinfo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type CaseActiveShiftProps = {
     item: any;
@@ -32,8 +35,15 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({item}) => {
     );
     const {modalProps} = useTypedSelector(state => state.modalSheet)
     const isFocused = useIsFocused();
+    const netInfo = useNetInfo();
+    const [scannedData, setScannedData] = useState();
 
+    AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
+        // @ts-ignore
+        setScannedData(asyncStorageRes)
+    }).catch(() => {
 
+    });
     useEffect(() => {
         if (isFocused) {
             if (modalProps !== null) {
@@ -143,6 +153,12 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({item}) => {
                 overlayColor={'rgba(255, 255, 255, 0)'}
                 color={'#16a086'}
             />
+
+            {
+                netInfo.isInternetReachable === true && scannedData != null ? (
+                    <NetworkStateView/>
+                ) : null
+            }
         </MainParentWrapper>
     );
 };

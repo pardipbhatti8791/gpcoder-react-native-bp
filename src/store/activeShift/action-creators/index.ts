@@ -23,6 +23,8 @@ export const getActiveShift = (fn: ActiveShiftInterface) => {
                 type: ActionType.ACTIVE_SHIFT_GET_SUCCESS,
                 payload: response.data,
             });
+
+
             return response;
         } catch (e: any) {
             dispatch({

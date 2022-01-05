@@ -22,7 +22,8 @@ const StartManualShift = () => {
     const [type, setType] = useState(1);
     const [stime, setSTime] = useState<any>(new Date());
     const [etime, setETime] = useState<any>(new Date());
-    const [gaurdNote, setGaurdNote] = useState('');
+    const [reason, setReason] = useState('');
+    const  [location,setLocation] = useState('')
     const orgID = useTypedSelector((state) => state.auth.orgID);
     const setStartTime = (date: any) => {
         setSTime(date);
@@ -49,7 +50,8 @@ const StartManualShift = () => {
                         new Date(etime),
                         'HH:mm',
                     ),
-                    guardNotes: gaurdNote,
+                    reason: reason,
+                    location :location,
                     geoLocation: {
                         latitude:
                         uLocationData.latitude,
@@ -87,7 +89,7 @@ const StartManualShift = () => {
                                 <TextField
                                     accessibilityLabel="You are about to start a shift that has not been rostered. Please add some details"
                                     onChangeText={(value: any) => {
-                                        setGaurdNote(value);
+                                        setReason(value);
                                         setFieldValue(
                                             'description',
                                             value,
@@ -100,8 +102,8 @@ const StartManualShift = () => {
                                 />
                                 <TextField
                                     accessibilityLabel="Location"
-
                                     onChangeText={(value: any) => {
+                                        setLocation(value);
                                         setFieldValue(
                                             'location',
                                             value,
@@ -112,7 +114,6 @@ const StartManualShift = () => {
                                         errors ? errors.location : null
                                     }
                                 />
-
                                 <ShiftText>The Shift</ShiftText>
 
                                 <TimerView

@@ -38,13 +38,13 @@ const AutoShiftStart =({route})=> {
                     </LocationText>
 
                     <LocationText>
-                        Instructions{'\n'}
+                        Instructions{'\n'}{route.params.item.guardInstruction}
 
                     </LocationText>
 
                     <AboutText fontSize={20}>About The Site</AboutText>
 
-                    <LocationText>{route.params.item.siteAddress}</LocationText>
+                    <LocationText>{route.params.item.notes}</LocationText>
 
                     <LocationText>Report to Dock master </LocationText>
 

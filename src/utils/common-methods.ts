@@ -1,5 +1,6 @@
 import GetLocation from 'react-native-get-location';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from '@react-native-community/netinfo';
 export const days = [
     'Sunday',
     'Monday',
@@ -45,10 +46,6 @@ export const reportsData = [
         name: 'Armed Holdup',
     },
 
-
-
-
-
 ];
 
 export const getUserLocation = () =>
@@ -67,6 +64,22 @@ export const getUserLocation = () =>
             });
     });
 
+export  const getNetworkState = () =>
+    new Promise((resolve,reject) => {
+        NetInfo.addEventListener((networkState) => {
+            resolve(networkState)
+        });
+    })
+
+export const getscannedData = () =>
+    new Promise((resolve) => {
+        AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
+            // @ts-ignore
+            resolve(asyncStorageRes)
+        }).catch(() => {
+
+        });
+    });
 
 export const actionsButtonIcons = [
     {
