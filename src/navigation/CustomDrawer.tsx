@@ -12,12 +12,14 @@ import {persistor} from '@root/store';
 import ListCard from '@root/components/ListCard';
 import {Switch} from 'react-native'
 import {withTheme} from "styled-components";
+import {useTypedSelector} from "../hooks/useTypedSelector";
 
 function CustomDrawer(props: any) {
     const {routesConfig} = useDrawer();
     const {colors}: any = useTheme();
     const {setAuthentication} = useActions();
     const [on, setOn] = useState();
+
 
     const logout = async () => {
         await clearAll();

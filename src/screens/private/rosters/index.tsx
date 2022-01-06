@@ -40,12 +40,12 @@ function Roster(props: any) {
     }).catch(() => {
 
     });
+
     useEffect(() => {
         if (isFocused) {
             if(modalProps !== null) {
                 closeModal()
             }
-
         }
     }, [isFocused])
 
@@ -189,7 +189,7 @@ function Roster(props: any) {
 
             </BackgroundGlobal>
             {
-                netInfo.isInternetReachable === true && scannedData != null ? (
+                netInfo.isInternetReachable === true ? (
                     <NetworkStateView/>
                 ) : null
             }

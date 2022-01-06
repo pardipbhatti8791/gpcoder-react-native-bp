@@ -57,7 +57,7 @@ export const Messages = () => {
                 </ScrollView>
             </MainFrame>
             {
-                netInfo.isInternetReachable === true && scannedData != null ? (
+                netInfo.isInternetReachable === true ? (
                     <NetworkStateView/>
                 ) : null
             }

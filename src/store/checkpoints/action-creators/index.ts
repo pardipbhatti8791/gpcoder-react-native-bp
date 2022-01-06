@@ -47,6 +47,8 @@ export const setScannedCheckPointsEntries = (
         });
 
         try {
+            console.log('Check Scanned Data ======>   ',JSON.stringify(fn.item))
+
             const response = await service.post(
                 apiUri.shifts.scanNewShiftCheckPoint,
                 fn.item,

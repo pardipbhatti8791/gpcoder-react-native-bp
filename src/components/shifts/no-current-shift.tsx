@@ -104,7 +104,7 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
             <ModalManager />
 
             {
-                netInfo.isInternetReachable === true && scannedData != null ? (
+                netInfo.isInternetReachable === true  ? (
                     <NetworkStateView/>
                 ) : null
             }

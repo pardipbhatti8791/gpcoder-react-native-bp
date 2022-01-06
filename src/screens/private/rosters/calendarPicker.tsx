@@ -33,7 +33,6 @@ export function RosterCalender(props: any) {
                 type: 'date'
 
             });
-            alert(format(new Date(), 'y/L/d'))
         }
     }, [isFocused]);
 

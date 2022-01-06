@@ -3,9 +3,11 @@ import React from 'react';
 // @ts-ignore
 import styled from 'styled-components/native';
 import { useTheme } from '@react-navigation/native';
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 const ListCard = () => {
     const { colors, type }: any = useTheme();
+    const userName = useTypedSelector((state) => state.auth.userName);
     return (
         <DrawerThreeSection>
             <HeaderWrapper>
@@ -23,7 +25,7 @@ const ListCard = () => {
                     <HeadingWrapper__Content>
                         <HeadingWrapper__Content__Title
                             textColor={colors.accentColor}>
-                            Rodi
+                            {userName}
                         </HeadingWrapper__Content__Title>
                         <HeadingWrapper__Content__Status
                             textColor={colors.text}>

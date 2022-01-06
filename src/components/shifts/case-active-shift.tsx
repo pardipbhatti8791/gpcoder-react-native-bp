@@ -155,7 +155,7 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({item}) => {
             />
 
             {
-                netInfo.isInternetReachable === true && scannedData != null ? (
+                netInfo.isInternetReachable === true ? (
                     <NetworkStateView/>
                 ) : null
             }

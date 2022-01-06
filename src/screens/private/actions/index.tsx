@@ -66,7 +66,7 @@ export const Actions = (props: any) => {
                 )}
             </MainFrame>
             {
-                netInfo.isInternetReachable === true && scannedData != null ? (
+                netInfo.isInternetReachable === true  ? (
                     <NetworkStateView/>
                 ) : null
             }

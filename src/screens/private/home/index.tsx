@@ -16,6 +16,7 @@ import {apiUri} from '@root/service/apiEndPoints';
 import  {useNetInfo} from "@react-native-community/netinfo";
 import {NetworkStateView} from "@root/components/NetworkStateView";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SHIFT_ID} from "../../../utils/constants";
 
 const Home = (props: any) => {
     const {getActions, getRosters, closeModal} = useActions();
@@ -29,14 +30,10 @@ const Home = (props: any) => {
     const {modalProps} = useTypedSelector(state => state.modalSheet)
     const netInfo = useNetInfo();
 
-    AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
+    AsyncStorage.getItem(SHIFT_ID).then((asyncStorageRes) => {
         // @ts-ignore
         setScannedData(asyncStorageRes)
-        // @ts-ignore
-
     }).catch(() => {
-        // @ts-ignore
-        setScannedData(null)
 
     });
 
@@ -46,6 +43,7 @@ const Home = (props: any) => {
                 closeModal()
             }
         }
+
 
     }, [isFocused])
 
@@ -112,7 +110,7 @@ const Home = (props: any) => {
 
                 </MainFrame>
                 {
-                    netInfo.isInternetReachable === true &&  scannedData!=null ? (
+                    netInfo.isInternetReachable === true  ? (
                         <NetworkStateView/>
                     ) : null
                 }
