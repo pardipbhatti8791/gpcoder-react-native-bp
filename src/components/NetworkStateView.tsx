@@ -18,7 +18,7 @@ export const NetworkStateView = () => {
 
     useEffect(() => {
         AsyncStorage.getItem(SHIFT_ID).then(resp => {
-            if(resp) {
+            if (resp) {
                 setIsClear(false)
             }
         })
@@ -31,38 +31,37 @@ export const NetworkStateView = () => {
                 <MessageText>Internet Avaliable</MessageText>
                 <TouchableOpacity onPress={async () => {
 
-                    try {
-                       const scannedObject = await AsyncStorage.getItem('SCANNED_ITEM')
-                        if(scannedObject) {
+                    // try {
+                        const scannedObject = await AsyncStorage.getItem('SCANNED_ITEM')
+                        if (scannedObject) {
                             setScannedData(scannedObject)
-                        }
+                            const shiftIDData = await AsyncStorage.getItem(SHIFT_ID)
 
-                        const shiftIDData = await AsyncStorage.getItem(SHIFT_ID)
-                        if(shiftIDData) {
-                            setShiftID(shiftIDData)
-                        }
-
-                        await setScannedCheckPointsEntries({
-                            orgID: orgID,
-                            item: {
-                                shiftID: shiftID,
-                                checkpointCode: JSON.parse(scannedData).checkpointCode,
-                                scannedDateTime: JSON.parse(scannedData).scannedDateTime,
-                                geoLocation: {
-                                    latitude: JSON.parse(scannedData).geoLocation.latitude,
-                                    longitude: JSON.parse(scannedData).geoLocation.longitude,
-                                },
+                            if (shiftIDData) {
+                                setShiftID(shiftIDData)
+                                await setScannedCheckPointsEntries({
+                                    orgID: orgID,
+                                    item: {
+                                        shiftID: shiftID,
+                                        checkpointCode: JSON.parse(scannedData).checkpointCode,
+                                        scannedDateTime: JSON.parse(scannedData).scannedDateTime,
+                                        geoLocation: {
+                                            latitude: JSON.parse(scannedData).geoLocation.latitude,
+                                            longitude: JSON.parse(scannedData).geoLocation.longitude,
+                                        },
+                                    }
+                                });
                             }
-                        });
+                        }
 
                         //@ts-ignore
                         await AsyncStorage.setItem('SCANNED_ITEM', '')
                         await AsyncStorage.setItem(SHIFT_ID, '')
                         setIsClear(true)
 
-                    } catch (e) {
-                        alert('Something went wrong, Please try again!');
-                    }
+                    // } catch (e) {
+                    //     alert('Something went wrong, Please try again!');
+                    // }
 
                 }
                 } style={{marginLeft: 'auto'}}>

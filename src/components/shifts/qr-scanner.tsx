@@ -75,8 +75,7 @@ const ScanScreen = (props: any) => {
                     alert('Scanned Success!');
                     props.navigation.goBack();
                 } else {
-
-                    await AsyncStorage.setItem('SCANNED_ITEM', JSON.stringify({
+                     AsyncStorage.setItem('SCANNED_ITEM', JSON.stringify({
                         checkpointCode: e.data.substr(7),
                         scannedDateTime: new Date(),
                         geoLocation: {
@@ -84,10 +83,7 @@ const ScanScreen = (props: any) => {
                             longitude: location.longitude,
                         },
                     }))
-                    alert('Internet not reachable...')
                     props.navigation.goBack();
-
-
                 }
             } catch (e) {
                 alert('Something went wrong, Please try again!');

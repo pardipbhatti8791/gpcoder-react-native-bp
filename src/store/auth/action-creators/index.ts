@@ -17,6 +17,7 @@ export const login = (data: LoginInterface) => {
         dispatch({
             type: ActionType.LOGIN,
         });
+
         try {
             const response = await service.post(apiUri.auth.login, data);
             setAuthInitalToken(response.data.accessToken)
