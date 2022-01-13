@@ -25,10 +25,10 @@ import {useActions} from '@root/hooks/useActions';
 import {useTypedSelector} from '@root/hooks/useTypedSelector';
 import {navigationRef} from '@root/navigation/RootNavigation';
 import {PATROL_ENTRY_SCHEMA} from './helper';
-import {apiUri} from '../../../../service/apiEndPoints';
-import ModalManager from '../../../../store/global_modal/manager';
+import {apiUri} from '@root/service/apiEndPoints';
+import ModalManager from '@root/store/global_modal/manager';
 import {FloatingAction} from 'react-native-floating-action';
-import navigationStrings from '../../../../navigation/navigationStrings';
+import navigationStrings from '@root/navigation/navigationStrings';
 import ImageModal from "react-native-image-modal";
 
 const Patrol = (props: any) => {

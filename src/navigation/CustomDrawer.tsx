@@ -4,7 +4,7 @@ import {DrawerItem} from '@react-navigation/drawer';
 import styled from 'styled-components/native';
 import {useDrawer} from './drawer-config';
 import {useTheme} from '@react-navigation/native';
-import {Image, SafeAreaView, Text, TouchableOpacity} from 'react-native';
+import {Appearance, Image, Modal, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import {clearAll} from 'storage';
 import {useActions} from 'hooks/useActions';
 import navigationStrings from 'navigation/navigationStrings';
@@ -12,100 +12,141 @@ import {persistor} from '@root/store';
 import ListCard from '@root/components/ListCard';
 import {Switch} from 'react-native'
 import {withTheme} from "styled-components";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MODE_TYPE, SHIFT_ID} from "../utils/constants";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 
 function CustomDrawer(props: any) {
-    const {routesConfig} = useDrawer();
     const {colors}: any = useTheme();
-    const {setAuthentication} = useActions();
-    const [on, setOn] = useState();
+    const {setAuthentication, getMode} =useActions();
+    const {modeState} = useTypedSelector((state) => state.mode);
+    const [theme, setTheme] =useState<any>(modeState);
 
+    const toggleRememberPin = (value) => {
+        setTheme(value);
+    };
+
+    useEffect(() => {
+          getMode({mode:theme});
+          alert(modeState)
+    },[theme])
 
     const logout = async () => {
         await clearAll();
         await persistor.flush();
         await persistor.purge();
         setAuthentication(false);
-        props.navigation.navigate(navigationStrings.LOGIN);
+        props.navigation.reset({
+            index: 0,
+            routes: [{name: navigationStrings.LOGIN}],
+        });
     };
 
 
     // @ts-ignore
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: colors.secondary}}>
-            <DrawerWrapper backgroundColor={colors.secondary}>
-                <ListCard/>
-                <Divider backgroundColor={colors.divider}/>
+            <ScrollView>
+                <DrawerWrapper backgroundColor={colors.secondary}>
+                    <ListCard/>
+                    <Divider backgroundColor={colors.divider}/>
 
-                <SwitchHorizontalWrapper>
-                    <TextImageWrapper>
-                        <Image
-                            source={require('@root/assets/bellIcon/bellIcon.png')}
+                    <SwitchHorizontalWrapper>
+                        <TextImageWrapper>
+                            <Image
+                                source={require('@root/assets/bellIcon/bellIcon.png')}
+                            />
+                            <TextWrapper textColor={colors.text}>
+                                Notifications
+                            </TextWrapper>
+
+
+                        </TextImageWrapper>
+
+                        <Switch
+                            onValueChange={toggleRememberPin}
+                            renderActiveText={false}
+                            value={theme}
+                            renderInActiveText={false}
                         />
-                        <TextWrapper textColor={colors.text} >
-                            Notifications
-                        </TextWrapper>
+
+                    </SwitchHorizontalWrapper>
+                    <Divider backgroundColor={colors.divider}/>
+                    <SwitchHorizontalWrapper>
+                        <TextImageWrapper>
+                            <Image
+                                source={require('@root/assets/setting/setting.png')}
+                            />
+                            <TextWrapper textColor={colors.text}>
+                                Setting
+                            </TextWrapper>
 
 
-                    </TextImageWrapper>
+                        </TextImageWrapper>
 
-                    <Switch
-                        renderActiveText={false}
-                        renderInActiveText={false}
-                    />
 
-                </SwitchHorizontalWrapper>
-                <Divider backgroundColor={colors.divider}/>
-                <SwitchHorizontalWrapper>
-                    <TextImageWrapper>
-                        <Image
-                            source={require('@root/assets/setting/setting.png')}
-                        />
+                    </SwitchHorizontalWrapper>
+                    <Divider backgroundColor={colors.divider}/>
+                    <AccountOrgWrapper>
                         <TextWrapper textColor={colors.text}>
-                            Setting
+                            Accounts and Orgs
                         </TextWrapper>
+                    </AccountOrgWrapper>
+
+                    <VerticalWrapper>
+                        <SwitchHorizontalWrapper>
+                            <Image
+                                source={require('@root/assets/changeaccount/changeaccount.png')}
+                            />
+
+                            <VerticalWrapper>
+                                <TextWrapper textColor={colors.text}>Bob</TextWrapper>
+                                <TextWrapper textColor={colors.text}>bob@guard.com</TextWrapper>
+                            </VerticalWrapper>
+
+                            <Image
+                                source={require('@root/assets/checkbox/checkbox.native.png')}
+                            />
+                        </SwitchHorizontalWrapper>
+                        <Divider backgroundColor={colors.divider}/>
 
 
-                    </TextImageWrapper>
+                        <SwitchHorizontalWrapper>
+                            <TouchableOpacity onPress={() => {
+                                props.navigation.closeDrawer()
+                                    // ,setVisible(true)
+                            }}>
+                                <TextImageWrapper>
+                                    <Image
+                                        source={require('@root/assets/addWhite/addWhite.png')}
+                                    />
+                                    <TextWrapper textColor={colors.text}>
+                                        Add Account
+                                    </TextWrapper>
+                                </TextImageWrapper>
+                            </TouchableOpacity>
+                        </SwitchHorizontalWrapper>
 
 
-                </SwitchHorizontalWrapper>
-                <Divider backgroundColor={colors.divider}/>
-                <AccountOrgWrapper>
-                    <TextWrapper textColor={colors.text}>
-                        Accounts and Orgs
-                    </TextWrapper>
-                </AccountOrgWrapper>
-
-                <VerticalWrapper>
-                <SwitchHorizontalWrapper>
-                    <Image
-                        source={require('@root/assets/setting/setting.png')}
-                    />
-
-                    <VerticalWrapper >
-                        <TextWrapper textColor={colors.text}>Bob</TextWrapper>
-                        <TextWrapper textColor={colors.text}>bob@guard.com</TextWrapper>
                     </VerticalWrapper>
 
-                    <Image
-                        source={require('@root/assets/setting/setting.png')}
-                    />
-                </SwitchHorizontalWrapper>
-                    <Divider backgroundColor={colors.divider}/>
-                </VerticalWrapper>
 
+                    <DrawerSecondSection>
+                        <TouchableOpacity onPress={() => {
+                            logout(),
+                                props.navigation.closeDrawer()
+                        }}>
+                            <LogoutText textColor={colors.text}>Logout</LogoutText>
+                        </TouchableOpacity>
+                    </DrawerSecondSection>
 
-                <DrawerSecondSection>
-                    <TouchableOpacity onPress={() => logout()}>
-                        <LogoutText textColor={colors.text}>Logout</LogoutText>
-                    </TouchableOpacity>
-                </DrawerSecondSection>
+                    <DrawerSecondSection>
+                        <VersionText textColor={colors.text}>V1.0.3</VersionText>
+                    </DrawerSecondSection>
+                </DrawerWrapper>
 
-                <DrawerSecondSection>
-                    <VersionText textColor={colors.text}>V1.0.3</VersionText>
-                </DrawerSecondSection>
-            </DrawerWrapper>
+            </ScrollView>
+
         </SafeAreaView>
     );
 }
@@ -122,16 +163,13 @@ type TextColorProps = {
 
 };
 
-
-
 const VerticalWrapper = styled.View`
-  
 `;
 
 const AccountOrgWrapper = styled.View`
   background-color: #1F2732;
   padding: 16px;
-  
+
 `;
 
 const TextImageWrapper = styled.View`
@@ -147,7 +185,7 @@ const TextImageWrapper = styled.View`
 
 const TextWrapper = styled.Text<TextColorProps>`
   color: ${({textColor}: any) => textColor};
-  font-size: ${({ theme }: any) => theme.fontSize.cardTitle};
+  font-size: ${({theme}: any) => theme.fontSize.cardTitle};
   margin-left: 16px;
 `;
 

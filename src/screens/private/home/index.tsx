@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
+import { FlatList, TouchableOpacity} from 'react-native';
 import {format} from 'date-fns';
 // @ts-ignore
 import styled from 'styled-components/native';
@@ -16,7 +16,7 @@ import {apiUri} from '@root/service/apiEndPoints';
 import  {useNetInfo} from "@react-native-community/netinfo";
 import {NetworkStateView} from "@root/components/NetworkStateView";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {SHIFT_ID} from "../../../utils/constants";
+import {SHIFT_ID} from "@root/utils/constants";
 
 const Home = (props: any) => {
     const {getActions, getRosters, closeModal} = useActions();
@@ -26,6 +26,10 @@ const Home = (props: any) => {
     const {actionsData, loading} = useTypedSelector((state) => state.actions);
     const {rosterData, roasterLoading} = useTypedSelector(
         (state) => state.rostersByDays,
+    );
+    // @ts-ignore
+    const { modeState } = useTypedSelector(
+        (state) => state.mode,
     );
     const {modalProps} = useTypedSelector(state => state.modalSheet)
     const netInfo = useNetInfo();
@@ -90,9 +94,13 @@ const Home = (props: any) => {
                         </NotDataFoundWrapper>
                     )}
 
-                    <TodayText>
-                        Today, {format(new Date(), 'EEEE d/L')}
-                    </TodayText>
+                    <TouchableOpacity onPress={()=>{
+
+                    }}>
+                        <TodayText>
+                            Today, {format(new Date(), 'EEEE d/L')}
+                        </TodayText>
+                    </TouchableOpacity>
 
                     {roasterLoading ? (
                         <NotFound>Loading...</NotFound>

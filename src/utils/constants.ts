@@ -8,3 +8,4 @@ export const LATITUDE = 'LATITUDE';
 export const LONGITUDE = 'LONGITUDE';
 export const CURRENT_TIME = 'CURRENT_TIME';
 export const CHECKPOINT_ID = 'CHECKPOINT_ID'
+export const MODE_TYPE = 'MODE_TYPE'

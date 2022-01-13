@@ -18,6 +18,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '@root/store/store';
 import Routes from '@root/navigation/Routes';
 import { navigationTheme } from '@root/theme/theme';
+import {useTypedSelector} from "./src/hooks/useTypedSelector";
 
 const queryClient = new QueryClient();
 
@@ -48,18 +49,21 @@ const AppWrapper = () => {
 
 const App = () => {
     const scheme: any = useColorScheme();
+    const { modeState } = useTypedSelector(
+        (state) => state.mode,
+    );
 
     return (
         <QueryClientProvider client={queryClient}>
             <ThemeProvider
                 theme={
-                    scheme === 'dark'
+                    modeState === true
                         ? navigationTheme.dark
                         : navigationTheme.light
                 }>
                 <Routes
                     scheme={
-                        scheme === 'dark'
+                        modeState === true
                             ? navigationTheme.dark
                             : navigationTheme.light
                     }

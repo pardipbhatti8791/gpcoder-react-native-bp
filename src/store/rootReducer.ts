@@ -6,6 +6,7 @@ import modalSheet from '@root/store/global_modal/reducer';
 import actionS from '@root/store/activeShift/reducer';
 import shiftReports from '@root/store/shift-reports/reducer';
 import checkpoints from '@root/store/checkpoints/reducer';
+import mode from '@root/store/mode/reducer';
 
 const reducers = combineReducers({
     auth,
@@ -14,7 +15,8 @@ const reducers = combineReducers({
     modalSheet,
     activeShift: actionS,
     shiftReports,
-    checkpoints
+    checkpoints,
+    mode,
 });
 
 export default reducers;

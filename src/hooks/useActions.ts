@@ -7,7 +7,8 @@ import {
     modalSheet,
     activeShift,
     shiftReportsActionCreator,
-    checkPoints
+    checkPoints,
+    mode,
 } from '../store';
 
 export const useActions = () => {
@@ -21,7 +22,8 @@ export const useActions = () => {
             modalSheet,
             activeShift,
             shiftReportsActionCreator,
-            checkPoints
+            checkPoints,
+            mode,
         ),
         dispatch,
     );
