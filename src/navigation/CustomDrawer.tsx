@@ -12,8 +12,6 @@ import {persistor} from '@root/store';
 import ListCard from '@root/components/ListCard';
 import {Switch} from 'react-native'
 import {withTheme} from "styled-components";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {MODE_TYPE, SHIFT_ID} from "../utils/constants";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 
 function CustomDrawer(props: any) {
@@ -28,7 +26,7 @@ function CustomDrawer(props: any) {
 
     useEffect(() => {
           getMode({mode:theme});
-          alert(modeState)
+
     },[theme])
 
     const logout = async () => {

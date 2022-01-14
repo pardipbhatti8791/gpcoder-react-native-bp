@@ -49,9 +49,10 @@ export const createReportEntryForShift = (
             type: ActionType.CREATE_PATROL_ENTRY_INIT,
         });
         try {
+            console.log("Test Patrol Enrty ==========>       "+JSON.stringify(fn))
             const response = await service[
                 fn.type === 'create' ? 'post' : 'put'
-            ](fn.url, fn.type === 'create' ? fn.create : fn.update);
+            ](fn.url, fn.type === 'create' ? fn.create : fn.create);
 
             dispatch({
                 type: ActionType.CREATE_PATROL_ENTRY_SUCCESS,
