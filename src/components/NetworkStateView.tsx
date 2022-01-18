@@ -13,7 +13,7 @@ export const NetworkStateView = () => {
     const [isClear, setIsClear] = useState(true)
     const [scannedData, setScannedData] = useState<any>();
     const [shiftID, setShiftID] = useState<any>();
-    const {setScannedCheckPointsEntries} = useActions();
+    const {setScannedCheckPointsEntries, getShiftsCheckPointsEntries} = useActions();
     const orgID = useTypedSelector((state) => state.auth.orgID);
 
     useEffect(() => {
@@ -24,44 +24,38 @@ export const NetworkStateView = () => {
         })
     }, [isClear])
 
+
     return (
 
         <View>
             {!isClear && <Notification>
                 <MessageText>Internet Avaliable</MessageText>
-                <TouchableOpacity onPress={async () => {
+                <TouchableOpacity onPress={  async () => {
 
-                    // try {
-                        const scannedObject = await AsyncStorage.getItem('SCANNED_ITEM')
-                        if (scannedObject) {
-                            setScannedData(scannedObject)
-                            const shiftIDData = await AsyncStorage.getItem(SHIFT_ID)
+                    const scannedObject = await AsyncStorage.getItem('SCANNED_ITEM')
+                    if (scannedObject) {
+                        setScannedData(scannedObject)
+                        const shiftIDData =await AsyncStorage.getItem(SHIFT_ID)
 
-                            if (shiftIDData) {
-                                setShiftID(shiftIDData)
-                                await setScannedCheckPointsEntries({
-                                    orgID: orgID,
-                                    item: {
-                                        shiftID: shiftID,
-                                        checkpointCode: JSON.parse(scannedData).checkpointCode,
-                                        scannedDateTime: JSON.parse(scannedData).scannedDateTime,
-                                        geoLocation: {
-                                            latitude: JSON.parse(scannedData).geoLocation.latitude,
-                                            longitude: JSON.parse(scannedData).geoLocation.longitude,
-                                        },
-                                    }
-                                });
-                            }
+                        if (shiftIDData) {
+                            setShiftID(shiftIDData);
+                          setScannedCheckPointsEntries({
+                                orgID: orgID,
+                                item: {
+                                    shiftID: shiftIDData,
+                                    checkpointCode: JSON.parse(scannedObject).checkpointCode,
+                                    scannedDateTime: JSON.parse(scannedObject).scannedDateTime,
+                                    geoLocation: {
+                                        latitude: JSON.parse(scannedObject).geoLocation.latitude,
+                                        longitude: JSON.parse(scannedObject).geoLocation.longitude,
+                                    },
+                                }
+                            });
                         }
-
-                        //@ts-ignore
-                        await AsyncStorage.setItem('SCANNED_ITEM', '')
-                        await AsyncStorage.setItem(SHIFT_ID, '')
-                        setIsClear(true)
-
-                    // } catch (e) {
-                    //     alert('Something went wrong, Please try again!');
-                    // }
+                    }
+                    await AsyncStorage.setItem('SCANNED_ITEM', '')
+                    await AsyncStorage.setItem(SHIFT_ID, '')
+                    setIsClear(true)
 
                 }
                 } style={{marginLeft: 'auto'}}>

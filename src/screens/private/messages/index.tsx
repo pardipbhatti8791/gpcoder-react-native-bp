@@ -23,6 +23,10 @@ const data = [
         email: 'The northern door in sector 4 is going to be locked today, please use the attached route instead.',
     },
 ];
+AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
+    // @ts-ignore
+    setScannedData(asyncStorageRes)
+});
 
 export const Messages = () => {
 
@@ -31,8 +35,6 @@ export const Messages = () => {
     AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
         // @ts-ignore
         setScannedData(asyncStorageRes)
-    }).catch(() => {
-
     });
     return (
         <BackgroundGlobal>
@@ -57,7 +59,7 @@ export const Messages = () => {
                 </ScrollView>
             </MainFrame>
             {
-                netInfo.isInternetReachable === true ? (
+                netInfo.isInternetReachable === true && scannedData != null  ? (
                     <NetworkStateView/>
                 ) : null
             }

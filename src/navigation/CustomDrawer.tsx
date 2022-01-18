@@ -139,7 +139,7 @@ function CustomDrawer(props: any) {
                     </DrawerSecondSection>
 
                     <DrawerSecondSection>
-                        <VersionText textColor={colors.text}>V1.0.3</VersionText>
+                        <VersionText textColor={colors.text}>V1.0.4</VersionText>
                     </DrawerSecondSection>
                 </DrawerWrapper>
 

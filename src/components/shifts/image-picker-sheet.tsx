@@ -20,7 +20,7 @@ const ImagePickerSheet = (props: any) => {
 
     const { uploadAttachmentShiftReportsEntries,closeModal,getShiftsReportsEntrieAttachments } = useActions();
     const [imagePath, setImagePath] = useState<any>(null);
-    const { uploadAttachmentReportEntryLoading,shiftReportEntryID } = useTypedSelector(
+    const { uploadAttachmentReportEntryLoading ,shiftReportEntryID } = useTypedSelector(
         (state) => state.shiftReports,
     );
 
@@ -64,6 +64,7 @@ const ImagePickerSheet = (props: any) => {
                     }}
                     enableReinitialize={true}
                     onSubmit={async (values) => {
+
                         await saveImage(values);
                         bottomSheetRef.current.close();
                     }}>

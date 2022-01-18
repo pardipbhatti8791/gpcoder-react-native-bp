@@ -38,8 +38,6 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
     AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
         // @ts-ignore
         setScannedData(asyncStorageRes)
-    }).catch(() => {
-
     });
     useEffect(() => {
         if (modalProps !== null) {
@@ -104,7 +102,7 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
             <ModalManager />
 
             {
-                netInfo.isInternetReachable === true  ? (
+                netInfo.isInternetReachable === true && scannedData != null  ? (
                     <NetworkStateView/>
                 ) : null
             }

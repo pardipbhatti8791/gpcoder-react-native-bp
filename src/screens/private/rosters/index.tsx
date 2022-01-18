@@ -37,8 +37,6 @@ function Roster(props: any) {
     AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
         // @ts-ignore
         setScannedData(asyncStorageRes)
-    }).catch(() => {
-
     });
 
     useEffect(() => {
@@ -189,7 +187,7 @@ function Roster(props: any) {
 
             </BackgroundGlobal>
             {
-                netInfo.isInternetReachable === true ? (
+                netInfo.isInternetReachable === true && scannedData != null || scannedData != undefined ? (
                     <NetworkStateView/>
                 ) : null
             }

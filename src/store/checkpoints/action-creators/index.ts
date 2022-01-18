@@ -3,10 +3,12 @@ import { ActionType } from '@root/store/checkpoints/actions-types';
 import { Action } from '@root/store/checkpoints/actions';
 import { apiUri } from '@root/service/apiEndPoints';
 import service from '@root/service/axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     ScannedCheckedPointsInterface,
     ShiftCheckPointsInterface,
 } from '../interfaces';
+import {SHIFT_ID} from "../../../utils/constants";
 
 /**
  * @param fn
@@ -58,12 +60,21 @@ export const setScannedCheckPointsEntries = (
                     }
                 }
             );
+
+
             dispatch({
                 type: ActionType.SHIFT_CHECKPOINTS_GET_SUCCESS,
                 payload: response.data,
             });
+
+
+            AsyncStorage.setItem('SCANNED_ITEM', '')
+            AsyncStorage.setItem(SHIFT_ID, '')
+
+
             return response;
         } catch (e: any) {
+        console.log('Erorr------>',e)
             dispatch({
                 type: ActionType.SHIFT_CHECKPOINTS_GET_FAILED,
                 payload: 'Something went wrong! Please try again later',

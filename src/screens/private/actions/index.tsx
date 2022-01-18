@@ -27,8 +27,6 @@ export const Actions = (props: any) => {
     AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
         // @ts-ignore
         setScannedData(asyncStorageRes)
-    }).catch(() => {
-
     });
     useEffect(() => {
         if (isFocused) {
@@ -66,7 +64,7 @@ export const Actions = (props: any) => {
                 )}
             </MainFrame>
             {
-                netInfo.isInternetReachable === true  ? (
+                netInfo.isInternetReachable === true && scannedData != null || scannedData != undefined  ? (
                     <NetworkStateView/>
                 ) : null
             }

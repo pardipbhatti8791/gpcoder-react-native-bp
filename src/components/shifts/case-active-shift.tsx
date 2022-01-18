@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, Text, FlatList} from 'react-native';
+import {TouchableOpacity, Text, FlatList, Platform, PermissionsAndroid} from 'react-native';
 
 // @ts-ignore
 import styled from 'styled-components/native';
@@ -25,6 +25,7 @@ type CaseActiveShiftProps = {
 };
 const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({item}) => {
     const [tab, setTab] = useState<string>('1');
+    const [scannedData,setScannedData] = useState();
     const {getShiftsReportsEntries, getShiftsCheckPointsEntries,closeModal} =
         useActions();
     const {shiftReportData, shiftReportLoading} = useTypedSelector(
@@ -36,20 +37,19 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({item}) => {
     const {modalProps} = useTypedSelector(state => state.modalSheet)
     const isFocused = useIsFocused();
     const netInfo = useNetInfo();
-    const [scannedData, setScannedData] = useState();
-
     AsyncStorage.getItem('SCANNED_ITEM').then((asyncStorageRes) => {
         // @ts-ignore
         setScannedData(asyncStorageRes)
-    }).catch(() => {
-
     });
+
     useEffect(() => {
         if (isFocused) {
+
             if (modalProps !== null) {
                 closeModal()
             }
             getShiftsReportsEntries({id: item.shiftID});
+
         }
     }, [isFocused]);
 
@@ -149,13 +149,14 @@ const CaseActiveShift: React.FC<CaseActiveShiftProps> = ({item}) => {
                 actions={actionsButtonIcons}
                 onPressItem={(name) => {
                     navigationRef.current.navigate(navigationStrings.QRSCAN)
+
                 }}
                 overlayColor={'rgba(255, 255, 255, 0)'}
                 color={'#16a086'}
             />
 
             {
-                netInfo.isInternetReachable === true ? (
+                netInfo.isInternetReachable === true && scannedData != null  ? (
                     <NetworkStateView/>
                 ) : null
             }

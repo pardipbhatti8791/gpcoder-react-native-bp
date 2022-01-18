@@ -13,6 +13,7 @@ import {useNetInfo} from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SHIFT_ID} from "../../utils/constants";
 
+
 type LocationProps = {
     latitude: number;
     longitude: number;
@@ -28,6 +29,7 @@ const ScanScreen = (props: any) => {
     const data = useTypedSelector((state) => state.activeShift);
     const orgID = useTypedSelector((state) => state.auth.orgID);
     const netInfo = useNetInfo();
+
 
     useEffect(() => {
         getUserCurrentLocation();
@@ -58,13 +60,14 @@ const ScanScreen = (props: any) => {
         if (Object.keys(e).length > 0) {
 
             try {
-                if (netInfo.isInternetReachable === true) {
+                console.log('Network Info ===>   ',netInfo.isConnected)
+                if (netInfo.isConnected === true) {
                     await setScannedCheckPointsEntries({
                         orgID: orgID,
                         item: {
                             shiftID: data && data.activeShift.shiftID,
                             checkpointCode:
-                                e.data.substr(7),
+                                e.data,
                             scannedDateTime: new Date(),
                             geoLocation: {
                                 latitude: location.latitude,
@@ -74,9 +77,12 @@ const ScanScreen = (props: any) => {
                     });
                     alert('Scanned Success!');
                     props.navigation.goBack();
-                } else {
-                     AsyncStorage.setItem('SCANNED_ITEM', JSON.stringify({
-                        checkpointCode: e.data.substr(7),
+                }
+
+                if (netInfo.isInternetReachable ===false)
+                {
+                    AsyncStorage.setItem('SCANNED_ITEM', JSON.stringify({
+                        checkpointCode: e.data,
                         scannedDateTime: new Date(),
                         geoLocation: {
                             latitude: location.latitude,
@@ -99,7 +105,7 @@ const ScanScreen = (props: any) => {
             ) : (
                 <QRCodeScanner
                     onRead={onSuccess}
-                    reactivate={true}
+                    reactivate={false}
                     showMarker={true}
                 />
             )}

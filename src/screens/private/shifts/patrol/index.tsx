@@ -56,6 +56,10 @@ const Patrol = (props: any) => {
             getShiftsReportsEntrieAttachments({
                 id: params.item.shiftReportID,
             });
+
+            setTime(
+                    params.item.reportDateTime,
+                )
         }
     }, []);
 
@@ -115,7 +119,7 @@ const Patrol = (props: any) => {
                                     {params.editable === true
                                         ? format(
                                             new Date(
-                                                params.item.reportDateTime,
+                                                time,
                                             ),
                                             'HH:mm',
                                         )
@@ -213,14 +217,7 @@ const Patrol = (props: any) => {
                                                                             attachment.image,
                                                                     }}
                                                                 />
-                                                                {/*<Image*/}
-                                                                {/*    */}
-                                                                {/*    source={{*/}
-                                                                {/*        uri:*/}
-                                                                {/*            'data:image/png;base64,  ' +*/}
-                                                                {/*            attachment.image,*/}
-                                                                {/*    }}*/}
-                                                                {/*/>*/}
+
                                                             </ImageWrapper__Image>
 
 
