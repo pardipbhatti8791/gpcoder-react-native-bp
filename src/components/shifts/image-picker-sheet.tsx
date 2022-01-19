@@ -15,6 +15,8 @@ import TextField from '@root/components/TextField';
 import { PATROL_ENTRY_SCHEMA } from '@root/screens/private/shifts/patrol/helper';
 import { useActions } from '@root/hooks/useActions';
 import { useTypedSelector } from '@root/hooks/useTypedSelector';
+import Button from "../Button";
+import SecondaryButton from "../ButtonSecondary";
 
 const ImagePickerSheet = (props: any) => {
 
@@ -26,6 +28,7 @@ const ImagePickerSheet = (props: any) => {
 
     const saveImage = async (values: any) => {
         if (imagePath === null) {
+
             console.log('Image path error');
         } else {
             const formData = new FormData();
@@ -115,7 +118,9 @@ const ImagePickerSheet = (props: any) => {
                                             }}>
                                             <ImageBT>
                                                 <AddImage
-                                                    source={require('@root/assets/gallerywhite/gallerywhite.png')}></AddImage>
+                                                    source={require('@root/assets/gallerywhite/gallerywhite.png')}/>
+
+
                                                 <TabsText1>Gallery</TabsText1>
                                             </ImageBT>
                                         </Tabs>
@@ -145,13 +150,12 @@ const ImagePickerSheet = (props: any) => {
                                     style={{
                                         minHeight: 60,
                                     }}
-
                                 />
                             </TextFieldWrapper>
 
                             <ButtonWrapper>
                                 <PrimaryButton
-                                    onPress={() => handleSubmit()}
+                                    onPress={() => alert('hello')}
                                     loading={uploadAttachmentReportEntryLoading}
                                     btnText={'Save'}
                                 />
