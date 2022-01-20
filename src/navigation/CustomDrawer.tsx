@@ -48,7 +48,6 @@ function CustomDrawer(props: any) {
                 <DrawerWrapper backgroundColor={colors.secondary}>
                     <ListCard/>
                     <Divider backgroundColor={colors.divider}/>
-
                     <SwitchHorizontalWrapper>
                         <TextImageWrapper>
                             <Image

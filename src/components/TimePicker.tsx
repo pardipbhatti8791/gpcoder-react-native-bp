@@ -27,7 +27,6 @@ const CustomTimePicker: React.FC<CustomTimePickerProps> = ({
             <DateTimePickerModal
                 isVisible={showDateTimePicker}
                 mode="time"
-                locale="en_GB"
                 onConfirm={setTimeValue}
                 onCancel={hideTimePicker}
             />

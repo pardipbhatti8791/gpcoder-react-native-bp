@@ -7,7 +7,6 @@ import {
     MainWrapper,
     NotFound,
 } from '@root/utils/globalStyle';
-
 // @ts-ignore
 import styled from 'styled-components/native';
 import {withTheme} from 'styled-components';
@@ -30,6 +29,7 @@ import ModalManager from '@root/store/global_modal/manager';
 import {FloatingAction} from 'react-native-floating-action';
 import navigationStrings from '@root/navigation/navigationStrings';
 import ImageModal from "react-native-image-modal";
+import moment from "moment";
 
 const Patrol = (props: any) => {
     const {
@@ -42,7 +42,7 @@ const Patrol = (props: any) => {
         navigation,
     } = props;
     const [location, setLocation] = useState<any>({});
-    const [time, setTime] = useState<any>(new Date());
+    const [time, setTime] = useState<any>(new Date().toISOString());
     const [visibleTimer, setVisibleTimer] = useState<boolean>(false);
     const {activeShift}: any = useTypedSelector((state) => state.activeShift);
     const {
@@ -51,6 +51,11 @@ const Patrol = (props: any) => {
         shiftReportsEntriesAttachmentsLoading,
     }: any = useTypedSelector((state) => state.shiftReports);
 
+    const setCurrentTime = (date: any) => {
+        setTime(date);
+
+    };
+
     useEffect(() => {
         if (params.editable) {
             getShiftsReportsEntrieAttachments({
@@ -58,8 +63,9 @@ const Patrol = (props: any) => {
             });
 
             setTime(
-                    params.item.reportDateTime,
-                )
+                params.item.reportDateTime,
+            )
+
         }
     }, []);
 
@@ -72,9 +78,6 @@ const Patrol = (props: any) => {
         setLocation(data);
     };
 
-    const setCurrentTime = (date: any) => {
-        setTime(date);
-    };
 
     const handleCreateReportEntry = async (values: any) => {
         const newValue = {...values};
@@ -90,8 +93,6 @@ const Patrol = (props: any) => {
             type: params.editable ? 'update' : 'create',
             create: newValue,
         });
-
-
     };
 
     // @ts-ignore
@@ -116,20 +117,16 @@ const Patrol = (props: any) => {
                                     source={require('@root/assets/clock/clock.png')}
                                 />
                                 <TimeTitleText>
-                                    {params.editable === true
-                                        ? format(
-                                            new Date(
-                                                time,
-                                            ),
-                                            'HH:mm',
-                                        )
-                                        : format(new Date(time), 'HH:mm')}
+                                    {
+                                        time.split('T')[1].split(':')[0] + ':' + time.split('T')[1].split(':')[1]
+                                    }
                                 </TimeTitleText>
                             </TouchableOpacity>
                             <CustomTimePicker
                                 showDateTimePicker={visibleTimer}
-                                handlePickerData={(date: any) =>
-                                    setCurrentTime(date)
+                                handlePickerData={(date: any) => {
+                                   setCurrentTime(date.getFullYear() + "-" + date.getMonth()+1 + "-" + date.getDate() + 'T' + date.getHours() + ":" + date.getMinutes())
+                                }
                                 }
                                 setDateTimePicker={setVisibleTimer}
                             />
@@ -139,7 +136,7 @@ const Patrol = (props: any) => {
                     <Formik
                         validationSchema={PATROL_ENTRY_SCHEMA}
                         initialValues={{
-                            reportTime: format(new Date(time), 'HH:mm'),
+                            reportTime: time.split('T')[1].split(':')[0] + ':' + time.split('T')[1].split(':')[1],
                             description: params.item
                                 ? params.item.description
                                 : '',
