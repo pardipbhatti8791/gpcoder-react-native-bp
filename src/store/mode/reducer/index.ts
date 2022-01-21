@@ -8,7 +8,7 @@ interface RepositoriesStateInterface {
     modeState :any;
 }
 const initialState = {
- modeState:false
+ modeState:true
 };
 
 /**
