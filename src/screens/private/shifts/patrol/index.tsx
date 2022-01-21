@@ -228,7 +228,7 @@ const Patrol = (props: any) => {
                                                     openModal(
                                                         'ImagePickerSheet',
                                                         {
-                                                            height: '80%',
+                                                            height: '90%',
                                                             shiftReportID:
                                                             params.item
                                                                 .shiftReportID,

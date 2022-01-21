@@ -58,8 +58,9 @@ const ImagePickerSheet = (props: any) => {
         }
     };
 
+    // @ts-ignore
     return (
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps={'always'}>
             <CustomMainWrapper>
                 <Formik
                     initialValues={{
@@ -143,19 +144,20 @@ const ImagePickerSheet = (props: any) => {
                                         setFieldValue('description', value);
                                     }}
                                     placeholder="Enter Description"
-                                    keyboardType={'default'}
+                                    keyboardType={'email'}
                                     autoCapitalize={'none'}
-                                    multiline={true}
+                                    multiline={false}
                                     value={values.description}
                                     style={{
                                         minHeight: 60,
                                     }}
+
                                 />
                             </TextFieldWrapper>
 
                             <ButtonWrapper>
                                 <PrimaryButton
-                                    onPress={() => alert('hello')}
+                                    onPress={() => handleSubmit()}
                                     loading={uploadAttachmentReportEntryLoading}
                                     btnText={'Save'}
                                 />
