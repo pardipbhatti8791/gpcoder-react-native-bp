@@ -27,6 +27,9 @@ const apiUri = {
         actions: '/Guard/actions?status=', // + status, g-org id in headers
         statusDetail: '/Guard/action', // + /actionID
     },
+    logs : {
+        log : '/App/logs' // g-org id in headers (Optional)
+    }
 };
 
 export { apiUri, baseURL };

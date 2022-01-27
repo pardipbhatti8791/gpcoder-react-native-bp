@@ -11,6 +11,7 @@ export const days = [
     'Saturday',
 ];
 
+export const appVersion = 'V1.0.6'
 export const reportsData = [
     {
         name: 'Patrol',

@@ -115,7 +115,7 @@ const TextInputField = styled.TextInput`
     flex: 1;
     color: ${({ theme }: any) => theme.colors.text};
     padding-left: 8px;
-    
+  
 `;
 
 const Horizontal = styled.View`

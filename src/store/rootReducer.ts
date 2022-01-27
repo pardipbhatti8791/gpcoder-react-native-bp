@@ -7,6 +7,7 @@ import actionS from '@root/store/activeShift/reducer';
 import shiftReports from '@root/store/shift-reports/reducer';
 import checkpoints from '@root/store/checkpoints/reducer';
 import mode from '@root/store/mode/reducer';
+import logs from '@root/store/log/reducer'
 
 const reducers = combineReducers({
     auth,
@@ -17,6 +18,7 @@ const reducers = combineReducers({
     shiftReports,
     checkpoints,
     mode,
+    logs
 });
 
 export default reducers;

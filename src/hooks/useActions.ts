@@ -9,6 +9,7 @@ import {
     shiftReportsActionCreator,
     checkPoints,
     mode,
+    log
 } from '../store';
 
 export const useActions = () => {
@@ -24,6 +25,7 @@ export const useActions = () => {
             shiftReportsActionCreator,
             checkPoints,
             mode,
+            log
         ),
         dispatch,
     );

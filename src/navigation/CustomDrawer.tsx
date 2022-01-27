@@ -13,6 +13,7 @@ import ListCard from '@root/components/ListCard';
 import {Switch} from 'react-native'
 import {withTheme} from "styled-components";
 import {useTypedSelector} from "../hooks/useTypedSelector";
+import {appVersion} from "../utils/common-methods";
 
 function CustomDrawer(props: any) {
     const {colors}: any = useTheme();
@@ -123,8 +124,6 @@ function CustomDrawer(props: any) {
                                 </TextImageWrapper>
                             </TouchableOpacity>
                         </SwitchHorizontalWrapper>
-
-
                     </VerticalWrapper>
 
 
@@ -138,7 +137,7 @@ function CustomDrawer(props: any) {
                     </DrawerSecondSection>
 
                     <DrawerSecondSection>
-                        <VersionText textColor={colors.text}>V1.0.5</VersionText>
+                        <VersionText textColor={colors.text}>{appVersion}</VersionText>
                     </DrawerSecondSection>
                 </DrawerWrapper>
 

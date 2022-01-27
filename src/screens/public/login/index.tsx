@@ -32,7 +32,6 @@ const Login = (props: any) => {
     const { loading, error, isAuthenticated } = useTypedSelector(
         (state) => state.auth,
     );
-    const [currentRef, setCurrentRef] = useState<any>(null);
     const { theme } = props;
     console.log(theme);
 

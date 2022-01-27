@@ -13,6 +13,8 @@ import {
 } from '../interfaces';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SHIFT_ID} from "../../../utils/constants";
+import Snackbar from 'react-native-snackbar';
+
 
 /**
  * @param fn
@@ -37,6 +39,7 @@ export const getShiftsReportsEntries = (fn: ShiftReportsInterface) => {
                 type: ActionType.SHIFT_REPORT_GET_FAILED,
                 payload: 'Something went wrong! Please try again later',
             });
+
         }
     };
 };
@@ -64,10 +67,16 @@ export const createReportEntryForShift = (
 
             return response;
         } catch (e: any) {
+            Snackbar.show({
+                text: e.data,
+                duration: Snackbar.LENGTH_SHORT,
+            });
             dispatch({
                 type: ActionType.CREATE_PATROL_ENTRY_FAILED,
                 payload: 'Something went wrong! Please try again later',
             });
+
+
         }
     };
 };

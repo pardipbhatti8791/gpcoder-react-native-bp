@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Text, TouchableOpacity} from 'react-native';
+import {FlatList, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 // @ts-ignore
 import styled from 'styled-components/native';
 import {withTheme} from 'styled-components';
@@ -26,7 +26,7 @@ type ShiftProps = {
 }
 
 const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
-    const {getUpcomingRosters, closeModal,getActiveShift} = useActions();
+    const {getUpcomingRosters, closeModal, getActiveShift} = useActions();
     const {modalProps} = useTypedSelector(state => state.modalSheet)
     const [scannedData, setScannedData] = useState();
     const {upcomingRosterData, upcomingRoasterLoading} = useTypedSelector(
@@ -48,65 +48,77 @@ const NoCurrentShift: React.FC<ShiftProps> = ({navigation}) => {
     }, []);
 
     return (
+
         <MainParentWrapper>
             <BackgroundGlobal>
+
                 <MainWrapper>
-                    <ParentBoth>
-                        <AvailableToStartText>
-                            Available to start
-                        </AvailableToStartText>
-
-                        <InfoImage
-                            source={require('@root/assets/info/info.png')}/>
+                    <ScrollView>
+                        <View>
 
 
-                    </ParentBoth>
+                            <ParentBoth>
+                                <AvailableToStartText>
+                                    Available to start
+                                </AvailableToStartText>
 
-                    <PressToStartText>
-                        Press on the shift to start
-                    </PressToStartText>
-                    {upcomingRoasterLoading ? (
-                        <NotFound>Loading...</NotFound>
-                    ) : upcomingRosterData.length > 0 ? (
-                        <FlatList
-                            data={upcomingRosterData}
-                            renderItem={({item}) => {
-                                return (
-                                    <HomeRosters
-                                        item={item}
-                                        showButton={true}
-                                        height={'85%'}
-                                        navigation={navigation}
-                                    />
-                                );
-                            }}
-                        />
-                    ) : (
-                        <NotFound>Not Shift Found</NotFound>
-                    )}
+                                <InfoImage
+                                    source={require('@root/assets/info/info.png')}/>
 
-                    <BtnWrapper>
-                        <TouchableOpacity onPress={() => {
-                                navigation.navigate(navigationStrings.START_MANUAL_SHIFT)
-                        }}>
-                            <StartManualShiftBtn>
-                                <MyShiftText>
-                                    My Shift is not here
-                                </MyShiftText>
-                            </StartManualShiftBtn>
-                        </TouchableOpacity>
 
-                    </BtnWrapper>
+                            </ParentBoth>
+
+                            <PressToStartText>
+                                Press on the shift to start
+                            </PressToStartText>
+                            {upcomingRoasterLoading ? (
+                                <NotFound>Loading...</NotFound>
+                            ) : upcomingRosterData.length > 0 ? (
+                                <FlatList
+                                    data={upcomingRosterData}
+                                    renderItem={({item}) => {
+                                        return (
+                                            <HomeRosters
+                                                item={item}
+                                                showButton={true}
+                                                height={'85%'}
+                                                navigation={navigation}
+                                            />
+                                        );
+                                    }}
+                                />
+                            ) : (
+                                <NotFound>Not Shift Found</NotFound>
+                            )}
+
+                            <BtnWrapper>
+                                <TouchableOpacity onPress={() => {
+                                    navigation.navigate(navigationStrings.START_MANUAL_SHIFT)
+                                }}>
+                                    <StartManualShiftBtn>
+                                        <MyShiftText>
+                                            My Shift is not here
+                                        </MyShiftText>
+                                    </StartManualShiftBtn>
+                                </TouchableOpacity>
+
+                            </BtnWrapper>
+                        </View>
+                    </ScrollView>
                 </MainWrapper>
+
+
             </BackgroundGlobal>
-            <ModalManager />
+            <ModalManager/>
 
             {
-                netInfo.isInternetReachable === true && scannedData != null  ? (
+                netInfo.isInternetReachable === true && scannedData != null ? (
                     <NetworkStateView/>
                 ) : null
             }
         </MainParentWrapper>
+
+
     );
 };
 

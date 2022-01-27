@@ -46,7 +46,7 @@ const AutoShiftStart =({route})=> {
 
                     <LocationText>{route.params.item.notes}</LocationText>
 
-                    <LocationText>Report to Dock master </LocationText>
+
 
                     {route.params.button && (
                         <TouchableOpacity

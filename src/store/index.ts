@@ -7,4 +7,6 @@ export * as activeShift from '@root/store/activeShift/action-creators'
 export * as shiftReportsActionCreator from '@root/store/shift-reports/action-creators'
 export * as checkPoints from '@root/store/checkpoints/action-creators'
 export * as mode from '@root/store/mode/action-creators'
+export * as log from '@root/store/log/action-creators'
 export * from '@root/store/rootReducer';
+

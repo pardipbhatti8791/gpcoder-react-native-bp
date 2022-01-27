@@ -42,7 +42,7 @@ const Patrol = (props: any) => {
         navigation,
     } = props;
     const [location, setLocation] = useState<any>({});
-    const [time, setTime] = useState<any>(new Date().toISOString());
+    const [time, setTime] = useState<any>(new Date().getHours()+":" +new Date().getMinutes());
     const [visibleTimer, setVisibleTimer] = useState<boolean>(false);
     const {activeShift}: any = useTypedSelector((state) => state.activeShift);
     const {
@@ -63,10 +63,11 @@ const Patrol = (props: any) => {
             });
 
             setTime(
-                params.item.reportDateTime,
+                params.item.reportDateTime.split('T')[1].split(':')[0] + ':' + params.item.reportDateTime.split('T')[1].split(':')[1]
             )
 
         }
+
     }, []);
 
     useEffect(() => {
@@ -97,6 +98,7 @@ const Patrol = (props: any) => {
 
     // @ts-ignore
     // @ts-ignore
+    // @ts-ignore
     return (
         <BackgroundGlobal>
             <MainParentWrapper>
@@ -118,14 +120,16 @@ const Patrol = (props: any) => {
                                 />
                                 <TimeTitleText>
                                     {
-                                        time.split('T')[1].split(':')[0] + ':' + time.split('T')[1].split(':')[1]
+                                        // time.split('T')[1].split(':')[0] + ':' + time.split('T')[1].split(':')[1]
+                                           time
                                     }
                                 </TimeTitleText>
                             </TouchableOpacity>
                             <CustomTimePicker
                                 showDateTimePicker={visibleTimer}
                                 handlePickerData={(date: any) => {
-                                   setCurrentTime(date.getFullYear() + "-" + date.getMonth()+1 + "-" + date.getDate() + 'T' + date.getHours() + ":" + date.getMinutes())
+                                   // setCurrentTime(date.getFullYear() + "-" + date.getMonth()+1 + "-" + date.getDate() + 'T' + date.getHours() + ":" + date.getMinutes())
+                                    setTime(new Date(date).getHours()+":"+new Date(date).getMinutes())
                                 }
                                 }
                                 setDateTimePicker={setVisibleTimer}
@@ -136,7 +140,7 @@ const Patrol = (props: any) => {
                     <Formik
                         validationSchema={PATROL_ENTRY_SCHEMA}
                         initialValues={{
-                            reportTime: time.split('T')[1].split(':')[0] + ':' + time.split('T')[1].split(':')[1],
+                            reportTime: time,
                             description: params.item
                                 ? params.item.description
                                 : '',
