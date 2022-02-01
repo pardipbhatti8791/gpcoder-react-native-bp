@@ -2,14 +2,9 @@ import { useTheme } from '@react-navigation/native';
 import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    Text,
     Image,
-    Appearance,
     ScrollView,
-    ImageBackground,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    Button,
+
 } from 'react-native';
 import { Formik } from 'formik';
 import TextField from '@root/components/TextField';
@@ -32,6 +27,7 @@ const Login = (props: any) => {
     const { loading, error, isAuthenticated } = useTypedSelector(
         (state) => state.auth,
     );
+
     const { theme } = props;
     console.log(theme);
 

@@ -14,8 +14,8 @@ export const getRosters = (fn: RosterInterface) => {
             type: ActionType.ROSTERS_INIT,
         });
         try {
-            // @ts-ignore
-
+            // // @ts-ignore
+            // alert(JSON.stringify(fn))
             const response = await service.get( fn.type === 'week' ? fn.uri :fn.uri+'?val='+fn.val , {
                 headers: {
                     'g-org': fn.orgID,

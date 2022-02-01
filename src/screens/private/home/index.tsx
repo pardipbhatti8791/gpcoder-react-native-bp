@@ -55,7 +55,11 @@ const Home = (props: any) => {
             });
             getRosters({
                 uri: `${apiUri.shifts.shiftsByDay}` + format(new Date(), 'd'),
+                orgID:orgID,
+                type:'day'
             });
+
+
         }
     }, [isFocused]);
 
