@@ -33,8 +33,6 @@ instance.interceptors.response.use(
         return response;
     },
       (error) => {
-
-
          if (error.response.status === 401) {
              persistor.purge().then(async () => {
                  await clearAll();
@@ -77,8 +75,5 @@ instance.interceptors.response.use(
          return Promise.reject(error.response);
      },
 );
-
-
-
 
 export default instance;
